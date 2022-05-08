@@ -143,24 +143,25 @@ window.onload = wrap_img;
 
   <div class="post-content e-content" itemprop="articleBody">
     <ul id="toc" class="section-nav">
-<li class="toc-entry toc-h3"><a href="#Current-systems-analysis">Current systems analysis </a>
+<li class="toc-entry toc-h2"><a href="#Background">Background </a></li>
+<li class="toc-entry toc-h2"><a href="#Current-systems-analysis">Current systems analysis </a>
 <ul>
-<li class="toc-entry toc-h4"><a href="#Zoopla">Zoopla </a></li>
-<li class="toc-entry toc-h4"><a href="#Yopa">Yopa </a></li>
-<li class="toc-entry toc-h4"><a href="#OnTheMarket">OnTheMarket </a></li>
+<li class="toc-entry toc-h3"><a href="#Zoopla">Zoopla </a></li>
+<li class="toc-entry toc-h3"><a href="#Yopa">Yopa </a></li>
+<li class="toc-entry toc-h3"><a href="#OnTheMarket">OnTheMarket </a></li>
+<li class="toc-entry toc-h3"><a href="#End-User-Questionnaire">End User Questionnaire </a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h3"><a href="#End-User-Questionnaire">End User Questionnaire </a></li>
-<li class="toc-entry toc-h3"><a href="#Problem-Modelling">Problem Modelling </a></li>
-<li class="toc-entry toc-h3"><a href="#Algorithms">Algorithms </a>
+<li class="toc-entry toc-h2"><a href="#Problem-Modelling">Problem Modelling </a></li>
+<li class="toc-entry toc-h2"><a href="#Algorithms">Algorithms </a>
 <ul>
-<li class="toc-entry toc-h4"><a href="#Conformal-prediction">Conformal prediction </a></li>
-<li class="toc-entry toc-h4"><a href="#Stochastic-gradient-descent-and-linear-regression">Stochastic gradient descent and linear regression </a></li>
-<li class="toc-entry toc-h4"><a href="#Multilayer-Perceptron">Multilayer Perceptron </a></li>
-<li class="toc-entry toc-h4"><a href="#Backpropagation-algorithm">Backpropagation algorithm </a></li>
-<li class="toc-entry toc-h4"><a href="#CART-algorithm">CART algorithm </a></li>
-<li class="toc-entry toc-h4"><a href="#Random-forest">Random forest </a></li>
-<li class="toc-entry toc-h4"><a href="#Gradient-boosting-machine">Gradient boosting machine </a></li>
+<li class="toc-entry toc-h3"><a href="#Conformal-prediction">Conformal prediction </a></li>
+<li class="toc-entry toc-h3"><a href="#Stochastic-gradient-descent-and-linear-regression">Stochastic gradient descent and linear regression </a></li>
+<li class="toc-entry toc-h3"><a href="#Multilayer-Perceptron">Multilayer Perceptron </a></li>
+<li class="toc-entry toc-h3"><a href="#Backpropagation-algorithm">Backpropagation algorithm </a></li>
+<li class="toc-entry toc-h3"><a href="#CART-algorithm">CART algorithm </a></li>
+<li class="toc-entry toc-h3"><a href="#Random-forest">Random forest </a></li>
+<li class="toc-entry toc-h3"><a href="#Gradient-boosting-machine">Gradient boosting machine </a></li>
 </ul>
 </li>
 </ul><!--
@@ -175,6 +176,9 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Background">
+<a class="anchor" href="#Background" aria-hidden="true"><span class="octicon octicon-link"></span></a>Background<a class="anchor-link" href="#Background"> </a>
+</h2>
 <p>I will be creating a house valuation web app which will allow a user to input a set of property features (such as the number of rooms, floor size, property age etc.) and be given an instant valuation based on a machine learning solution. The idea began by brainstorming a number of machine learning related tools; first a weather forecasting tool, then a stock price predictor, but finally I settled with a house price valuation tool. I found it more interesting and challenging to be forced to build, analyse and develop a solution myself, as I could not find material/tutorials for this project online, unlike the many tutorials available for weather nad stock. The project began more as a research task but I decided to develop it as a web service, after stumbling across this <a href="http://diamonds.foostack.ai/">Diamond price prediction project</a> (now inactive) online.</p>
 
 </div>
@@ -183,9 +187,9 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Current-systems-analysis">
+<h2 id="Current-systems-analysis">
 <a class="anchor" href="#Current-systems-analysis" aria-hidden="true"><span class="octicon octicon-link"></span></a>Current systems analysis<a class="anchor-link" href="#Current-systems-analysis"> </a>
-</h3>
+</h2>
 <p>To get an idea of how my system should function, I will take a look at popular pre-existing house valuation tools. Ideally I would like an indication to the data and methods the tools use, however it is unlikely that I will be able to. The UI and aesthetics is not my main concern in the analysis, but I will also follow and expand on some of the design components that are similar between them all.</p>
 
 </div>
@@ -194,9 +198,9 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Zoopla">
+<h3 id="Zoopla">
 <a class="anchor" href="#Zoopla" aria-hidden="true"><span class="octicon octicon-link"></span></a>Zoopla<a class="anchor-link" href="#Zoopla"> </a>
-</h4>
+</h3>
 <p><img src="/page/images/copied_from_nb/images/zoopla-01.jpg" alt="">
 <img src="/page/images/copied_from_nb/images/zoopla-02.jpg" alt="">
 <img src="/page/images/copied_from_nb/images/zoopla-03.jpg" alt=""></p>
@@ -210,9 +214,9 @@ Unlike Zoopla, I will adopt a system where the end user is asked for the propert
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Yopa">
+<h3 id="Yopa">
 <a class="anchor" href="#Yopa" aria-hidden="true"><span class="octicon octicon-link"></span></a>Yopa<a class="anchor-link" href="#Yopa"> </a>
-</h4>
+</h3>
 <p><img src="/page/images/copied_from_nb/images/yopa-01.png" alt="">
 <img src="/page/images/copied_from_nb/images/yopa-02.png" alt=""></p>
 <p>I like the simplicity of the Yopa valuation, however only requiring the number of bedrooms and location doesn't seem like it would yield a very accurate result. In my system, I would ideally require at least 5 features for the resulting estimation. Yopa, similar to Zoopla, also implements a low and high estimation alongside its valuation, and I will also attempt to implement this.</p>
@@ -223,9 +227,9 @@ Unlike Zoopla, I will adopt a system where the end user is asked for the propert
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="OnTheMarket">
+<h3 id="OnTheMarket">
 <a class="anchor" href="#OnTheMarket" aria-hidden="true"><span class="octicon octicon-link"></span></a>OnTheMarket<a class="anchor-link" href="#OnTheMarket"> </a>
-</h4>
+</h3>
 <p><img src="/page/images/copied_from_nb/images/onthemarket-01.png" alt="">
 <img src="/page/images/copied_from_nb/images/onthemarket-02.png" alt="">
 <img src="/page/images/copied_from_nb/images/onthemarket-03.png" alt=""></p>
@@ -304,15 +308,9 @@ Unlike Zoopla, I will adopt a system where the end user is asked for the propert
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Problem-Modelling">
+<h2 id="Problem-Modelling">
 <a class="anchor" href="#Problem-Modelling" aria-hidden="true"><span class="octicon octicon-link"></span></a>Problem Modelling<a class="anchor-link" href="#Problem-Modelling"> </a>
-</h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
+</h2>
 <p>My initial thoughts on how to approach the problem.
 I will try implement the system in four (or potentially five) stages:</p>
 <ul>
@@ -347,18 +345,18 @@ I will try implement the system in four (or potentially five) stages:</p>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Algorithms">
+<h2 id="Algorithms">
 <a class="anchor" href="#Algorithms" aria-hidden="true"><span class="octicon octicon-link"></span></a>Algorithms<a class="anchor-link" href="#Algorithms"> </a>
-</h3>
+</h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Conformal-prediction">
+<h3 id="Conformal-prediction">
 <a class="anchor" href="#Conformal-prediction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conformal prediction<a class="anchor-link" href="#Conformal-prediction"> </a>
-</h4>
+</h3>
 </div>
 </div>
 </div>
@@ -379,9 +377,9 @@ Steps to producing a conformal prediction model:</p>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Stochastic-gradient-descent-and-linear-regression">
+<h3 id="Stochastic-gradient-descent-and-linear-regression">
 <a class="anchor" href="#Stochastic-gradient-descent-and-linear-regression" aria-hidden="true"><span class="octicon octicon-link"></span></a>Stochastic gradient descent and linear regression<a class="anchor-link" href="#Stochastic-gradient-descent-and-linear-regression"> </a>
-</h4>
+</h3>
 </div>
 </div>
 </div>
@@ -437,9 +435,9 @@ $$</p>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Multilayer-Perceptron">
+<h3 id="Multilayer-Perceptron">
 <a class="anchor" href="#Multilayer-Perceptron" aria-hidden="true"><span class="octicon octicon-link"></span></a>Multilayer Perceptron<a class="anchor-link" href="#Multilayer-Perceptron"> </a>
-</h4>
+</h3>
 </div>
 </div>
 </div>
@@ -470,9 +468,9 @@ $$</li>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Backpropagation-algorithm">
+<h3 id="Backpropagation-algorithm">
 <a class="anchor" href="#Backpropagation-algorithm" aria-hidden="true"><span class="octicon octicon-link"></span></a>Backpropagation algorithm<a class="anchor-link" href="#Backpropagation-algorithm"> </a>
-</h4>
+</h3>
 </div>
 </div>
 </div>
@@ -522,9 +520,9 @@ $\circ$ : Hadamard (element-wise) matrix multiplication, products taken from lef
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="CART-algorithm">
+<h3 id="CART-algorithm">
 <a class="anchor" href="#CART-algorithm" aria-hidden="true"><span class="octicon octicon-link"></span></a>CART algorithm<a class="anchor-link" href="#CART-algorithm"> </a>
-</h4>
+</h3>
 </div>
 </div>
 </div>
@@ -571,9 +569,9 @@ $H(x)$: entropy metric function</p>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Random-forest">
+<h3 id="Random-forest">
 <a class="anchor" href="#Random-forest" aria-hidden="true"><span class="octicon octicon-link"></span></a>Random forest<a class="anchor-link" href="#Random-forest"> </a>
-</h4>
+</h3>
 </div>
 </div>
 </div>
@@ -589,9 +587,9 @@ $H(x)$: entropy metric function</p>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Gradient-boosting-machine">
+<h3 id="Gradient-boosting-machine">
 <a class="anchor" href="#Gradient-boosting-machine" aria-hidden="true"><span class="octicon octicon-link"></span></a>Gradient boosting machine<a class="anchor-link" href="#Gradient-boosting-machine"> </a>
-</h4>
+</h3>
 </div>
 </div>
 </div>
