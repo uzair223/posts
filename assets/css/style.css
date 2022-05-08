@@ -429,5 +429,8 @@ pre code { font-size: 15px !important; }
 
 /*-----------------------------------*/
 /*----- ADD YOUR STYLES BELOW -------*/
+.post-content p, .post-content li { font-size: 14px !important; }
+
+pre { font-size: 100% !important; }
 
 /*# sourceMappingURL=style.css.map */

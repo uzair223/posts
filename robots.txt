@@ -1,1 +1,1 @@
-Sitemap: https://uzair223.github.io/page/sitemap.xml
+Sitemap: https://uzair223.github.io/posts/sitemap.xml
