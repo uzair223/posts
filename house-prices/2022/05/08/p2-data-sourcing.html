@@ -1,0 +1,2343 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>ML Instant House Valuation: Part 2 - Data Sourcing | fastpages</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="ML Instant House Valuation: Part 2 - Data Sourcing" />
+<meta name="author" content="Uzair Patel" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="In this section, I will be collecting data from numerous sourcing and stitching them together in one dataset to use later for machine learning modelling. I will use open data from the HM Land Registry, and various other public sources." />
+<meta property="og:description" content="In this section, I will be collecting data from numerous sourcing and stitching them together in one dataset to use later for machine learning modelling. I will use open data from the HM Land Registry, and various other public sources." />
+<link rel="canonical" href="https://uzair223.github.io/page/house-prices/2022/05/08/p2-data-sourcing.html" />
+<meta property="og:url" content="https://uzair223.github.io/page/house-prices/2022/05/08/p2-data-sourcing.html" />
+<meta property="og:site_name" content="fastpages" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-05-08T00:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="ML Instant House Valuation: Part 2 - Data Sourcing" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Uzair Patel"},"dateModified":"2022-05-08T00:00:00-05:00","datePublished":"2022-05-08T00:00:00-05:00","description":"In this section, I will be collecting data from numerous sourcing and stitching them together in one dataset to use later for machine learning modelling. I will use open data from the HM Land Registry, and various other public sources.","headline":"ML Instant House Valuation: Part 2 - Data Sourcing","mainEntityOfPage":{"@type":"WebPage","@id":"https://uzair223.github.io/page/house-prices/2022/05/08/p2-data-sourcing.html"},"url":"https://uzair223.github.io/page/house-prices/2022/05/08/p2-data-sourcing.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/page/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://uzair223.github.io/page/feed.xml" title="fastpages" /><link rel="shortcut icon" type="image/x-icon" href="/page/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" /><script src="https://hypothes.is/embed.js" async></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/page/">fastpages</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/page/about/">About Me</a><a class="page-link" href="/page/search/">Search</a><a class="page-link" href="/page/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">ML Instant House Valuation: Part 2 - Data Sourcing</h1><p class="page-description">In this section, I will be collecting data from numerous sourcing and stitching them together in one dataset to use later for machine learning modelling. I will use open data from the HM Land Registry, and various other public sources.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-05-08T00:00:00-05:00" itemprop="datePublished">
+        May 8, 2022
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">Uzair Patel</span></span>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      12 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/page/categories/#house-prices">house-prices</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-justify-center">
+          <div class="px-2">
+
+    <a href="https://github.com/uzair223/page/tree/master/_notebooks/2022-05-08-p2-data-sourcing.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/page/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/uzair223/page/master?filepath=_notebooks%2F2022-05-08-p2-data-sourcing.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/page/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/uzair223/page/blob/master/_notebooks/2022-05-08-p2-data-sourcing.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/page/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+          <div class="px-2">
+  <a href="https://deepnote.com/launch?url=https%3A%2F%2Fgithub.com%2Fuzair223%2Fpage%2Fblob%2Fmaster%2F_notebooks%2F2022-05-08-p2-data-sourcing.ipynb" target="_blank">
+      <img class="notebook-badge-image" src="/page/assets/badges/deepnote.svg" alt="Launch in Deepnote"/>
+  </a>
+</div>
+
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#Price-paid-data">Price paid data </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Sampling-data">Sampling data </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#Dropping-empty-entries-and-unnecessary-columns">Dropping empty entries and unnecessary columns </a></li>
+<li class="toc-entry toc-h4"><a href="#Converting-data-types">Converting data types </a></li>
+<li class="toc-entry toc-h4"><a href="#Address-column">Address column </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#Entire-dataset">Entire dataset </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#Pipeline">Pipeline </a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#Energy-Performance-of-Buildings-Data">Energy Performance of Buildings Data </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Sampling-data">Sampling data </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#Filtering-columns-and-dropping-empty-entries">Filtering columns and dropping empty entries </a></li>
+<li class="toc-entry toc-h4"><a href="#Converting-data-types">Converting data types </a></li>
+<li class="toc-entry toc-h4"><a href="#Formatting-addresses">Formatting addresses </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#Entire-dataset">Entire dataset </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#Pipeline">Pipeline </a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#Merging-datasets">Merging datasets </a></li>
+<li class="toc-entry toc-h2"><a href="#Downloading-additional-data-for-feature-engineering">Downloading additional data for feature engineering </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Postcode-Lookup">Postcode Lookup </a></li>
+<li class="toc-entry toc-h3"><a href="#House-Price-Index">House Price Index </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#Conclusion">Conclusion </a></li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2022-05-08-p2-data-sourcing.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">shutil</span><span class="o">,</span> <span class="nn">zipfile</span>
+<span class="kn">from</span> <span class="nn">requests</span> <span class="kn">import</span> <span class="n">Session</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">dask.dataframe</span> <span class="k">as</span> <span class="nn">dd</span>
+<span class="kn">from</span> <span class="nn">dask.diagnostics</span> <span class="kn">import</span> <span class="n">ProgressBar</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Price-paid-data">
+<a class="anchor" href="#Price-paid-data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Price paid data<a class="anchor-link" href="#Price-paid-data"> </a>
+</h2>
+<p><a href="https://www.gov.uk/guidance/about-the-price-paid-data"><strong><em>HM Land Registry price paid data</em></strong></a> tracks the property sales in England and Wales submitted to HM Land Registry for registration, based on the raw data released every month, with data from 1995 to now (January 2022).</p>
+<p>Column headers:</p>
+<ul>
+<li>Price</li>
+<li>Date of Transfer</li>
+<li>Postcode</li>
+<li>Property Type: <em>D</em> (Detached), <em>S</em> (Semi-Detached), <em>T</em> (Terraced), <em>F</em> (Flats/Maisonettes), <em>O</em> (Other)</li>
+<li>Old/New: <em>Y</em> (New), <em>N</em> (Old)</li>
+<li>PAON - Primary Addressable Object Name (e.g house number)</li>
+<li>SAON - Secondary Addressable Object Name (e.g unit number)</li>
+<li>Street</li>
+<li>Locality</li>
+<li>Town/City</li>
+<li>District</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Sampling-data">
+<a class="anchor" href="#Sampling-data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sampling data<a class="anchor-link" href="#Sampling-data"> </a>
+</h3>
+<p>Initially, I will take a small chunk of the first 50 thousand rows to test and apply transformations before ultimately applying these transformations to the large dataset. Currently, I will largely be adjusting the dataset to minimise its memory usage by dropping columns and converting data types.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ppdUrl</span> <span class="o">=</span> <span class="s2">"http://prod.publicdata.landregistry.gov.uk.s3-website-eu-west-1.amazonaws.com/pp-complete.csv"</span>
+<span class="n">ppdNames</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"UID"</span><span class="p">,</span> <span class="s2">"PRICE"</span><span class="p">,</span> <span class="s2">"DATE_OF_TRANSFER"</span><span class="p">,</span> <span class="s2">"POSTCODE"</span><span class="p">,</span> <span class="s2">"PROPERTY_TYPE"</span><span class="p">,</span> <span class="s2">"OLD_NEW"</span><span class="p">,</span>
+    <span class="s2">"DURATION"</span><span class="p">,</span> <span class="s2">"PAON"</span><span class="p">,</span> <span class="s2">"SAON"</span><span class="p">,</span> <span class="s2">"STREET"</span><span class="p">,</span> <span class="s2">"LOCALITY"</span><span class="p">,</span> <span class="s2">"TOWN_CITY"</span><span class="p">,</span> <span class="s2">"DISTRICT"</span><span class="p">,</span>
+    <span class="s2">"COUNTY"</span><span class="p">,</span> <span class="s2">"PPD_CAT"</span><span class="p">,</span> <span class="s2">"RECORD_STATUS"</span>
+<span class="p">]</span>
+<span class="n">ppdSample</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">ppdUrl</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="n">ppdNames</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">50_000</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>50.77MB
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>UID</th>
+      <th>PRICE</th>
+      <th>DATE_OF_TRANSFER</th>
+      <th>POSTCODE</th>
+      <th>PROPERTY_TYPE</th>
+      <th>OLD_NEW</th>
+      <th>DURATION</th>
+      <th>PAON</th>
+      <th>SAON</th>
+      <th>STREET</th>
+      <th>LOCALITY</th>
+      <th>TOWN_CITY</th>
+      <th>DISTRICT</th>
+      <th>COUNTY</th>
+      <th>PPD_CAT</th>
+      <th>RECORD_STATUS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>{5BBE9CB3-6332-4EB0-9CD3-8737CEA4A65A}</td>
+      <td>42000</td>
+      <td>1995-12-21 00:00</td>
+      <td>NE4 9DN</td>
+      <td>S</td>
+      <td>N</td>
+      <td>F</td>
+      <td>8</td>
+      <td>NaN</td>
+      <td>MATFEN PLACE</td>
+      <td>FENHAM</td>
+      <td>NEWCASTLE UPON TYNE</td>
+      <td>NEWCASTLE UPON TYNE</td>
+      <td>TYNE AND WEAR</td>
+      <td>A</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>{20E2441A-0F16-49AB-97D4-8737E62A5D93}</td>
+      <td>95000</td>
+      <td>1995-03-03 00:00</td>
+      <td>RM16 4UR</td>
+      <td>S</td>
+      <td>N</td>
+      <td>F</td>
+      <td>30</td>
+      <td>NaN</td>
+      <td>HEATH ROAD</td>
+      <td>GRAYS</td>
+      <td>GRAYS</td>
+      <td>THURROCK</td>
+      <td>THURROCK</td>
+      <td>A</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>{D893EE64-4464-44B5-B01B-8E62403ED83C}</td>
+      <td>74950</td>
+      <td>1995-10-03 00:00</td>
+      <td>CW10 9ES</td>
+      <td>D</td>
+      <td>Y</td>
+      <td>F</td>
+      <td>15</td>
+      <td>NaN</td>
+      <td>SHROPSHIRE CLOSE</td>
+      <td>MIDDLEWICH</td>
+      <td>MIDDLEWICH</td>
+      <td>CONGLETON</td>
+      <td>CHESHIRE</td>
+      <td>A</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>{F9F753A8-E56A-4ECC-9927-8E626A471A92}</td>
+      <td>43500</td>
+      <td>1995-11-14 00:00</td>
+      <td>TS23 3LA</td>
+      <td>S</td>
+      <td>N</td>
+      <td>F</td>
+      <td>19</td>
+      <td>NaN</td>
+      <td>SLEDMERE CLOSE</td>
+      <td>BILLINGHAM</td>
+      <td>BILLINGHAM</td>
+      <td>STOCKTON-ON-TEES</td>
+      <td>STOCKTON-ON-TEES</td>
+      <td>A</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>{E166398A-A19E-470E-BB5A-83B4C254CF6D}</td>
+      <td>63000</td>
+      <td>1995-09-08 00:00</td>
+      <td>CA25 5QH</td>
+      <td>S</td>
+      <td>N</td>
+      <td>F</td>
+      <td>8</td>
+      <td>NaN</td>
+      <td>CROSSINGS CLOSE</td>
+      <td>CLEATOR MOOR</td>
+      <td>CLEATOR MOOR</td>
+      <td>COPELAND</td>
+      <td>CUMBRIA</td>
+      <td>A</td>
+      <td>A</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Dropping-empty-entries-and-unnecessary-columns">
+<a class="anchor" href="#Dropping-empty-entries-and-unnecessary-columns" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dropping empty entries and unnecessary columns<a class="anchor-link" href="#Dropping-empty-entries-and-unnecessary-columns"> </a>
+</h4>
+<p>The only important columns in the dataset are the price and dates, the location data is not particularly helpful and I will be substituting them for coordinates instead.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ppdFilter</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"PRICE"</span><span class="p">,</span>
+    <span class="s2">"DATE_OF_TRANSFER"</span><span class="p">,</span>
+    <span class="s2">"POSTCODE"</span><span class="p">,</span>
+    <span class="s2">"OLD_NEW"</span><span class="p">,</span>
+    <span class="s2">"PAON"</span><span class="p">,</span>  <span class="c1">#*</span>
+    <span class="s2">"SAON"</span><span class="p">,</span>  <span class="c1">#*</span>
+    <span class="s2">"STREET"</span>  <span class="c1">#*</span>
+<span class="p">]</span>
+<span class="c1">#* WILL LATER BE DROPPED</span>
+<span class="n">ppdSample</span> <span class="o">=</span> <span class="n">ppdSample</span><span class="p">[</span><span class="n">ppdFilter</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">ppdSample</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()[</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">l</span> <span class="o">=</span> <span class="n">ppdSample</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">ppdSample</span> <span class="o">=</span> <span class="p">(</span><span class="n">ppdSample</span>
+    <span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">!=</span> <span class="s2">"SAON"</span><span class="p">,</span> <span class="n">ppdFilter</span><span class="p">)))</span>
+    <span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>POSTCODE       36
+PAON            5
+SAON        46280
+STREET        750
+dtype: int64
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Converting-data-types">
+<a class="anchor" href="#Converting-data-types" aria-hidden="true"><span class="octicon octicon-link"></span></a>Converting data types<a class="anchor-link" href="#Converting-data-types"> </a>
+</h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ppdSample</span><span class="p">[</span><span class="s2">"PRICE"</span><span class="p">]</span> <span class="o">=</span> <span class="n">ppdSample</span><span class="o">.</span><span class="n">PRICE</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span>
+    <span class="s2">"float"</span><span class="p">)</span>  <span class="c1"># min max ~2bn | float32 - 4 bytes</span>
+<span class="n">ppdSample</span><span class="p">[</span><span class="s2">"DATE_OF_TRANSFER"</span><span class="p">]</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span>
+    <span class="n">ppdSample</span><span class="o">.</span><span class="n">DATE_OF_TRANSFER</span><span class="p">)</span>  <span class="c1"># Converting from string to datetime</span>
+<span class="n">ppdSample</span><span class="p">[</span><span class="s2">"OLD_NEW"</span><span class="p">]</span> <span class="o">=</span> <span class="n">ppdSample</span><span class="o">.</span><span class="n">OLD_NEW</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">"category"</span><span class="p">)</span>
+<span class="n">ppdDtype</span> <span class="o">=</span> <span class="n">ppdSample</span><span class="o">.</span><span class="n">dtypes</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+<span class="n">ppdDtype</span><span class="p">[</span><span class="s2">"DATE_OF_TRANSFER"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s2">"O"</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Address-column">
+<a class="anchor" href="#Address-column" aria-hidden="true"><span class="octicon octicon-link"></span></a>Address column<a class="anchor-link" href="#Address-column"> </a>
+</h4>
+<p>Merging <code>PAON</code>, <code>SAON</code>, <code>STREET</code> and <code>POSTCODE</code> into one <code>ADDRESS</code> column. I will apply the same formatting of "<code>SAON PAON STREET POSTCODE</code>" to the addresses in the EPC dataset in order to cross-reference and merge the datasets into one.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">ppdFormatAddr</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="s1">' '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">y</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="nb">str</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span><span class="p">[[</span><span class="s2">"SAON"</span><span class="p">,</span> <span class="s2">"PAON"</span><span class="p">,</span> <span class="s2">"STREET"</span><span class="p">,</span> <span class="s2">"POSTCODE"</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+    <span class="p">]</span>  <span class="c1"># List comprehension for performance</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ppdSample</span><span class="p">[</span><span class="s2">"ADDRESS"</span><span class="p">]</span> <span class="o">=</span> <span class="n">ppdFormatAddr</span><span class="p">(</span><span class="n">ppdSample</span><span class="p">)</span>
+<span class="c1"># Keeping POSTCODE column for geolocation purposes</span>
+<span class="n">ppdSample</span> <span class="o">=</span> <span class="n">ppdSample</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"PAON"</span><span class="p">,</span> <span class="s2">"SAON"</span><span class="p">,</span> <span class="s2">"STREET"</span><span class="p">])</span>
+<span class="n">ppdSample</span><span class="o">.</span><span class="n">ADDRESS</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0          8 MATFEN PLACE NE4 9DN
+1          30 HEATH ROAD RM16 4UR
+2    15 SHROPSHIRE CLOSE CW10 9ES
+3      19 SLEDMERE CLOSE TS23 3LA
+4      8 CROSSINGS CLOSE CA25 5QH
+Name: ADDRESS, dtype: object</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Processed sample set:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered celltag_hide-input">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>50.77MB =&gt; 8.09MB
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>dtype</th>
+      <th>memory_usage</th>
+      <th>null</th>
+      <th>unique</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>PRICE</th>
+      <td>float64</td>
+      <td>393736</td>
+      <td>0.0</td>
+      <td>2900.0</td>
+    </tr>
+    <tr>
+      <th>DATE_OF_TRANSFER</th>
+      <td>datetime64[ns]</td>
+      <td>393736</td>
+      <td>0.0</td>
+      <td>356.0</td>
+    </tr>
+    <tr>
+      <th>POSTCODE</th>
+      <td>object</td>
+      <td>3171295</td>
+      <td>0.0</td>
+      <td>45548.0</td>
+    </tr>
+    <tr>
+      <th>OLD_NEW</th>
+      <td>category</td>
+      <td>49441</td>
+      <td>0.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>ADDRESS</th>
+      <td>object</td>
+      <td>4085965</td>
+      <td>0.0</td>
+      <td>49158.0</td>
+    </tr>
+    <tr>
+      <th>Index</th>
+      <td>NaN</td>
+      <td>128</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Entire-dataset">
+<a class="anchor" href="#Entire-dataset" aria-hidden="true"><span class="octicon octicon-link"></span></a>Entire dataset<a class="anchor-link" href="#Entire-dataset"> </a>
+</h3>
+<p>I will process and export the dataset using Dask, which utilises parallelisation accross multiple threads to enhance performance.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Pipeline">
+<a class="anchor" href="#Pipeline" aria-hidden="true"><span class="octicon octicon-link"></span></a>Pipeline<a class="anchor-link" href="#Pipeline"> </a>
+</h4>
+<ol>
+<li>Import the entire dataset with preset datatypes and already filtered columns.</li>
+<li>Drop rows with empty entries (ignoring <code>SAON</code> column which is largely empty)</li>
+<li>Format addresses in each partition with <code>ppdFormatAddr</code> function and set as index</li>
+<li>Drop duplicate addresses, keeping last.</li>
+<li>Drop remaining unneccessary columns.</li>
+<li>Store dataframe</li>
+</ol>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ppdUrl</span> <span class="o">=</span> <span class="s2">"http://prod.publicdata.landregistry.gov.uk.s3-website-eu-west-1.amazonaws.com/pp-complete.csv"</span>
+<span class="n">ppdNames</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"UID"</span><span class="p">,</span> <span class="s2">"PRICE"</span><span class="p">,</span> <span class="s2">"DATE_OF_TRANSFER"</span><span class="p">,</span> <span class="s2">"POSTCODE"</span><span class="p">,</span> <span class="s2">"PROPERTY_TYPE"</span><span class="p">,</span> <span class="s2">"OLD_NEW"</span><span class="p">,</span>
+    <span class="s2">"DURATION"</span><span class="p">,</span> <span class="s2">"PAON"</span><span class="p">,</span> <span class="s2">"SAON"</span><span class="p">,</span> <span class="s2">"STREET"</span><span class="p">,</span> <span class="s2">"LOCALITY"</span><span class="p">,</span> <span class="s2">"TOWN_CITY"</span><span class="p">,</span> <span class="s2">"DISTRICT"</span><span class="p">,</span>
+    <span class="s2">"COUNTY"</span><span class="p">,</span> <span class="s2">"PPD_CAT"</span><span class="p">,</span> <span class="s2">"RECORD_STATUS"</span>
+<span class="p">]</span>
+<span class="n">ppdFilter</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"PRICE"</span><span class="p">,</span> <span class="s2">"DATE_OF_TRANSFER"</span><span class="p">,</span> <span class="s2">"POSTCODE"</span><span class="p">,</span> <span class="s2">"OLD_NEW"</span><span class="p">,</span> <span class="s2">"PAON"</span><span class="p">,</span> <span class="s2">"SAON"</span><span class="p">,</span>
+    <span class="s2">"STREET"</span>
+<span class="p">]</span>
+<span class="n">ppdDtype</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"PRICE"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span>
+    <span class="s2">"DATE_OF_TRANSFER"</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
+    <span class="s2">"POSTCODE"</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
+    <span class="s2">"OLD_NEW"</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">CategoricalDtype</span><span class="p">(),</span>
+    <span class="s2">"PAON"</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
+    <span class="s2">"SAON"</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
+    <span class="s2">"STREET"</span><span class="p">:</span> <span class="nb">object</span>
+<span class="p">}</span>
+<span class="k">def</span> <span class="nf">ppdFormatAddr</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="s1">' '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">y</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="nb">str</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span><span class="p">[[</span><span class="s2">"SAON"</span><span class="p">,</span> <span class="s2">"PAON"</span><span class="p">,</span> <span class="s2">"STREET"</span><span class="p">,</span> <span class="s2">"POSTCODE"</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+    <span class="p">]</span>  <span class="c1"># List comprehension for performance</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ppdPipeline</span> <span class="o">=</span> <span class="p">(</span><span class="n">dd</span>
+    <span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">ppdUrl</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="n">ppdNames</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="n">ppdFilter</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s2">"DATE_OF_TRANSFER"</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">ppdDtype</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">!=</span> <span class="s2">"SAON"</span><span class="p">,</span> <span class="n">ppdFilter</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">map_partitions</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">ADDRESS</span><span class="o">=</span><span class="n">ppdFormatAddr</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s2">"ADDRESS"</span><span class="p">,</span><span class="n">keep</span><span class="o">=</span><span class="s2">"last"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">map_partitions</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"ADDRESS"</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"SAON"</span><span class="p">,</span> <span class="s2">"PAON"</span><span class="p">,</span> <span class="s2">"STREET"</span><span class="p">])</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">PPD_PATH</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">DATASET_PATH</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">ProgressBar</span><span class="p">():</span>
+        <span class="n">ppdPipeline</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="n">PPD_PATH</span><span class="p">,</span> <span class="n">compression</span><span class="o">=</span><span class="s2">"snappy"</span><span class="p">)</span>
+<span class="n">ppd</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">PPD_PATH</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered celltag_remove_input">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>2.46GB
+14,876,050 rows
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PRICE</th>
+      <th>DATE_OF_TRANSFER</th>
+      <th>POSTCODE</th>
+      <th>OLD_NEW</th>
+    </tr>
+    <tr>
+      <th>ADDRESS</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>87 THEOBALD ROAD NR1 2NX</th>
+      <td>37500.0</td>
+      <td>1995-06-30</td>
+      <td>NR1 2NX</td>
+      <td>N</td>
+    </tr>
+    <tr>
+      <th>16 AFON RHOS ESTATE LL55 4SE</th>
+      <td>44500.0</td>
+      <td>1995-11-22</td>
+      <td>LL55 4SE</td>
+      <td>N</td>
+    </tr>
+    <tr>
+      <th>69 CRANHILL ROAD BA16 0BZ</th>
+      <td>48500.0</td>
+      <td>1995-04-13</td>
+      <td>BA16 0BZ</td>
+      <td>N</td>
+    </tr>
+    <tr>
+      <th>4 BRIARY LANE SG8 9BZ</th>
+      <td>53000.0</td>
+      <td>1995-01-06</td>
+      <td>SG8 9BZ</td>
+      <td>N</td>
+    </tr>
+    <tr>
+      <th>133 WOOD LANE CH5 3JF</th>
+      <td>67500.0</td>
+      <td>1995-12-12</td>
+      <td>CH5 3JF</td>
+      <td>N</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Energy-Performance-of-Buildings-Data">
+<a class="anchor" href="#Energy-Performance-of-Buildings-Data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Energy Performance of Buildings Data<a class="anchor-link" href="#Energy-Performance-of-Buildings-Data"> </a>
+</h2>
+<p><a href="https://epc.opendatacommunities.org/"><strong><em>Energy Performance of Buildings Data</em></strong></a> provides access to <em>Energy Performance Certificates</em> and <em>Display Energy Certificate</em> data for buildings across England and Wales, based on data released quarterly from 1 October 2008 up to 30 September 2021. The data has to be downloaded manually as it requires authentication in order to access the site.</p>
+<p>I will only be requiring the EPC data, which has 90 column headers including:</p>
+<ul>
+<li>Address headers (Address lines 1 to 3)</li>
+<li>Postcode</li>
+<li>Number of habitable rooms</li>
+<li>Total square footage</li>
+<li>Property type</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Sampling-data">
+<a class="anchor" href="#Sampling-data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sampling data<a class="anchor-link" href="#Sampling-data"> </a>
+</h3>
+<p>I will be following a very similar workflow as to processing the <em>Price Paid data</em>. Initially, I will use the first certificate file as a sample set and filter out most unnecessary columns. I will then convert the data types of the remaining columns.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
+
+<span class="n">epcPath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">RAW_PATH</span><span class="p">,</span> <span class="s2">"all-domestic-certificates"</span><span class="p">,</span> <span class="s2">"*"</span><span class="p">,</span> <span class="s2">"certificates.csv"</span><span class="p">)</span>
+<span class="n">epcSample</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="n">epcPath</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">low_memory</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered celltag_remove_input">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>207.64MB
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>LMK_KEY</th>
+      <th>ADDRESS1</th>
+      <th>ADDRESS2</th>
+      <th>ADDRESS3</th>
+      <th>POSTCODE</th>
+      <th>BUILDING_REFERENCE_NUMBER</th>
+      <th>CURRENT_ENERGY_RATING</th>
+      <th>POTENTIAL_ENERGY_RATING</th>
+      <th>CURRENT_ENERGY_EFFICIENCY</th>
+      <th>POTENTIAL_ENERGY_EFFICIENCY</th>
+      <th>...</th>
+      <th>LOCAL_AUTHORITY_LABEL</th>
+      <th>CONSTITUENCY_LABEL</th>
+      <th>POSTTOWN</th>
+      <th>CONSTRUCTION_AGE_BAND</th>
+      <th>LODGEMENT_DATETIME</th>
+      <th>TENURE</th>
+      <th>FIXED_LIGHTING_OUTLETS_COUNT</th>
+      <th>LOW_ENERGY_FIXED_LIGHT_COUNT</th>
+      <th>UPRN</th>
+      <th>UPRN_SOURCE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>208945009062019011009444285518421</td>
+      <td>15, Elmfield Road</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>GL51 9JJ</td>
+      <td>2864085568</td>
+      <td>C</td>
+      <td>B</td>
+      <td>71</td>
+      <td>84</td>
+      <td>...</td>
+      <td>Cheltenham</td>
+      <td>Cheltenham</td>
+      <td>CHELTENHAM</td>
+      <td>England and Wales: 1950-1966</td>
+      <td>2019-01-10 09:44:42</td>
+      <td>rental (private)</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.001204e+11</td>
+      <td>Address Matched</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1296022739962015031912051214438915</td>
+      <td>15, Lime Close</td>
+      <td>Prestbury</td>
+      <td>NaN</td>
+      <td>GL52 3EF</td>
+      <td>1185324378</td>
+      <td>E</td>
+      <td>C</td>
+      <td>53</td>
+      <td>79</td>
+      <td>...</td>
+      <td>Cheltenham</td>
+      <td>Tewkesbury</td>
+      <td>CHELTENHAM</td>
+      <td>England and Wales: 1967-1975</td>
+      <td>2015-03-19 12:05:12</td>
+      <td>owner-occupied</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.001204e+11</td>
+      <td>Address Matched</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1102892409262017040613095870338213</td>
+      <td>44, Naunton Lane</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>GL53 7BH</td>
+      <td>1795060278</td>
+      <td>D</td>
+      <td>B</td>
+      <td>65</td>
+      <td>85</td>
+      <td>...</td>
+      <td>Cheltenham</td>
+      <td>Cheltenham</td>
+      <td>CHELTENHAM</td>
+      <td>England and Wales: 1900-1929</td>
+      <td>2017-04-06 13:09:58</td>
+      <td>owner-occupied</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.001204e+11</td>
+      <td>Address Matched</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2383300702009033116544446217998</td>
+      <td>Flat 8, Hazelhurst</td>
+      <td>24, Eldorado Road</td>
+      <td>NaN</td>
+      <td>GL50 2PT</td>
+      <td>9774302468</td>
+      <td>E</td>
+      <td>D</td>
+      <td>46</td>
+      <td>57</td>
+      <td>...</td>
+      <td>Cheltenham</td>
+      <td>Cheltenham</td>
+      <td>CHELTENHAM</td>
+      <td>England and Wales: 1900-1929</td>
+      <td>2009-03-31 16:54:44</td>
+      <td>rental (private)</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.000048e+10</td>
+      <td>Address Matched</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1656454289042018082020372657982008</td>
+      <td>6, Charles Street</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>GL51 9HH</td>
+      <td>4037189578</td>
+      <td>C</td>
+      <td>B</td>
+      <td>71</td>
+      <td>87</td>
+      <td>...</td>
+      <td>Cheltenham</td>
+      <td>Cheltenham</td>
+      <td>CHELTENHAM</td>
+      <td>England and Wales: before 1900</td>
+      <td>2018-08-20 20:37:26</td>
+      <td>owner-occupied</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.001204e+11</td>
+      <td>Address Matched</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 92 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Filtering-columns-and-dropping-empty-entries">
+<a class="anchor" href="#Filtering-columns-and-dropping-empty-entries" aria-hidden="true"><span class="octicon octicon-link"></span></a>Filtering columns and dropping empty entries<a class="anchor-link" href="#Filtering-columns-and-dropping-empty-entries"> </a>
+</h4>
+<p>As of now there are far too many unneccessary columns, I will only take the columns I think will potentially be useful as features for predictive models. Additionally, I will be replacing placeholder values such as <code>"NO DATA!"</code> to <code>NaN</code> values and will subsequently drop them.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">epcFilter</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"ADDRESS1"</span><span class="p">,</span>  <span class="c1">#*</span>
+    <span class="s2">"ADDRESS2"</span><span class="p">,</span>  <span class="c1">#*</span>
+    <span class="s2">"POSTCODE"</span><span class="p">,</span>  <span class="c1">#*</span>
+    <span class="s2">"PROPERTY_TYPE"</span><span class="p">,</span>
+    <span class="s2">"BUILT_FORM"</span><span class="p">,</span>
+    <span class="s2">"TOTAL_FLOOR_AREA"</span><span class="p">,</span>
+    <span class="s2">"NUMBER_HABITABLE_ROOMS"</span><span class="p">,</span>
+    <span class="s2">"EXTENSION_COUNT"</span><span class="p">,</span>
+    <span class="s2">"GLAZED_TYPE"</span><span class="p">,</span>
+    <span class="s2">"CONSTRUCTION_AGE_BAND"</span><span class="p">,</span>
+    <span class="s2">"TENURE"</span>
+<span class="p">]</span>
+<span class="c1">#* WILL LATER BE DROPPED</span>
+<span class="n">epcSample</span> <span class="o">=</span> <span class="n">epcSample</span><span class="p">[</span><span class="n">epcFilter</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">nanValues</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"NULL"</span><span class="p">,</span>
+    <span class="s2">"INVALID"</span><span class="p">,</span>
+    <span class="s2">"INVALID!"</span><span class="p">,</span>
+    <span class="s2">"NODATA!"</span><span class="p">,</span>
+    <span class="s2">"NO DATA!"</span><span class="p">,</span>
+    <span class="s2">"N/A"</span><span class="p">,</span>
+    <span class="s2">"Not applicable"</span><span class="p">,</span>
+    <span class="s2">"Not recorded"</span><span class="p">,</span>
+    <span class="s2">"not defined"</span><span class="p">,</span>
+    <span class="s2">"Blank"</span><span class="p">,</span>
+<span class="p">]</span>
+<span class="n">epcSample</span><span class="p">[</span><span class="n">epcSample</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">nanValues</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">epcSample</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()[</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">epcSample</span> <span class="o">=</span> <span class="p">(</span><span class="n">epcSample</span>
+    <span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">!=</span> <span class="s2">"ADDRESS2"</span><span class="p">,</span> <span class="n">epcFilter</span><span class="p">)))</span>
+    <span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>ADDRESS2                  25366
+BUILT_FORM                 1141
+NUMBER_HABITABLE_ROOMS     4471
+EXTENSION_COUNT            4471
+GLAZED_TYPE                9938
+CONSTRUCTION_AGE_BAND      4460
+TENURE                     1432
+dtype: int64
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Converting-data-types">
+<a class="anchor" href="#Converting-data-types" aria-hidden="true"><span class="octicon octicon-link"></span></a>Converting data types<a class="anchor-link" href="#Converting-data-types"> </a>
+</h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">float_col</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"TOTAL_FLOOR_AREA"</span><span class="p">,</span> <span class="s2">"NUMBER_HABITABLE_ROOMS"</span><span class="p">,</span> <span class="s2">"EXTENSION_COUNT"</span><span class="p">]</span>
+<span class="n">cat_col</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"PROPERTY_TYPE"</span><span class="p">,</span> <span class="s2">"BUILT_FORM"</span><span class="p">,</span> <span class="s2">"GLAZED_TYPE"</span><span class="p">,</span> <span class="s2">"CONSTRUCTION_AGE_BAND"</span><span class="p">,</span>
+    <span class="s2">"TENURE"</span>
+<span class="p">]</span>
+<span class="n">epcSample</span><span class="p">[</span><span class="n">float_col</span><span class="p">]</span> <span class="o">=</span> <span class="n">epcSample</span><span class="p">[</span><span class="n">float_col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">"float"</span><span class="p">)</span>
+<span class="n">epcSample</span><span class="p">[</span><span class="n">cat_col</span><span class="p">]</span> <span class="o">=</span> <span class="n">epcSample</span><span class="p">[</span><span class="n">cat_col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">"category"</span><span class="p">)</span>
+<span class="n">epcDtype</span> <span class="o">=</span> <span class="n">epcSample</span><span class="o">.</span><span class="n">dtypes</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Formatting-addresses">
+<a class="anchor" href="#Formatting-addresses" aria-hidden="true"><span class="octicon octicon-link"></span></a>Formatting addresses<a class="anchor-link" href="#Formatting-addresses"> </a>
+</h4>
+<p>"<code>ADDRESS1 ADDRESS2 POSTCODE</code>" all in uppercase, commas removed from text.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">epcFormatAddr</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="s1">' '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">","</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">y</span>
+                 <span class="k">if</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">z</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span><span class="p">[[</span><span class="s2">"ADDRESS1"</span><span class="p">,</span> <span class="s2">"ADDRESS2"</span><span class="p">,</span> <span class="s2">"POSTCODE"</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+    <span class="p">]</span>  <span class="c1"># List comprehension for performance</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">epcSample</span><span class="p">[</span><span class="s2">"ADDRESS"</span><span class="p">]</span> <span class="o">=</span> <span class="n">epcFormatAddr</span><span class="p">(</span><span class="n">epcSample</span><span class="p">)</span>
+<span class="n">epcSample</span> <span class="o">=</span> <span class="n">epcSample</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"ADDRESS1"</span><span class="p">,</span> <span class="s2">"ADDRESS2"</span><span class="p">,</span> <span class="s2">"POSTCODE"</span><span class="p">])</span>
+<span class="n">epcSample</span><span class="o">.</span><span class="n">ADDRESS</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0           15 ELMFIELD ROAD GL51 9JJ
+1    15 LIME CLOSE PRESTBURY GL52 3EF
+2            44 NAUNTON LANE GL53 7BH
+3           6 CHARLES STREET GL51 9HH
+4          25 BELWORTH COURT GL51 6HQ
+Name: ADDRESS, dtype: object</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Processed sample set:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered celltag_remove_input">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>207.64MB =&gt; 4.50MB
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>dtype</th>
+      <th>memory_usage</th>
+      <th>null</th>
+      <th>unique</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>PROPERTY_TYPE</th>
+      <td>category</td>
+      <td>38719</td>
+      <td>0.0</td>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>BUILT_FORM</th>
+      <td>category</td>
+      <td>38823</td>
+      <td>0.0</td>
+      <td>6.0</td>
+    </tr>
+    <tr>
+      <th>TOTAL_FLOOR_AREA</th>
+      <td>float64</td>
+      <td>305808</td>
+      <td>0.0</td>
+      <td>7559.0</td>
+    </tr>
+    <tr>
+      <th>NUMBER_HABITABLE_ROOMS</th>
+      <td>float64</td>
+      <td>305808</td>
+      <td>0.0</td>
+      <td>21.0</td>
+    </tr>
+    <tr>
+      <th>EXTENSION_COUNT</th>
+      <td>float64</td>
+      <td>305808</td>
+      <td>0.0</td>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>GLAZED_TYPE</th>
+      <td>category</td>
+      <td>39180</td>
+      <td>0.0</td>
+      <td>8.0</td>
+    </tr>
+    <tr>
+      <th>CONSTRUCTION_AGE_BAND</th>
+      <td>category</td>
+      <td>39895</td>
+      <td>0.0</td>
+      <td>13.0</td>
+    </tr>
+    <tr>
+      <th>TENURE</th>
+      <td>category</td>
+      <td>39179</td>
+      <td>0.0</td>
+      <td>8.0</td>
+    </tr>
+    <tr>
+      <th>ADDRESS</th>
+      <td>object</td>
+      <td>3390932</td>
+      <td>0.0</td>
+      <td>30564.0</td>
+    </tr>
+    <tr>
+      <th>Index</th>
+      <td>NaN</td>
+      <td>128</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Entire-dataset">
+<a class="anchor" href="#Entire-dataset" aria-hidden="true"><span class="octicon octicon-link"></span></a>Entire dataset<a class="anchor-link" href="#Entire-dataset"> </a>
+</h3>
+<p>I will be process and export the entire dataset using Dask with a similar pipeline to that of the Price-paid data.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Pipeline">
+<a class="anchor" href="#Pipeline" aria-hidden="true"><span class="octicon octicon-link"></span></a>Pipeline<a class="anchor-link" href="#Pipeline"> </a>
+</h4>
+<ol>
+<li>Import all files as a <em>glob</em> using Dask.</li>
+<li>Drop rows with empty entries (ignoring <code>ADDRESS2</code> column)</li>
+<li>Convert data types</li>
+<li>Format addresses with <code>epcFormatAddr</code> function</li>
+<li>Drop duplicate addresses and set as index</li>
+<li>Drop unnecessary columns</li>
+</ol>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">epcFilter</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"ADDRESS1"</span><span class="p">,</span> <span class="s2">"ADDRESS2"</span><span class="p">,</span> <span class="s2">"POSTCODE"</span><span class="p">,</span> <span class="s2">"PROPERTY_TYPE"</span><span class="p">,</span> <span class="s2">"BUILT_FORM"</span><span class="p">,</span>
+    <span class="s2">"TOTAL_FLOOR_AREA"</span><span class="p">,</span> <span class="s2">"NUMBER_HABITABLE_ROOMS"</span><span class="p">,</span> <span class="s2">"EXTENSION_COUNT"</span><span class="p">,</span>
+    <span class="s2">"GLAZED_TYPE"</span><span class="p">,</span> <span class="s2">"CONSTRUCTION_AGE_BAND"</span><span class="p">,</span> <span class="s2">"TENURE"</span>
+<span class="p">]</span>
+<span class="n">nanValues</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"NULL"</span><span class="p">,</span>
+    <span class="s2">"INVALID"</span><span class="p">,</span>
+    <span class="s2">"INVALID!"</span><span class="p">,</span>
+    <span class="s2">"NODATA!"</span><span class="p">,</span>
+    <span class="s2">"NO DATA!"</span><span class="p">,</span>
+    <span class="s2">"N/A"</span><span class="p">,</span>
+    <span class="s2">"Not applicable"</span><span class="p">,</span>
+    <span class="s2">"Not recorded"</span><span class="p">,</span>
+    <span class="s2">"not defined"</span><span class="p">,</span>
+    <span class="s2">"Blank"</span><span class="p">,</span>
+<span class="p">]</span>
+<span class="n">epcDtype</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'ADDRESS1'</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
+    <span class="s1">'ADDRESS2'</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
+    <span class="s1">'POSTCODE'</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
+    <span class="s1">'PROPERTY_TYPE'</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">CategoricalDtype</span><span class="p">(),</span>
+    <span class="s1">'BUILT_FORM'</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">CategoricalDtype</span><span class="p">(),</span>
+    <span class="s1">'TOTAL_FLOOR_AREA'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span>
+    <span class="s1">'NUMBER_HABITABLE_ROOMS'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span>
+    <span class="s1">'EXTENSION_COUNT'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span>
+    <span class="s1">'GLAZED_TYPE'</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">CategoricalDtype</span><span class="p">(),</span>
+    <span class="s1">'CONSTRUCTION_AGE_BAND'</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">CategoricalDtype</span><span class="p">(),</span>
+    <span class="s1">'TENURE'</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">CategoricalDtype</span><span class="p">()</span>
+<span class="p">}</span>
+<span class="k">def</span> <span class="nf">epcFormatAddr</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="s1">' '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">","</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">y</span>
+                 <span class="k">if</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">z</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span><span class="p">[[</span><span class="s2">"ADDRESS1"</span><span class="p">,</span> <span class="s2">"ADDRESS2"</span><span class="p">,</span> <span class="s2">"POSTCODE"</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+    <span class="p">]</span>  <span class="c1"># List comprehension for performance</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">epcPipeline</span> <span class="o">=</span> <span class="p">(</span><span class="n">dd</span>
+    <span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">epcPath</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="n">epcFilter</span><span class="p">,</span> <span class="n">na_values</span><span class="o">=</span><span class="n">nanValues</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">epcDtype</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">!=</span> <span class="s2">"ADDRESS2"</span><span class="p">,</span> <span class="n">epcFilter</span><span class="p">)),</span> <span class="n">how</span><span class="o">=</span><span class="s2">"any"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">map_partitions</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">ADDRESS</span><span class="o">=</span><span class="n">epcFormatAddr</span><span class="p">))</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s2">"ADDRESS"</span><span class="p">,</span><span class="n">keep</span><span class="o">=</span><span class="s2">"last"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">map_partitions</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"ADDRESS"</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"ADDRESS1"</span><span class="p">,</span> <span class="s2">"ADDRESS2"</span><span class="p">,</span> <span class="s2">"POSTCODE"</span><span class="p">])</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">EPC_PATH</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">DATASET_PATH</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">ProgressBar</span><span class="p">():</span>
+        <span class="n">epcPipeline</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="n">EPC_PATH</span><span class="p">,</span> <span class="n">compression</span><span class="o">=</span><span class="s2">"snappy"</span><span class="p">)</span>
+<span class="n">epc</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">EPC_PATH</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered celltag_remove_input">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>1.64GB
+14,148,102 rows
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PROPERTY_TYPE</th>
+      <th>BUILT_FORM</th>
+      <th>TOTAL_FLOOR_AREA</th>
+      <th>GLAZED_TYPE</th>
+      <th>EXTENSION_COUNT</th>
+      <th>NUMBER_HABITABLE_ROOMS</th>
+      <th>CONSTRUCTION_AGE_BAND</th>
+      <th>TENURE</th>
+    </tr>
+    <tr>
+      <th>ADDRESS</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>54 CAISTOR DRIVE TS25 2QG</th>
+      <td>Bungalow</td>
+      <td>Semi-Detached</td>
+      <td>59.0</td>
+      <td>double glazing, unknown install date</td>
+      <td>0.0</td>
+      <td>4.0</td>
+      <td>England and Wales: 1967-1975</td>
+      <td>rental (private)</td>
+    </tr>
+    <tr>
+      <th>18 TRENTBROOKE AVENUE TS25 5JN</th>
+      <td>Bungalow</td>
+      <td>Semi-Detached</td>
+      <td>70.8</td>
+      <td>double glazing, unknown install date</td>
+      <td>0.0</td>
+      <td>4.0</td>
+      <td>England and Wales: 1950-1966</td>
+      <td>owner-occupied</td>
+    </tr>
+    <tr>
+      <th>3 HARLECH WALK TS26 0TN</th>
+      <td>House</td>
+      <td>Mid-Terrace</td>
+      <td>86.0</td>
+      <td>double glazing installed before 2002</td>
+      <td>1.0</td>
+      <td>5.0</td>
+      <td>England and Wales: 1950-1966</td>
+      <td>owner-occupied</td>
+    </tr>
+    <tr>
+      <th>31 LAUREL GARDENS TS25 4NZ</th>
+      <td>Flat</td>
+      <td>Detached</td>
+      <td>52.0</td>
+      <td>double glazing installed during or after 2002</td>
+      <td>0.0</td>
+      <td>3.0</td>
+      <td>England and Wales: 2007 onwards</td>
+      <td>rental (social)</td>
+    </tr>
+    <tr>
+      <th>16 HEADINGLEY COURT SEATON CAREW TS25 2PD</th>
+      <td>House</td>
+      <td>Detached</td>
+      <td>121.0</td>
+      <td>double glazing installed before 2002</td>
+      <td>1.0</td>
+      <td>6.0</td>
+      <td>England and Wales: 1991-1995</td>
+      <td>owner-occupied</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Merging-datasets">
+<a class="anchor" href="#Merging-datasets" aria-hidden="true"><span class="octicon octicon-link"></span></a>Merging datasets<a class="anchor-link" href="#Merging-datasets"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">merge</span> <span class="o">=</span> <span class="p">(</span><span class="n">dd</span>
+    <span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">ppd</span><span class="p">,</span> <span class="n">epc</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">"inner"</span><span class="p">,</span> <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># intersection of price-paid and certificate data</span>
+    <span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># dropping address index as it is no longer necessary</span>
+    <span class="o">.</span><span class="n">map_partitions</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"DATE_OF_TRANSFER"</span><span class="p">)</span><span class="o">.</span><span class="n">sort_index</span><span class="p">())</span> <span class="c1"># set date to new index</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">MERGED_PATH</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">ProgressBar</span><span class="p">():</span>
+        <span class="n">merge</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="n">MERGED_PATH</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="s2">"infer"</span><span class="p">,</span> <span class="n">compression</span><span class="o">=</span><span class="s2">"snappy"</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">MERGED_PATH</span><span class="p">)</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>  <span class="c1"># Computing into memory since it will use ~600mb</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered celltag_remove_input">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>614.61MB
+5,566,962 rows
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PRICE</th>
+      <th>POSTCODE</th>
+      <th>OLD_NEW</th>
+      <th>PROPERTY_TYPE</th>
+      <th>BUILT_FORM</th>
+      <th>TOTAL_FLOOR_AREA</th>
+      <th>GLAZED_TYPE</th>
+      <th>EXTENSION_COUNT</th>
+      <th>NUMBER_HABITABLE_ROOMS</th>
+      <th>CONSTRUCTION_AGE_BAND</th>
+      <th>TENURE</th>
+    </tr>
+    <tr>
+      <th>DATE_OF_TRANSFER</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1995-01-01</th>
+      <td>16000.0</td>
+      <td>HX1 4NG</td>
+      <td>N</td>
+      <td>House</td>
+      <td>Enclosed Mid-Terrace</td>
+      <td>99.00</td>
+      <td>double glazing, unknown install date</td>
+      <td>0.0</td>
+      <td>4.0</td>
+      <td>England and Wales: before 1900</td>
+      <td>owner-occupied</td>
+    </tr>
+    <tr>
+      <th>1995-01-02</th>
+      <td>35000.0</td>
+      <td>NN1 4LL</td>
+      <td>N</td>
+      <td>House</td>
+      <td>Mid-Terrace</td>
+      <td>85.00</td>
+      <td>double glazing installed before 2002</td>
+      <td>1.0</td>
+      <td>4.0</td>
+      <td>England and Wales: 1900-1929</td>
+      <td>owner-occupied</td>
+    </tr>
+    <tr>
+      <th>1995-01-03</th>
+      <td>15000.0</td>
+      <td>NE34 8TF</td>
+      <td>N</td>
+      <td>House</td>
+      <td>Semi-Detached</td>
+      <td>74.00</td>
+      <td>double glazing installed before 2002</td>
+      <td>0.0</td>
+      <td>4.0</td>
+      <td>England and Wales: 1967-1975</td>
+      <td>rental (private)</td>
+    </tr>
+    <tr>
+      <th>1995-01-03</th>
+      <td>48000.0</td>
+      <td>HR8 2DB</td>
+      <td>N</td>
+      <td>Bungalow</td>
+      <td>Detached</td>
+      <td>78.00</td>
+      <td>double glazing installed before 2002</td>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>England and Wales: 1950-1966</td>
+      <td>owner-occupied</td>
+    </tr>
+    <tr>
+      <th>1995-01-03</th>
+      <td>82000.0</td>
+      <td>TR13 8BP</td>
+      <td>N</td>
+      <td>Bungalow</td>
+      <td>Detached</td>
+      <td>118.88</td>
+      <td>double glazing installed during or after 2002</td>
+      <td>0.0</td>
+      <td>4.0</td>
+      <td>England and Wales: 1967-1975</td>
+      <td>rental (private)</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Downloading-additional-data-for-feature-engineering">
+<a class="anchor" href="#Downloading-additional-data-for-feature-engineering" aria-hidden="true"><span class="octicon octicon-link"></span></a>Downloading additional data for feature engineering<a class="anchor-link" href="#Downloading-additional-data-for-feature-engineering"> </a>
+</h2>
+<p>During my dataset analysis, I will require additional data to further transform my dataset. This includes:</p>
+<ul>
+<li>Geographical data from the <strong><em><a href="https://geoportal.statistics.gov.uk/datasets/ons::national-statistics-postcode-lookup-february-2022/about">National Statistics Postcode Lookup (February 2022)</a></em></strong>, e.g longitude, latitude</li>
+<li>HPI (House Price Index) data from <strong><em><a href="https://www.gov.uk/government/publications/about-the-uk-house-price-index">National Statistics UK House Price Index (January 2022)</a></em></strong>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+
+<span class="k">class</span> <span class="nc">Downloader</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">_session</span><span class="p">,</span>
+        <span class="n">pbar_enabled</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">pbar_kwargs</span><span class="o">=</span><span class="p">{},</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">_session</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pbar_enabled</span> <span class="o">=</span> <span class="n">pbar_enabled</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pbar_kwargs</span> <span class="o">=</span> <span class="n">pbar_kwargs</span>
+
+    <span class="k">def</span> <span class="nf">dlFile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">chunk_size</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span> <span class="o">**</span><span class="n">reqKwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="o">**</span><span class="n">reqKwargs</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># Sending get request to provided url</span>
+        <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span> <span class="c1"># raise error if request failure</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pbar_enabled</span><span class="p">:</span>
+            <span class="n">pbar</span> <span class="o">=</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">desc</span><span class="o">=</span><span class="n">file</span><span class="p">,</span>
+                        <span class="n">total</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"content-length"</span><span class="p">)),</span>
+                        <span class="n">unit</span><span class="o">=</span><span class="s2">"iB"</span><span class="p">,</span>
+                        <span class="n">unit_scale</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                        <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">pbar_kwargs</span><span class="p">)</span>  <span class="c1"># Initialising progress bar</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s2">"wb"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="c1"># Iterating chunks as they come from server</span>
+            <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">iter_content</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="n">chunk_size</span><span class="p">):</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>  <span class="c1"># Writing chunk to file</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>  <span class="c1"># Flushing input buffer</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pbar_enabled</span><span class="p">:</span>
+                    <span class="n">pbar</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">chunk</span><span class="p">))</span>  <span class="c1"># Updating progress bar by size of chunk</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pbar_enabled</span><span class="p">:</span> <span class="n">pbar</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Postcode-Lookup">
+<a class="anchor" href="#Postcode-Lookup" aria-hidden="true"><span class="octicon octicon-link"></span></a>Postcode Lookup<a class="anchor-link" href="#Postcode-Lookup"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">PCD_PATH</span><span class="p">):</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">"https://www.arcgis.com/sharing/rest/content/items/1a0444ee3c43452ea16c530966ae8984/data"</span>
+    <span class="n">extractPath</span> <span class="o">=</span> <span class="n">PCD_PATH</span><span class="o">.</span><span class="n">removesuffix</span><span class="p">(</span><span class="s2">".csv"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">extractPath</span><span class="p">):</span>
+        <span class="n">zipPath</span> <span class="o">=</span> <span class="n">extractPath</span> <span class="o">+</span> <span class="s2">".zip"</span>
+        <span class="c1"># downloading zip file from website</span>
+        <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">sess</span><span class="p">:</span>
+            <span class="n">Downloader</span><span class="p">(</span><span class="n">sess</span><span class="p">,</span> <span class="n">pbar_enabled</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">dlFile</span><span class="p">(</span><span class="n">zipPath</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">)</span>
+        <span class="c1"># extracting zip to folder</span>
+        <span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">zipPath</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
+            <span class="n">handle</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">extractPath</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">zipPath</span><span class="p">)</span>  <span class="c1"># removing zip file</span>
+    <span class="c1"># taking necessary columns and writing into csv file</span>
+    <span class="p">(</span><span class="n">pd</span>
+        <span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">extractPath</span><span class="p">,</span> <span class="s2">"Data"</span><span class="p">,</span> <span class="s2">"NSPL_FEB_2022_UK.csv"</span><span class="p">),</span> <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="s2">"pcds"</span><span class="p">,</span> <span class="s2">"lat"</span><span class="p">,</span> <span class="s2">"long"</span><span class="p">])</span>
+        <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">"long"</span><span class="p">:</span><span class="s2">"lng"</span><span class="p">})</span>
+        <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>
+        <span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">PCD_PATH</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">extractPath</span><span class="p">)</span>  <span class="c1"># removing folder</span>
+<span class="n">geo</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">PCD_PATH</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered celltag_remove_input">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>214.96MB
+2,673,018 rows
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PCDS</th>
+      <th>LAT</th>
+      <th>LNG</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>AB1 0AA</td>
+      <td>57.101474</td>
+      <td>-2.242851</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>AB1 0AB</td>
+      <td>57.102554</td>
+      <td>-2.246308</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>AB1 0AD</td>
+      <td>57.100556</td>
+      <td>-2.248342</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>AB1 0AE</td>
+      <td>57.084444</td>
+      <td>-2.255708</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>AB1 0AF</td>
+      <td>57.096656</td>
+      <td>-2.258102</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="House-Price-Index">
+<a class="anchor" href="#House-Price-Index" aria-hidden="true"><span class="octicon octicon-link"></span></a>House Price Index<a class="anchor-link" href="#House-Price-Index"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">HPI_PATH</span><span class="p">):</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">"http://publicdata.landregistry.gov.uk/market-trend-data/house-price-index-data/Indices-2022-02.csv"</span>
+    <span class="c1"># Parsing file and writing to csv file</span>
+    <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="s2">"Date"</span><span class="p">,</span> <span class="s2">"Region_Name"</span><span class="p">,</span> <span class="s2">"Index"</span><span class="p">],</span><span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s2">"Date"</span><span class="p">])</span>
+        <span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">"Region_Name == 'England and Wales'"</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">"python"</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"Date"</span><span class="p">)</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+        <span class="o">.</span><span class="n">Index</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">HPI_PATH</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="n">hpi</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">HPI_PATH</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered celltag_remove_input">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>24.58KB
+326 rows
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Date</th>
+      <th>Index</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1995-01-01</td>
+      <td>26.440075</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1995-02-01</td>
+      <td>26.369132</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1995-03-01</td>
+      <td>26.401129</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1995-04-01</td>
+      <td>26.604794</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1995-05-01</td>
+      <td>26.645437</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Conclusion">
+<a class="anchor" href="#Conclusion" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conclusion<a class="anchor-link" href="#Conclusion"> </a>
+</h2>
+<p>All the necessary data has now been collected locally, however it is still unusable and thus useless; I will now move onto exploring and analysing the data, performing transformations along the way, in order to make the data better fit and explain the price data.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><a class="u-url" href="/page/house-prices/2022/05/08/p2-data-sourcing.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/page/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/page/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/page/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/fastai" target="_blank" title="fastai"><svg class="svg-icon grey"><use xlink:href="/page/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/fastdotai" target="_blank" title="fastdotai"><svg class="svg-icon grey"><use xlink:href="/page/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
