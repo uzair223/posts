@@ -11,9 +11,14 @@
 // @import "minima/fastpages-dracula-highlight"; 
 
 .post-content p, .post-content li {
-   font-size: 14px !important;
+   font-size: 14px;
 }
 
 pre {
-   font-size: 100% !important;
+   background-color: #f6f8fa;
+   font-size: 100%;
+}
+
+table th, table td {
+   padding: 6px;
 }
