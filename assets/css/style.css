@@ -429,8 +429,10 @@ pre code { font-size: 15px !important; }
 
 /*-----------------------------------*/
 /*----- ADD YOUR STYLES BELOW -------*/
-.post-content p, .post-content li { font-size: 14px !important; }
+.post-content p, .post-content li { font-size: 14px; }
 
-pre { font-size: 100% !important; }
+pre { background-color: #f6f8fa; font-size: 100%; }
+
+table th, table td { padding: 6px; }
 
 /*# sourceMappingURL=style.css.map */
