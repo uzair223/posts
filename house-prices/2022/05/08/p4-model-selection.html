@@ -98,7 +98,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      39 min read
+      31 min read
     
 </span></p>
 
@@ -143,62 +143,61 @@ window.onload = wrap_img;
 
   <div class="post-content e-content" itemprop="articleBody">
     <ul id="toc" class="section-nav">
-<li class="toc-entry toc-h3"><a href="#Final-Preprocessing">Final Preprocessing </a>
+<li class="toc-entry toc-h2"><a href="#Final-Preprocessing">Final Preprocessing </a>
 <ul>
-<li class="toc-entry toc-h5"><a href="#Scaling-data">Scaling data </a></li>
-<li class="toc-entry toc-h5"><a href="#Preprocessed-data">Preprocessed data </a></li>
+<li class="toc-entry toc-h4"><a href="#Scaling-data">Scaling data </a></li>
+<li class="toc-entry toc-h4"><a href="#Preprocessed-data">Preprocessed data </a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h3"><a href="#Model-selection">Model selection </a>
+<li class="toc-entry toc-h2"><a href="#Model-selection">Model selection </a>
 <ul>
-<li class="toc-entry toc-h4"><a href="#Model-evaluation-and-helper-functions">Model evaluation and helper functions </a></li>
-<li class="toc-entry toc-h4"><a href="#Conformal-Prediction">Conformal Prediction </a></li>
-<li class="toc-entry toc-h4"><a href="#Multiple-Linear-Regression">Multiple Linear Regression </a>
+<li class="toc-entry toc-h3"><a href="#Conformal-Prediction">Conformal Prediction </a></li>
+<li class="toc-entry toc-h3"><a href="#Multiple-Linear-Regression">Multiple Linear Regression </a>
 <ul>
-<li class="toc-entry toc-h5"><a href="#Implementation">Implementation </a></li>
-<li class="toc-entry toc-h5"><a href="#Fitting-and-evaluating">Fitting and evaluating </a></li>
+<li class="toc-entry toc-h4"><a href="#Implementation">Implementation </a></li>
+<li class="toc-entry toc-h4"><a href="#Fitting-and-evaluating">Fitting and evaluating </a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h4"><a href="#K-Nearest-Neighbour">K-Nearest Neighbour </a>
+<li class="toc-entry toc-h3"><a href="#K-Nearest-Neighbour">K-Nearest Neighbour </a>
 <ul>
-<li class="toc-entry toc-h5"><a href="#Implementation">Implementation </a></li>
-<li class="toc-entry toc-h5"><a href="#Fitting-and-evaluating">Fitting and evaluating </a></li>
+<li class="toc-entry toc-h4"><a href="#Implementation">Implementation </a></li>
+<li class="toc-entry toc-h4"><a href="#Fitting-and-evaluating">Fitting and evaluating </a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h4"><a href="#Decision-Tree-regression">Decision Tree regression </a>
+<li class="toc-entry toc-h3"><a href="#Decision-Tree-regression">Decision Tree regression </a>
 <ul>
-<li class="toc-entry toc-h5"><a href="#Implementation">Implementation </a></li>
-<li class="toc-entry toc-h5"><a href="#Fitting-and-evaluating">Fitting and evaluating </a></li>
+<li class="toc-entry toc-h4"><a href="#Implementation">Implementation </a></li>
+<li class="toc-entry toc-h4"><a href="#Fitting-and-evaluating">Fitting and evaluating </a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h4"><a href="#Random-Forest">Random Forest </a>
+<li class="toc-entry toc-h3"><a href="#Random-Forest">Random Forest </a>
 <ul>
-<li class="toc-entry toc-h5"><a href="#Hyperparameter-optimisation">Hyperparameter optimisation </a></li>
-<li class="toc-entry toc-h5"><a href="#Fitting-and-evaluating">Fitting and evaluating </a></li>
+<li class="toc-entry toc-h4"><a href="#Hyperparameter-optimisation">Hyperparameter optimisation </a></li>
+<li class="toc-entry toc-h4"><a href="#Fitting-and-evaluating">Fitting and evaluating </a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h4"><a href="#Gradient-Boosting-Machine">Gradient Boosting Machine </a>
+<li class="toc-entry toc-h3"><a href="#Gradient-Boosting-Machine">Gradient Boosting Machine </a>
 <ul>
-<li class="toc-entry toc-h5"><a href="#Hyperparameter-Optimisation">Hyperparameter Optimisation </a></li>
-<li class="toc-entry toc-h5"><a href="#Fitting-and-evaluating">Fitting and evaluating </a></li>
+<li class="toc-entry toc-h4"><a href="#Hyperparameter-Optimisation">Hyperparameter Optimisation </a></li>
+<li class="toc-entry toc-h4"><a href="#Fitting-and-evaluating">Fitting and evaluating </a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h4"><a href="#Multilayer-Perceptron">Multilayer Perceptron </a>
+<li class="toc-entry toc-h3"><a href="#Multilayer-Perceptron">Multilayer Perceptron </a>
 <ul>
-<li class="toc-entry toc-h5"><a href="#Implementation">Implementation </a>
+<li class="toc-entry toc-h4"><a href="#Implementation">Implementation </a>
 <ul>
-<li class="toc-entry toc-h6"><a href="#Layers">Layers </a></li>
-<li class="toc-entry toc-h6"><a href="#Parameter-optimisation">Parameter optimisation </a></li>
-<li class="toc-entry toc-h6"><a href="#Neural-network">Neural network </a></li>
+<li class="toc-entry toc-h5"><a href="#Layers">Layers </a></li>
+<li class="toc-entry toc-h5"><a href="#Parameter-optimisation">Parameter optimisation </a></li>
+<li class="toc-entry toc-h5"><a href="#Neural-network-logic-(feedforward,-backpropagation,-prediction)">Neural network logic (feedforward, backpropagation, prediction) </a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h5"><a href="#Hyperparameter-Optimisation">Hyperparameter Optimisation </a></li>
-<li class="toc-entry toc-h5"><a href="#Fitting-and-evaluating">Fitting and evaluating </a></li>
+<li class="toc-entry toc-h4"><a href="#Hyperparameter-Optimisation">Hyperparameter Optimisation </a></li>
+<li class="toc-entry toc-h4"><a href="#Fitting-and-evaluating">Fitting and evaluating </a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-entry toc-h3"><a href="#Conclusion">Conclusion </a></li>
+<li class="toc-entry toc-h2"><a href="#Conclusion">Conclusion </a></li>
 </ul><!--
 #################################################
 ### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
@@ -262,9 +261,9 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Final-Preprocessing">
+<h2 id="Final-Preprocessing">
 <a class="anchor" href="#Final-Preprocessing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Final Preprocessing<a class="anchor-link" href="#Final-Preprocessing"> </a>
-</h3>
+</h2>
 </div>
 </div>
 </div>
@@ -401,9 +400,9 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h5 id="Scaling-data">
+<h4 id="Scaling-data">
 <a class="anchor" href="#Scaling-data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Scaling data<a class="anchor-link" href="#Scaling-data"> </a>
-</h5>
+</h4>
 <p>In order to use distance-based algorithms, which use distance between data points to determine similarity, I will have to scale the data to a closer range. Tree-based algorithms are fairly insensitive to the scaling of data since it only splits a node based on a single feature. Additionally, scaling the data will make results and models more interpretable, as you will more clearly be able to explain the strength of a particular feature determined by the value of its coefficient for the target variable.</p>
 
 </div>
@@ -563,9 +562,9 @@ $[a,b]$: interval in which the dataset will be scaled</p>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h5 id="Preprocessed-data">
+<h4 id="Preprocessed-data">
 <a class="anchor" href="#Preprocessed-data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Preprocessed data<a class="anchor-link" href="#Preprocessed-data"> </a>
-</h5>
+</h4>
 </div>
 </div>
 </div>
@@ -728,24 +727,16 @@ validation set      245,183 rows        5.00%
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Model-selection">
+<h2 id="Model-selection">
 <a class="anchor" href="#Model-selection" aria-hidden="true"><span class="octicon octicon-link"></span></a>Model selection<a class="anchor-link" href="#Model-selection"> </a>
-</h3>
+</h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Model-evaluation-and-helper-functions">
-<a class="anchor" href="#Model-evaluation-and-helper-functions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Model evaluation and helper functions<a class="anchor-link" href="#Model-evaluation-and-helper-functions"> </a>
-</h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
+<p>Some of the metrics that will be used in evaluating models:</p>
 <ul>
 <li>
 <strong>Mean Absolute Error</strong>. Lower is better.
@@ -776,47 +767,12 @@ $\bar{y}$: mean of expected values</p>
 </div>
 </div>
 </div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    
-
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Conformal-Prediction">
+<h3 id="Conformal-Prediction">
 <a class="anchor" href="#Conformal-Prediction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conformal Prediction<a class="anchor-link" href="#Conformal-Prediction"> </a>
-</h4>
+</h3>
 </div>
 </div>
 </div>
@@ -867,9 +823,9 @@ $\bar{y}$: mean of expected values</p>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Multiple-Linear-Regression">
+<h3 id="Multiple-Linear-Regression">
 <a class="anchor" href="#Multiple-Linear-Regression" aria-hidden="true"><span class="octicon octicon-link"></span></a>Multiple Linear Regression<a class="anchor-link" href="#Multiple-Linear-Regression"> </a>
-</h4>
+</h3>
 <p>Initally, I will begin by fitting a multiple linear regression model on my data. I expect this to perform poorly, as the linear regression will not capture the complex relationships and will assume linearity between the multiple predictor variables and the target variable.</p>
 
 </div>
@@ -878,15 +834,18 @@ $\bar{y}$: mean of expected values</p>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h5 id="Implementation">
+<h4 id="Implementation">
 <a class="anchor" href="#Implementation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Implementation<a class="anchor-link" href="#Implementation"> </a>
-</h5>
+</h4>
 </div>
 </div>
 </div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
 <div class="input">
 
 <div class="inner_cell">
@@ -977,15 +936,16 @@ $\bar{y}$: mean of expected values</p>
 </div>
 </div>
 
+    </details>
 </div>
     
 
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h5 id="Fitting-and-evaluating">
+<h4 id="Fitting-and-evaluating">
 <a class="anchor" href="#Fitting-and-evaluating" aria-hidden="true"><span class="octicon octicon-link"></span></a>Fitting and evaluating<a class="anchor-link" href="#Fitting-and-evaluating"> </a>
-</h5>
+</h4>
 </div>
 </div>
 </div>
@@ -1078,9 +1038,9 @@ R2 Score is 0.479
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="K-Nearest-Neighbour">
+<h3 id="K-Nearest-Neighbour">
 <a class="anchor" href="#K-Nearest-Neighbour" aria-hidden="true"><span class="octicon octicon-link"></span></a>K-Nearest Neighbour<a class="anchor-link" href="#K-Nearest-Neighbour"> </a>
-</h4>
+</h3>
 <p>I will now try the K-Nearest Neighbour algorithm to test if the distances between points, especially in their coordinates, can significantly impact the outcome price.
 The KNN algorithm works by using feature similarity to predict the values of new unseen data. A new point is assigned a value based on how closely it resembles other points in the training set, i.e the distance between them. The distance can be calculated using the <a href="https://en.wikipedia.org/wiki/Euclidean_distance">Euclidean distance</a>, or other methods such as the <a href="https://en.wikipedia.org/wiki/Taxicab_geometry">Manhattan</a>, or <a href="https://en.wikipedia.org/wiki/Chebyshev_distance">Chebyzchev</a>, distance. It then sorts the points and aggregrates the closest points for the outcome. This could be majority voting for classification, or the neighbourhood average for regression. The model is very sensitive to the <strong>curse of dimensionality</strong>, where adding more features doesn't benefit the model, rather it adds noise and hinders its performance.</p>
 
@@ -1090,9 +1050,9 @@ The KNN algorithm works by using feature similarity to predict the values of new
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h5 id="Implementation">
+<h4 id="Implementation">
 <a class="anchor" href="#Implementation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Implementation<a class="anchor-link" href="#Implementation"> </a>
-</h5>
+</h4>
 <p>I will implement a custom model that utilises cuML's nearest neighbour search that will return the prediction as the <strong>inverse distance weighted</strong> average of the nearest neighbours, which will favour closer points.
 $$
 \bar x = \frac{\sum_{i=1}^n w_i x_i}{\sum_{i=1}^nw_i} \textrm{  where  } w_i = \frac{1}{d_{ix}^p}
@@ -1116,6 +1076,9 @@ weights(distance matrix) =
     
     
 <div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
 <div class="input">
 
 <div class="inner_cell">
@@ -1154,15 +1117,16 @@ weights(distance matrix) =
 </div>
 </div>
 
+    </details>
 </div>
     
 
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h5 id="Fitting-and-evaluating">
+<h4 id="Fitting-and-evaluating">
 <a class="anchor" href="#Fitting-and-evaluating" aria-hidden="true"><span class="octicon octicon-link"></span></a>Fitting and evaluating<a class="anchor-link" href="#Fitting-and-evaluating"> </a>
-</h5>
+</h4>
 </div>
 </div>
 </div>
@@ -1224,9 +1188,9 @@ R2 Score is 0.767
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Decision-Tree-regression">
+<h3 id="Decision-Tree-regression">
 <a class="anchor" href="#Decision-Tree-regression" aria-hidden="true"><span class="octicon octicon-link"></span></a>Decision Tree regression<a class="anchor-link" href="#Decision-Tree-regression"> </a>
-</h4>
+</h3>
 <p>Now, I will attempt to implement a regression tree. I expect that the model will not perform well on its own, and I will probably need to use an ensemble method for best performance. My implementation will probably also be inefficient and will take a considerable amount of time in training, as I will be using recursion and expensive computations to build the tree. Additionally, I will suffer Python's various bottlenecks and overhead, where better, more established implementations use C++ instead.</p>
 
 </div>
@@ -1235,21 +1199,23 @@ R2 Score is 0.767
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h5 id="Implementation">
+<h4 id="Implementation">
 <a class="anchor" href="#Implementation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Implementation<a class="anchor-link" href="#Implementation"> </a>
-</h5>
+</h4>
 </div>
 </div>
 </div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
 <div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># algorithms/decision_tree/base.py</span>
-
 <span class="k">class</span> <span class="nc">BaseNode</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">X</span><span class="p">:</span><span class="n">ndarray</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
@@ -1280,18 +1246,21 @@ R2 Score is 0.767
 </div>
 </div>
 
+    </details>
 </div>
     
 
     
     
 <div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
 <div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># algorithms/decision_tree/node.py</span>
-
 <span class="k">class</span> <span class="nc">DecisionNode</span><span class="p">(</span><span class="n">BaseNode</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">feature_idx</span><span class="p">,</span><span class="n">threshold</span><span class="p">,</span><span class="n">left</span><span class="p">,</span><span class="n">right</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">feature_idx</span> <span class="o">=</span> <span class="n">feature_idx</span>
@@ -1312,18 +1281,21 @@ R2 Score is 0.767
 </div>
 </div>
 
+    </details>
 </div>
     
 
     
     
 <div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
 <div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># algorithms/decision_tree/__init__.py</span>
-
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
 <span class="n">Node</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">"Node"</span><span class="p">,</span> <span class="s2">"feature_idx threshold left right data"</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">]</span><span class="o">*</span><span class="mi">5</span><span class="p">)</span>
 
@@ -1479,15 +1451,16 @@ R2 Score is 0.767
 </div>
 </div>
 
+    </details>
 </div>
     
 
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h5 id="Fitting-and-evaluating">
+<h4 id="Fitting-and-evaluating">
 <a class="anchor" href="#Fitting-and-evaluating" aria-hidden="true"><span class="octicon octicon-link"></span></a>Fitting and evaluating<a class="anchor-link" href="#Fitting-and-evaluating"> </a>
-</h5>
+</h4>
 </div>
 </div>
 </div>
@@ -1586,7 +1559,7 @@ R2 Score is 0.657
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>As seen above, the model produces discrete predictions based on the leaf nodes of the fitted tree. I believe increasing the maximum depth (thereby increasing the number of leaves) would help improve the bands of predictions that can be seen on the scatter diagram. Despite this issue, I believe using an ensemble method to combine multiple trees will greatly reduce the issues I have described.</p>
+<p>As seen above, the model produces discrete predictions based on the leaf nodes of the fitted tree. I believe increasing the maximum depth (thereby increasing the number of leaves) would help improve the bands of predictions that can be seen on the scatter diagram. However, this would be highly inefficient due to the limitations of my implementation. Therefore, I will instead try using an ensemble method to combine multiple trees, which will possibly reduce the issues faced.</p>
 
 </div>
 </div>
@@ -1594,18 +1567,18 @@ R2 Score is 0.657
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Random-Forest">
+<h3 id="Random-Forest">
 <a class="anchor" href="#Random-Forest" aria-hidden="true"><span class="octicon octicon-link"></span></a>Random Forest<a class="anchor-link" href="#Random-Forest"> </a>
-</h4>
+</h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h5 id="Hyperparameter-optimisation">
+<h4 id="Hyperparameter-optimisation">
 <a class="anchor" href="#Hyperparameter-optimisation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Hyperparameter optimisation<a class="anchor-link" href="#Hyperparameter-optimisation"> </a>
-</h5>
+</h4>
 <p>I will begin by optimising the random forest's parameters on a small set of data, with a low number of estimators, for quick and effective computation. The models will be optimised to minimise the RMSE (root mean squared error) of the predictions. I will be running the optimisation over 100 iterations. I will be using the <code>hyperopt</code> library which will make this process rapid and reliable.</p>
 
 </div>
@@ -1732,9 +1705,9 @@ params: {'max_depth': 20,
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h5 id="Fitting-and-evaluating">
+<h4 id="Fitting-and-evaluating">
 <a class="anchor" href="#Fitting-and-evaluating" aria-hidden="true"><span class="octicon octicon-link"></span></a>Fitting and evaluating<a class="anchor-link" href="#Fitting-and-evaluating"> </a>
-</h5>
+</h4>
 </div>
 </div>
 </div>
@@ -1815,18 +1788,18 @@ R2 Score is 0.823
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Gradient-Boosting-Machine">
+<h3 id="Gradient-Boosting-Machine">
 <a class="anchor" href="#Gradient-Boosting-Machine" aria-hidden="true"><span class="octicon octicon-link"></span></a>Gradient Boosting Machine<a class="anchor-link" href="#Gradient-Boosting-Machine"> </a>
-</h4>
+</h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h5 id="Hyperparameter-Optimisation">
+<h4 id="Hyperparameter-Optimisation">
 <a class="anchor" href="#Hyperparameter-Optimisation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Hyperparameter Optimisation<a class="anchor-link" href="#Hyperparameter-Optimisation"> </a>
-</h5>
+</h4>
 <p>Similar to the random forest, I will begin by optimising the parameters of the gradient boosting machine using <code>hyperopt</code>.</p>
 
 </div>
@@ -1951,9 +1924,9 @@ params: {'colsample_bynode': 0.8708868938454073,
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h5 id="Fitting-and-evaluating">
+<h4 id="Fitting-and-evaluating">
 <a class="anchor" href="#Fitting-and-evaluating" aria-hidden="true"><span class="octicon octicon-link"></span></a>Fitting and evaluating<a class="anchor-link" href="#Fitting-and-evaluating"> </a>
-</h5>
+</h4>
 </div>
 </div>
 </div>
@@ -1979,508 +1952,6 @@ params: {'colsample_bynode': 0.8708868938454073,
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[0]	train-rmse:0.94074	val-rmse:0.94086
-[1]	train-rmse:0.80932	val-rmse:0.80955
-[2]	train-rmse:0.71279	val-rmse:0.71322
-[3]	train-rmse:0.64249	val-rmse:0.64307
-[4]	train-rmse:0.59205	val-rmse:0.59300
-[5]	train-rmse:0.55624	val-rmse:0.55738
-[6]	train-rmse:0.53050	val-rmse:0.53204
-[7]	train-rmse:0.51153	val-rmse:0.51330
-[8]	train-rmse:0.49585	val-rmse:0.49798
-[9]	train-rmse:0.48542	val-rmse:0.48783
-[10]	train-rmse:0.47730	val-rmse:0.48009
-[11]	train-rmse:0.47099	val-rmse:0.47413
-[12]	train-rmse:0.46541	val-rmse:0.46888
-[13]	train-rmse:0.46154	val-rmse:0.46531
-[14]	train-rmse:0.45853	val-rmse:0.46251
-[15]	train-rmse:0.45556	val-rmse:0.45971
-[16]	train-rmse:0.45246	val-rmse:0.45687
-[17]	train-rmse:0.45079	val-rmse:0.45544
-[18]	train-rmse:0.44841	val-rmse:0.45332
-[19]	train-rmse:0.44641	val-rmse:0.45162
-[20]	train-rmse:0.44471	val-rmse:0.45016
-[21]	train-rmse:0.44286	val-rmse:0.44845
-[22]	train-rmse:0.44200	val-rmse:0.44776
-[23]	train-rmse:0.44039	val-rmse:0.44633
-[24]	train-rmse:0.43977	val-rmse:0.44586
-[25]	train-rmse:0.43856	val-rmse:0.44479
-[26]	train-rmse:0.43764	val-rmse:0.44394
-[27]	train-rmse:0.43730	val-rmse:0.44375
-[28]	train-rmse:0.43629	val-rmse:0.44296
-[29]	train-rmse:0.43492	val-rmse:0.44172
-[30]	train-rmse:0.43407	val-rmse:0.44097
-[31]	train-rmse:0.43358	val-rmse:0.44059
-[32]	train-rmse:0.43288	val-rmse:0.44005
-[33]	train-rmse:0.43223	val-rmse:0.43955
-[34]	train-rmse:0.43201	val-rmse:0.43939
-[35]	train-rmse:0.43161	val-rmse:0.43905
-[36]	train-rmse:0.43124	val-rmse:0.43879
-[37]	train-rmse:0.43095	val-rmse:0.43866
-[38]	train-rmse:0.43027	val-rmse:0.43801
-[39]	train-rmse:0.42911	val-rmse:0.43702
-[40]	train-rmse:0.42865	val-rmse:0.43666
-[41]	train-rmse:0.42832	val-rmse:0.43637
-[42]	train-rmse:0.42768	val-rmse:0.43588
-[43]	train-rmse:0.42723	val-rmse:0.43559
-[44]	train-rmse:0.42697	val-rmse:0.43547
-[45]	train-rmse:0.42635	val-rmse:0.43496
-[46]	train-rmse:0.42604	val-rmse:0.43476
-[47]	train-rmse:0.42532	val-rmse:0.43420
-[48]	train-rmse:0.42437	val-rmse:0.43340
-[49]	train-rmse:0.42393	val-rmse:0.43305
-[50]	train-rmse:0.42345	val-rmse:0.43271
-[51]	train-rmse:0.42271	val-rmse:0.43220
-[52]	train-rmse:0.42235	val-rmse:0.43197
-[53]	train-rmse:0.42203	val-rmse:0.43175
-[54]	train-rmse:0.42174	val-rmse:0.43158
-[55]	train-rmse:0.42121	val-rmse:0.43119
-[56]	train-rmse:0.42069	val-rmse:0.43075
-[57]	train-rmse:0.42031	val-rmse:0.43044
-[58]	train-rmse:0.41985	val-rmse:0.43013
-[59]	train-rmse:0.41958	val-rmse:0.42995
-[60]	train-rmse:0.41934	val-rmse:0.42978
-[61]	train-rmse:0.41897	val-rmse:0.42950
-[62]	train-rmse:0.41861	val-rmse:0.42920
-[63]	train-rmse:0.41829	val-rmse:0.42908
-[64]	train-rmse:0.41801	val-rmse:0.42893
-[65]	train-rmse:0.41736	val-rmse:0.42834
-[66]	train-rmse:0.41632	val-rmse:0.42745
-[67]	train-rmse:0.41594	val-rmse:0.42718
-[68]	train-rmse:0.41561	val-rmse:0.42694
-[69]	train-rmse:0.41537	val-rmse:0.42685
-[70]	train-rmse:0.41504	val-rmse:0.42663
-[71]	train-rmse:0.41487	val-rmse:0.42656
-[72]	train-rmse:0.41470	val-rmse:0.42648
-[73]	train-rmse:0.41430	val-rmse:0.42630
-[74]	train-rmse:0.41386	val-rmse:0.42604
-[75]	train-rmse:0.41367	val-rmse:0.42594
-[76]	train-rmse:0.41335	val-rmse:0.42572
-[77]	train-rmse:0.41319	val-rmse:0.42567
-[78]	train-rmse:0.41285	val-rmse:0.42538
-[79]	train-rmse:0.41214	val-rmse:0.42483
-[80]	train-rmse:0.41187	val-rmse:0.42468
-[81]	train-rmse:0.41168	val-rmse:0.42460
-[82]	train-rmse:0.41156	val-rmse:0.42454
-[83]	train-rmse:0.41142	val-rmse:0.42450
-[84]	train-rmse:0.41124	val-rmse:0.42439
-[85]	train-rmse:0.41105	val-rmse:0.42427
-[86]	train-rmse:0.41045	val-rmse:0.42384
-[87]	train-rmse:0.41011	val-rmse:0.42360
-[88]	train-rmse:0.41005	val-rmse:0.42356
-[89]	train-rmse:0.40992	val-rmse:0.42351
-[90]	train-rmse:0.40960	val-rmse:0.42322
-[91]	train-rmse:0.40938	val-rmse:0.42310
-[92]	train-rmse:0.40905	val-rmse:0.42286
-[93]	train-rmse:0.40893	val-rmse:0.42285
-[94]	train-rmse:0.40834	val-rmse:0.42237
-[95]	train-rmse:0.40818	val-rmse:0.42231
-[96]	train-rmse:0.40799	val-rmse:0.42221
-[97]	train-rmse:0.40777	val-rmse:0.42211
-[98]	train-rmse:0.40759	val-rmse:0.42201
-[99]	train-rmse:0.40749	val-rmse:0.42197
-[100]	train-rmse:0.40739	val-rmse:0.42189
-[101]	train-rmse:0.40720	val-rmse:0.42177
-[102]	train-rmse:0.40690	val-rmse:0.42158
-[103]	train-rmse:0.40653	val-rmse:0.42128
-[104]	train-rmse:0.40642	val-rmse:0.42125
-[105]	train-rmse:0.40615	val-rmse:0.42111
-[106]	train-rmse:0.40599	val-rmse:0.42102
-[107]	train-rmse:0.40583	val-rmse:0.42096
-[108]	train-rmse:0.40554	val-rmse:0.42070
-[109]	train-rmse:0.40535	val-rmse:0.42063
-[110]	train-rmse:0.40521	val-rmse:0.42057
-[111]	train-rmse:0.40500	val-rmse:0.42040
-[112]	train-rmse:0.40482	val-rmse:0.42027
-[113]	train-rmse:0.40472	val-rmse:0.42019
-[114]	train-rmse:0.40453	val-rmse:0.42006
-[115]	train-rmse:0.40405	val-rmse:0.41970
-[116]	train-rmse:0.40375	val-rmse:0.41954
-[117]	train-rmse:0.40343	val-rmse:0.41933
-[118]	train-rmse:0.40320	val-rmse:0.41920
-[119]	train-rmse:0.40302	val-rmse:0.41908
-[120]	train-rmse:0.40293	val-rmse:0.41906
-[121]	train-rmse:0.40284	val-rmse:0.41897
-[122]	train-rmse:0.40275	val-rmse:0.41892
-[123]	train-rmse:0.40261	val-rmse:0.41890
-[124]	train-rmse:0.40247	val-rmse:0.41887
-[125]	train-rmse:0.40229	val-rmse:0.41874
-[126]	train-rmse:0.40214	val-rmse:0.41865
-[127]	train-rmse:0.40205	val-rmse:0.41862
-[128]	train-rmse:0.40173	val-rmse:0.41837
-[129]	train-rmse:0.40166	val-rmse:0.41833
-[130]	train-rmse:0.40139	val-rmse:0.41820
-[131]	train-rmse:0.40113	val-rmse:0.41803
-[132]	train-rmse:0.40107	val-rmse:0.41801
-[133]	train-rmse:0.40103	val-rmse:0.41799
-[134]	train-rmse:0.40088	val-rmse:0.41789
-[135]	train-rmse:0.40075	val-rmse:0.41783
-[136]	train-rmse:0.40065	val-rmse:0.41777
-[137]	train-rmse:0.40054	val-rmse:0.41774
-[138]	train-rmse:0.40044	val-rmse:0.41772
-[139]	train-rmse:0.40034	val-rmse:0.41765
-[140]	train-rmse:0.40020	val-rmse:0.41758
-[141]	train-rmse:0.40002	val-rmse:0.41747
-[142]	train-rmse:0.39998	val-rmse:0.41746
-[143]	train-rmse:0.39984	val-rmse:0.41741
-[144]	train-rmse:0.39962	val-rmse:0.41732
-[145]	train-rmse:0.39951	val-rmse:0.41731
-[146]	train-rmse:0.39942	val-rmse:0.41730
-[147]	train-rmse:0.39933	val-rmse:0.41725
-[148]	train-rmse:0.39919	val-rmse:0.41723
-[149]	train-rmse:0.39910	val-rmse:0.41720
-[150]	train-rmse:0.39893	val-rmse:0.41708
-[151]	train-rmse:0.39884	val-rmse:0.41704
-[152]	train-rmse:0.39872	val-rmse:0.41697
-[153]	train-rmse:0.39847	val-rmse:0.41683
-[154]	train-rmse:0.39831	val-rmse:0.41672
-[155]	train-rmse:0.39816	val-rmse:0.41664
-[156]	train-rmse:0.39790	val-rmse:0.41651
-[157]	train-rmse:0.39781	val-rmse:0.41649
-[158]	train-rmse:0.39767	val-rmse:0.41643
-[159]	train-rmse:0.39763	val-rmse:0.41643
-[160]	train-rmse:0.39751	val-rmse:0.41637
-[161]	train-rmse:0.39744	val-rmse:0.41637
-[162]	train-rmse:0.39731	val-rmse:0.41628
-[163]	train-rmse:0.39722	val-rmse:0.41627
-[164]	train-rmse:0.39709	val-rmse:0.41618
-[165]	train-rmse:0.39698	val-rmse:0.41611
-[166]	train-rmse:0.39686	val-rmse:0.41608
-[167]	train-rmse:0.39664	val-rmse:0.41591
-[168]	train-rmse:0.39655	val-rmse:0.41587
-[169]	train-rmse:0.39630	val-rmse:0.41570
-[170]	train-rmse:0.39621	val-rmse:0.41565
-[171]	train-rmse:0.39615	val-rmse:0.41563
-[172]	train-rmse:0.39600	val-rmse:0.41553
-[173]	train-rmse:0.39593	val-rmse:0.41550
-[174]	train-rmse:0.39582	val-rmse:0.41548
-[175]	train-rmse:0.39575	val-rmse:0.41543
-[176]	train-rmse:0.39569	val-rmse:0.41539
-[177]	train-rmse:0.39553	val-rmse:0.41534
-[178]	train-rmse:0.39543	val-rmse:0.41527
-[179]	train-rmse:0.39524	val-rmse:0.41521
-[180]	train-rmse:0.39515	val-rmse:0.41520
-[181]	train-rmse:0.39501	val-rmse:0.41510
-[182]	train-rmse:0.39497	val-rmse:0.41508
-[183]	train-rmse:0.39477	val-rmse:0.41501
-[184]	train-rmse:0.39467	val-rmse:0.41498
-[185]	train-rmse:0.39460	val-rmse:0.41493
-[186]	train-rmse:0.39451	val-rmse:0.41491
-[187]	train-rmse:0.39430	val-rmse:0.41476
-[188]	train-rmse:0.39419	val-rmse:0.41473
-[189]	train-rmse:0.39409	val-rmse:0.41466
-[190]	train-rmse:0.39401	val-rmse:0.41465
-[191]	train-rmse:0.39395	val-rmse:0.41464
-[192]	train-rmse:0.39368	val-rmse:0.41450
-[193]	train-rmse:0.39338	val-rmse:0.41431
-[194]	train-rmse:0.39318	val-rmse:0.41417
-[195]	train-rmse:0.39314	val-rmse:0.41417
-[196]	train-rmse:0.39305	val-rmse:0.41414
-[197]	train-rmse:0.39278	val-rmse:0.41399
-[198]	train-rmse:0.39261	val-rmse:0.41394
-[199]	train-rmse:0.39250	val-rmse:0.41391
-[200]	train-rmse:0.39241	val-rmse:0.41387
-[201]	train-rmse:0.39234	val-rmse:0.41384
-[202]	train-rmse:0.39228	val-rmse:0.41381
-[203]	train-rmse:0.39220	val-rmse:0.41379
-[204]	train-rmse:0.39212	val-rmse:0.41378
-[205]	train-rmse:0.39208	val-rmse:0.41377
-[206]	train-rmse:0.39200	val-rmse:0.41374
-[207]	train-rmse:0.39195	val-rmse:0.41373
-[208]	train-rmse:0.39178	val-rmse:0.41366
-[209]	train-rmse:0.39169	val-rmse:0.41363
-[210]	train-rmse:0.39161	val-rmse:0.41359
-[211]	train-rmse:0.39155	val-rmse:0.41357
-[212]	train-rmse:0.39147	val-rmse:0.41353
-[213]	train-rmse:0.39134	val-rmse:0.41355
-[214]	train-rmse:0.39125	val-rmse:0.41351
-[215]	train-rmse:0.39111	val-rmse:0.41350
-[216]	train-rmse:0.39099	val-rmse:0.41345
-[217]	train-rmse:0.39089	val-rmse:0.41344
-[218]	train-rmse:0.39083	val-rmse:0.41341
-[219]	train-rmse:0.39078	val-rmse:0.41341
-[220]	train-rmse:0.39065	val-rmse:0.41339
-[221]	train-rmse:0.39050	val-rmse:0.41329
-[222]	train-rmse:0.39043	val-rmse:0.41328
-[223]	train-rmse:0.39036	val-rmse:0.41326
-[224]	train-rmse:0.39025	val-rmse:0.41320
-[225]	train-rmse:0.39017	val-rmse:0.41321
-[226]	train-rmse:0.39014	val-rmse:0.41321
-[227]	train-rmse:0.39007	val-rmse:0.41318
-[228]	train-rmse:0.39002	val-rmse:0.41317
-[229]	train-rmse:0.38993	val-rmse:0.41317
-[230]	train-rmse:0.38989	val-rmse:0.41315
-[231]	train-rmse:0.38987	val-rmse:0.41316
-[232]	train-rmse:0.38982	val-rmse:0.41314
-[233]	train-rmse:0.38960	val-rmse:0.41303
-[234]	train-rmse:0.38949	val-rmse:0.41299
-[235]	train-rmse:0.38944	val-rmse:0.41298
-[236]	train-rmse:0.38939	val-rmse:0.41297
-[237]	train-rmse:0.38934	val-rmse:0.41295
-[238]	train-rmse:0.38928	val-rmse:0.41292
-[239]	train-rmse:0.38907	val-rmse:0.41282
-[240]	train-rmse:0.38900	val-rmse:0.41279
-[241]	train-rmse:0.38891	val-rmse:0.41278
-[242]	train-rmse:0.38888	val-rmse:0.41277
-[243]	train-rmse:0.38876	val-rmse:0.41275
-[244]	train-rmse:0.38850	val-rmse:0.41263
-[245]	train-rmse:0.38842	val-rmse:0.41260
-[246]	train-rmse:0.38825	val-rmse:0.41253
-[247]	train-rmse:0.38820	val-rmse:0.41252
-[248]	train-rmse:0.38814	val-rmse:0.41251
-[249]	train-rmse:0.38808	val-rmse:0.41251
-[250]	train-rmse:0.38801	val-rmse:0.41251
-[251]	train-rmse:0.38795	val-rmse:0.41250
-[252]	train-rmse:0.38785	val-rmse:0.41246
-[253]	train-rmse:0.38776	val-rmse:0.41241
-[254]	train-rmse:0.38770	val-rmse:0.41238
-[255]	train-rmse:0.38765	val-rmse:0.41237
-[256]	train-rmse:0.38754	val-rmse:0.41233
-[257]	train-rmse:0.38745	val-rmse:0.41230
-[258]	train-rmse:0.38734	val-rmse:0.41225
-[259]	train-rmse:0.38726	val-rmse:0.41223
-[260]	train-rmse:0.38722	val-rmse:0.41221
-[261]	train-rmse:0.38717	val-rmse:0.41221
-[262]	train-rmse:0.38705	val-rmse:0.41219
-[263]	train-rmse:0.38694	val-rmse:0.41215
-[264]	train-rmse:0.38689	val-rmse:0.41213
-[265]	train-rmse:0.38687	val-rmse:0.41212
-[266]	train-rmse:0.38679	val-rmse:0.41212
-[267]	train-rmse:0.38656	val-rmse:0.41205
-[268]	train-rmse:0.38652	val-rmse:0.41202
-[269]	train-rmse:0.38644	val-rmse:0.41202
-[270]	train-rmse:0.38640	val-rmse:0.41202
-[271]	train-rmse:0.38636	val-rmse:0.41199
-[272]	train-rmse:0.38628	val-rmse:0.41195
-[273]	train-rmse:0.38623	val-rmse:0.41193
-[274]	train-rmse:0.38617	val-rmse:0.41193
-[275]	train-rmse:0.38612	val-rmse:0.41192
-[276]	train-rmse:0.38604	val-rmse:0.41190
-[277]	train-rmse:0.38598	val-rmse:0.41185
-[278]	train-rmse:0.38592	val-rmse:0.41184
-[279]	train-rmse:0.38586	val-rmse:0.41184
-[280]	train-rmse:0.38579	val-rmse:0.41180
-[281]	train-rmse:0.38576	val-rmse:0.41180
-[282]	train-rmse:0.38571	val-rmse:0.41179
-[283]	train-rmse:0.38565	val-rmse:0.41178
-[284]	train-rmse:0.38561	val-rmse:0.41177
-[285]	train-rmse:0.38554	val-rmse:0.41176
-[286]	train-rmse:0.38549	val-rmse:0.41174
-[287]	train-rmse:0.38543	val-rmse:0.41173
-[288]	train-rmse:0.38541	val-rmse:0.41173
-[289]	train-rmse:0.38533	val-rmse:0.41171
-[290]	train-rmse:0.38530	val-rmse:0.41171
-[291]	train-rmse:0.38528	val-rmse:0.41171
-[292]	train-rmse:0.38510	val-rmse:0.41167
-[293]	train-rmse:0.38504	val-rmse:0.41166
-[294]	train-rmse:0.38502	val-rmse:0.41166
-[295]	train-rmse:0.38494	val-rmse:0.41162
-[296]	train-rmse:0.38482	val-rmse:0.41160
-[297]	train-rmse:0.38477	val-rmse:0.41159
-[298]	train-rmse:0.38470	val-rmse:0.41158
-[299]	train-rmse:0.38467	val-rmse:0.41158
-[300]	train-rmse:0.38464	val-rmse:0.41158
-[301]	train-rmse:0.38460	val-rmse:0.41155
-[302]	train-rmse:0.38449	val-rmse:0.41149
-[303]	train-rmse:0.38444	val-rmse:0.41148
-[304]	train-rmse:0.38440	val-rmse:0.41149
-[305]	train-rmse:0.38424	val-rmse:0.41145
-[306]	train-rmse:0.38414	val-rmse:0.41142
-[307]	train-rmse:0.38408	val-rmse:0.41140
-[308]	train-rmse:0.38405	val-rmse:0.41140
-[309]	train-rmse:0.38402	val-rmse:0.41140
-[310]	train-rmse:0.38395	val-rmse:0.41139
-[311]	train-rmse:0.38389	val-rmse:0.41136
-[312]	train-rmse:0.38370	val-rmse:0.41133
-[313]	train-rmse:0.38363	val-rmse:0.41131
-[314]	train-rmse:0.38355	val-rmse:0.41130
-[315]	train-rmse:0.38346	val-rmse:0.41124
-[316]	train-rmse:0.38338	val-rmse:0.41123
-[317]	train-rmse:0.38331	val-rmse:0.41121
-[318]	train-rmse:0.38325	val-rmse:0.41120
-[319]	train-rmse:0.38319	val-rmse:0.41119
-[320]	train-rmse:0.38312	val-rmse:0.41116
-[321]	train-rmse:0.38305	val-rmse:0.41113
-[322]	train-rmse:0.38291	val-rmse:0.41109
-[323]	train-rmse:0.38282	val-rmse:0.41109
-[324]	train-rmse:0.38278	val-rmse:0.41110
-[325]	train-rmse:0.38272	val-rmse:0.41110
-[326]	train-rmse:0.38269	val-rmse:0.41108
-[327]	train-rmse:0.38256	val-rmse:0.41109
-[328]	train-rmse:0.38253	val-rmse:0.41108
-[329]	train-rmse:0.38245	val-rmse:0.41103
-[330]	train-rmse:0.38242	val-rmse:0.41102
-[331]	train-rmse:0.38238	val-rmse:0.41102
-[332]	train-rmse:0.38229	val-rmse:0.41098
-[333]	train-rmse:0.38222	val-rmse:0.41097
-[334]	train-rmse:0.38214	val-rmse:0.41097
-[335]	train-rmse:0.38199	val-rmse:0.41091
-[336]	train-rmse:0.38194	val-rmse:0.41090
-[337]	train-rmse:0.38187	val-rmse:0.41089
-[338]	train-rmse:0.38181	val-rmse:0.41086
-[339]	train-rmse:0.38171	val-rmse:0.41086
-[340]	train-rmse:0.38163	val-rmse:0.41084
-[341]	train-rmse:0.38156	val-rmse:0.41084
-[342]	train-rmse:0.38147	val-rmse:0.41082
-[343]	train-rmse:0.38140	val-rmse:0.41082
-[344]	train-rmse:0.38138	val-rmse:0.41082
-[345]	train-rmse:0.38131	val-rmse:0.41080
-[346]	train-rmse:0.38128	val-rmse:0.41079
-[347]	train-rmse:0.38123	val-rmse:0.41079
-[348]	train-rmse:0.38119	val-rmse:0.41079
-[349]	train-rmse:0.38108	val-rmse:0.41075
-[350]	train-rmse:0.38104	val-rmse:0.41072
-[351]	train-rmse:0.38100	val-rmse:0.41069
-[352]	train-rmse:0.38095	val-rmse:0.41070
-[353]	train-rmse:0.38092	val-rmse:0.41070
-[354]	train-rmse:0.38090	val-rmse:0.41069
-[355]	train-rmse:0.38082	val-rmse:0.41070
-[356]	train-rmse:0.38079	val-rmse:0.41069
-[357]	train-rmse:0.38075	val-rmse:0.41069
-[358]	train-rmse:0.38074	val-rmse:0.41069
-[359]	train-rmse:0.38073	val-rmse:0.41069
-[360]	train-rmse:0.38064	val-rmse:0.41065
-[361]	train-rmse:0.38057	val-rmse:0.41065
-[362]	train-rmse:0.38054	val-rmse:0.41064
-[363]	train-rmse:0.38050	val-rmse:0.41064
-[364]	train-rmse:0.38036	val-rmse:0.41060
-[365]	train-rmse:0.38031	val-rmse:0.41059
-[366]	train-rmse:0.38026	val-rmse:0.41058
-[367]	train-rmse:0.38022	val-rmse:0.41057
-[368]	train-rmse:0.38016	val-rmse:0.41057
-[369]	train-rmse:0.38012	val-rmse:0.41056
-[370]	train-rmse:0.38008	val-rmse:0.41056
-[371]	train-rmse:0.38006	val-rmse:0.41056
-[372]	train-rmse:0.38000	val-rmse:0.41055
-[373]	train-rmse:0.37997	val-rmse:0.41055
-[374]	train-rmse:0.37991	val-rmse:0.41055
-[375]	train-rmse:0.37989	val-rmse:0.41054
-[376]	train-rmse:0.37986	val-rmse:0.41053
-[377]	train-rmse:0.37983	val-rmse:0.41052
-[378]	train-rmse:0.37980	val-rmse:0.41051
-[379]	train-rmse:0.37972	val-rmse:0.41052
-[380]	train-rmse:0.37970	val-rmse:0.41052
-[381]	train-rmse:0.37967	val-rmse:0.41051
-[382]	train-rmse:0.37964	val-rmse:0.41051
-[383]	train-rmse:0.37953	val-rmse:0.41047
-[384]	train-rmse:0.37949	val-rmse:0.41046
-[385]	train-rmse:0.37944	val-rmse:0.41045
-[386]	train-rmse:0.37939	val-rmse:0.41042
-[387]	train-rmse:0.37936	val-rmse:0.41041
-[388]	train-rmse:0.37931	val-rmse:0.41040
-[389]	train-rmse:0.37927	val-rmse:0.41040
-[390]	train-rmse:0.37911	val-rmse:0.41037
-[391]	train-rmse:0.37907	val-rmse:0.41035
-[392]	train-rmse:0.37901	val-rmse:0.41037
-[393]	train-rmse:0.37899	val-rmse:0.41036
-[394]	train-rmse:0.37893	val-rmse:0.41035
-[395]	train-rmse:0.37889	val-rmse:0.41034
-[396]	train-rmse:0.37879	val-rmse:0.41030
-[397]	train-rmse:0.37873	val-rmse:0.41029
-[398]	train-rmse:0.37868	val-rmse:0.41029
-[399]	train-rmse:0.37865	val-rmse:0.41029
-[400]	train-rmse:0.37861	val-rmse:0.41028
-[401]	train-rmse:0.37855	val-rmse:0.41029
-[402]	train-rmse:0.37850	val-rmse:0.41028
-[403]	train-rmse:0.37844	val-rmse:0.41027
-[404]	train-rmse:0.37841	val-rmse:0.41026
-[405]	train-rmse:0.37832	val-rmse:0.41021
-[406]	train-rmse:0.37825	val-rmse:0.41020
-[407]	train-rmse:0.37818	val-rmse:0.41018
-[408]	train-rmse:0.37812	val-rmse:0.41016
-[409]	train-rmse:0.37806	val-rmse:0.41017
-[410]	train-rmse:0.37797	val-rmse:0.41014
-[411]	train-rmse:0.37794	val-rmse:0.41013
-[412]	train-rmse:0.37792	val-rmse:0.41014
-[413]	train-rmse:0.37786	val-rmse:0.41012
-[414]	train-rmse:0.37782	val-rmse:0.41013
-[415]	train-rmse:0.37767	val-rmse:0.41010
-[416]	train-rmse:0.37765	val-rmse:0.41010
-[417]	train-rmse:0.37758	val-rmse:0.41009
-[418]	train-rmse:0.37752	val-rmse:0.41010
-[419]	train-rmse:0.37745	val-rmse:0.41010
-[420]	train-rmse:0.37744	val-rmse:0.41011
-[421]	train-rmse:0.37742	val-rmse:0.41011
-[422]	train-rmse:0.37738	val-rmse:0.41011
-[423]	train-rmse:0.37734	val-rmse:0.41011
-[424]	train-rmse:0.37729	val-rmse:0.41009
-[425]	train-rmse:0.37725	val-rmse:0.41008
-[426]	train-rmse:0.37721	val-rmse:0.41008
-[427]	train-rmse:0.37719	val-rmse:0.41007
-[428]	train-rmse:0.37715	val-rmse:0.41007
-[429]	train-rmse:0.37712	val-rmse:0.41008
-[430]	train-rmse:0.37702	val-rmse:0.41008
-[431]	train-rmse:0.37697	val-rmse:0.41007
-[432]	train-rmse:0.37694	val-rmse:0.41007
-[433]	train-rmse:0.37689	val-rmse:0.41008
-[434]	train-rmse:0.37685	val-rmse:0.41008
-[435]	train-rmse:0.37684	val-rmse:0.41009
-[436]	train-rmse:0.37677	val-rmse:0.41008
-[437]	train-rmse:0.37676	val-rmse:0.41007
-[438]	train-rmse:0.37674	val-rmse:0.41007
-[439]	train-rmse:0.37670	val-rmse:0.41007
-[440]	train-rmse:0.37664	val-rmse:0.41006
-[441]	train-rmse:0.37656	val-rmse:0.41006
-[442]	train-rmse:0.37652	val-rmse:0.41006
-[443]	train-rmse:0.37643	val-rmse:0.41003
-[444]	train-rmse:0.37638	val-rmse:0.41002
-[445]	train-rmse:0.37625	val-rmse:0.41000
-[446]	train-rmse:0.37617	val-rmse:0.40998
-[447]	train-rmse:0.37606	val-rmse:0.40995
-[448]	train-rmse:0.37602	val-rmse:0.40995
-[449]	train-rmse:0.37599	val-rmse:0.40995
-[450]	train-rmse:0.37596	val-rmse:0.40994
-[451]	train-rmse:0.37587	val-rmse:0.40994
-[452]	train-rmse:0.37578	val-rmse:0.40996
-[453]	train-rmse:0.37571	val-rmse:0.40992
-[454]	train-rmse:0.37569	val-rmse:0.40991
-[455]	train-rmse:0.37564	val-rmse:0.40990
-[456]	train-rmse:0.37562	val-rmse:0.40990
-[457]	train-rmse:0.37552	val-rmse:0.40990
-[458]	train-rmse:0.37547	val-rmse:0.40989
-[459]	train-rmse:0.37543	val-rmse:0.40988
-[460]	train-rmse:0.37540	val-rmse:0.40988
-[461]	train-rmse:0.37533	val-rmse:0.40986
-[462]	train-rmse:0.37531	val-rmse:0.40986
-[463]	train-rmse:0.37529	val-rmse:0.40986
-[464]	train-rmse:0.37527	val-rmse:0.40986
-[465]	train-rmse:0.37526	val-rmse:0.40986
-[466]	train-rmse:0.37525	val-rmse:0.40986
-[467]	train-rmse:0.37520	val-rmse:0.40983
-[468]	train-rmse:0.37518	val-rmse:0.40982
-[469]	train-rmse:0.37511	val-rmse:0.40980
-[470]	train-rmse:0.37509	val-rmse:0.40981
-[471]	train-rmse:0.37504	val-rmse:0.40981
-[472]	train-rmse:0.37502	val-rmse:0.40980
-[473]	train-rmse:0.37498	val-rmse:0.40979
-[474]	train-rmse:0.37494	val-rmse:0.40978
-[475]	train-rmse:0.37487	val-rmse:0.40978
-[476]	train-rmse:0.37483	val-rmse:0.40979
-[477]	train-rmse:0.37478	val-rmse:0.40978
-[478]	train-rmse:0.37475	val-rmse:0.40978
-[479]	train-rmse:0.37472	val-rmse:0.40979
-[480]	train-rmse:0.37469	val-rmse:0.40978
-[481]	train-rmse:0.37467	val-rmse:0.40978
-[482]	train-rmse:0.37462	val-rmse:0.40979
-[483]	train-rmse:0.37460	val-rmse:0.40978
-[484]	train-rmse:0.37458	val-rmse:0.40979
-[485]	train-rmse:0.37450	val-rmse:0.40979
-[486]	train-rmse:0.37448	val-rmse:0.40980
-[487]	train-rmse:0.37445	val-rmse:0.40978
-[488]	train-rmse:0.37442	val-rmse:0.40978
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -2532,55 +2003,19 @@ R2 Score is 0.832
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Multilayer-Perceptron">
+<h3 id="Multilayer-Perceptron">
 <a class="anchor" href="#Multilayer-Perceptron" aria-hidden="true"><span class="octicon octicon-link"></span></a>Multilayer Perceptron<a class="anchor-link" href="#Multilayer-Perceptron"> </a>
-</h4>
+</h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h5 id="Implementation">
+<h4 id="Implementation">
 <a class="anchor" href="#Implementation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Implementation<a class="anchor-link" href="#Implementation"> </a>
-</h5>
+</h4>
 <p>I will be implementing the multilayer perceptron through a modular layer-based implementation.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h6 id="Layers">
-<a class="anchor" href="#Layers" aria-hidden="true"><span class="octicon octicon-link"></span></a>Layers<a class="anchor-link" href="#Layers"> </a>
-</h6>
-<p>Each layer type will be implemented with a <code>forward</code> and <code>backward</code> methods. The <code>forward</code> method will feed input through the network, applying the current layer's function on the previous' output. And the <code>backward</code> method will propagate the loss back through the network, updating trainable parameters along the way.
-I will only be implementing 2 layer types, the perceptron layer, with trainable weights, and the leaky ReLU non-linear activation function.</p>
-<p>I will use Xavier or He initialisation for the weights:
-$$
-\text{Xavier}: W \sim N\left(0, \frac 2{n_{in} + n_{out}}\right)\\
-\text{He}: W \sim N\left(0, \frac 2{n_{in}}\right)
-$$
-Where,<br>
-$N(\mu, \sigma^2)$: normal distribution with mean $\mu$ and variance $\sigma^2$<br>
-Since I will be using the leaky ReLU activation, I will likely use He initialisation.</p>
-<p>The leaky ReLU activation function can be expressed as:
-$$
-\sigma(x) = \begin{cases}
-    x&amp;\quad x \ge 0\\
-    cx&amp;\quad x &lt; 0\\
-\end{cases}
-\\
-\sigma'(x) = \begin{cases}
-    1&amp;\quad x &gt; 0\\
-    c&amp;\quad x &lt; 0\\
-    DNE&amp;\quad x = 0
-\end{cases}
-$$
-Where,<br>
-$c$: constant parameter, typically $0 &lt; c &lt; 1$<br>
-While the leaky ReLU function is non-differentiable at $x = 0$, it is relatively rare in the context of deep learning and can thus be set arbitrarily, typically to c or 1.</p>
 
 </div>
 </div>
@@ -2588,6 +2023,9 @@ While the leaky ReLU function is non-differentiable at $x = 0$, it is relatively
     
     
 <div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
 <div class="input">
 
 <div class="inner_cell">
@@ -2641,12 +2079,52 @@ While the leaky ReLU function is non-differentiable at $x = 0$, it is relatively
 </div>
 </div>
 
+    </details>
 </div>
     
 
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h5 id="Layers">
+<a class="anchor" href="#Layers" aria-hidden="true"><span class="octicon octicon-link"></span></a>Layers<a class="anchor-link" href="#Layers"> </a>
+</h5>
+<p>Each layer type will be implemented with a <code>forward</code> and <code>backward</code> methods. The <code>forward</code> method will feed input through the network, applying the current layer's function on the previous' output. And the <code>backward</code> method will propagate the loss back through the network, updating trainable parameters along the way.
+I will only be implementing 2 layer types, the perceptron layer, with trainable weights, and the leaky ReLU non-linear activation function.</p>
+<p>I will use Xavier or He initialisation for the weights:
+$$
+\text{Xavier}: W \sim N\left(0, \frac 2{n_{in} + n_{out}}\right)\\
+\text{He}: W \sim N\left(0, \frac 2{n_{in}}\right)
+$$
+Where,<br>
+$N(\mu, \sigma^2)$: normal distribution with mean $\mu$ and variance $\sigma^2$<br>
+Since I will be using the leaky ReLU activation, I will likely use He initialisation.</p>
+<p>The leaky ReLU activation function can be expressed as:
+$$
+\sigma(x) = \begin{cases}
+    x&amp;\quad x \ge 0\\
+    cx&amp;\quad x &lt; 0\\
+\end{cases}
+\\
+\sigma'(x) = \begin{cases}
+    1&amp;\quad x &gt; 0\\
+    c&amp;\quad x &lt; 0\\
+    DNE&amp;\quad x = 0
+\end{cases}
+$$
+Where,<br>
+$c$: constant parameter, typically $0 &lt; c &lt; 1$<br>
+While the leaky ReLU function is non-differentiable at $x = 0$, it is relatively rare in the context of deep learning and can thus be set arbitrarily, typically to c or 1.</p>
+
+</div>
+</div>
+</div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
 <div class="input">
 
 <div class="inner_cell">
@@ -2731,15 +2209,16 @@ While the leaky ReLU function is non-differentiable at $x = 0$, it is relatively
 </div>
 </div>
 
+    </details>
 </div>
     
 
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h6 id="Parameter-optimisation">
+<h5 id="Parameter-optimisation">
 <a class="anchor" href="#Parameter-optimisation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Parameter optimisation<a class="anchor-link" href="#Parameter-optimisation"> </a>
-</h6>
+</h5>
 <p>I will be optimising trainable parameters using Adam (Adaptive Moment Estimation) optimisation which utilises momentum to make the gradient descent algorithm converge towards the minima faster.</p>
 $$
 m := \beta_1 m + (1 - \beta_1)g\\
@@ -2769,6 +2248,9 @@ $\epsilon$: term to avoid zero division - default $10^{-8}$</p>
     
     
 <div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
 <div class="input">
 
 <div class="inner_cell">
@@ -2809,21 +2291,25 @@ $\epsilon$: term to avoid zero division - default $10^{-8}$</p>
 </div>
 </div>
 
+    </details>
 </div>
     
 
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h6 id="Neural-network">
-<a class="anchor" href="#Neural-network" aria-hidden="true"><span class="octicon octicon-link"></span></a>Neural network<a class="anchor-link" href="#Neural-network"> </a>
-</h6>
+<h5 id="Neural-network-logic-(feedforward,-backpropagation,-prediction)">
+<a class="anchor" href="#Neural-network-logic-(feedforward,-backpropagation,-prediction)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Neural network logic (feedforward, backpropagation, prediction)<a class="anchor-link" href="#Neural-network-logic-(feedforward,-backpropagation,-prediction)"> </a>
+</h5>
 </div>
 </div>
 </div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
 <div class="input">
 
 <div class="inner_cell">
@@ -2966,15 +2452,16 @@ $\epsilon$: term to avoid zero division - default $10^{-8}$</p>
 </div>
 </div>
 
+    </details>
 </div>
     
 
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h5 id="Hyperparameter-Optimisation">
+<h4 id="Hyperparameter-Optimisation">
 <a class="anchor" href="#Hyperparameter-Optimisation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Hyperparameter Optimisation<a class="anchor-link" href="#Hyperparameter-Optimisation"> </a>
-</h5>
+</h4>
 </div>
 </div>
 </div>
@@ -3128,9 +2615,9 @@ params: {'hidden_layers': 2, 'lrelu_alpha': 0.04031941259789426, 'n_units': 35}
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h5 id="Fitting-and-evaluating">
+<h4 id="Fitting-and-evaluating">
 <a class="anchor" href="#Fitting-and-evaluating" aria-hidden="true"><span class="octicon octicon-link"></span></a>Fitting and evaluating<a class="anchor-link" href="#Fitting-and-evaluating"> </a>
-</h5>
+</h4>
 </div>
 </div>
 </div>
@@ -3271,9 +2758,9 @@ R2 Score is 0.838
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Conclusion">
+<h2 id="Conclusion">
 <a class="anchor" href="#Conclusion" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conclusion<a class="anchor-link" href="#Conclusion"> </a>
-</h3>
+</h2>
 </div>
 </div>
 </div>
