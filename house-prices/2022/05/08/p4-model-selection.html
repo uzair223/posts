@@ -98,7 +98,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      42 min read
+      39 min read
     
 </span></p>
 
@@ -427,7 +427,6 @@ $$x' = a + \frac{(x-min(x))(b-a)}{max(x)-min(x)}$$
 Where,<br>
 $[a,b]$: interval in which the dataset will be scaled</p>
 <p>Again, the <strong>min and max values should be computed using only the train set</strong> to prevent any unintentional data leakage to the prediction model.</p>
-<p>I will create a class which will allow using both scaling methods, and I will attempt to implement an indexing method to return the scaler at a particular column. This will make it easier to inverse scaling on a prediction later on by instantiating a new scaler at the target's column index.</p>
 
 </div>
 </div>
@@ -570,6 +569,14 @@ $[a,b]$: interval in which the dataset will be scaled</p>
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>First I will scrape the latest HPI from a reliable source, and use it to bring models fitted with the adjusted prices to current prices, for better context and interpretability.</p>
+
+</div>
+</div>
+</div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -579,6 +586,7 @@ $[a,b]$: interval in which the dataset will be scaled</p>
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">requests</span> <span class="kn">import</span> <span class="n">get</span>
 <span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+
 <span class="k">def</span> <span class="nf">getLatestIndex</span><span class="p">():</span>
     <span class="n">response</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="s2">"https://landregistry.data.gov.uk/app/ukhpi"</span><span class="p">)</span>
     <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
@@ -610,26 +618,28 @@ $[a,b]$: interval in which the dataset will be scaled</p>
 </div>
     
 
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
+<div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">split</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">tr_pct</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">cb_pct</span><span class="o">=.</span><span class="mi">05</span><span class="p">):</span>
-    <span class="n">tr_spl</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">*</span><span class="n">tr_pct</span><span class="p">)</span>
-    <span class="n">cb_spl</span> <span class="o">=</span> <span class="n">tr_spl</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">*</span><span class="n">cb_pct</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">df</span><span class="p">[:</span><span class="n">tr_spl</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="n">tr_spl</span><span class="p">:</span><span class="n">cb_spl</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="n">cb_spl</span><span class="p">:]</span>
-</pre></div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>I will split the dataset into 3 parts;</p>
+<ul>
+<li>the training set, the data which will be provided to the model</li>
+<li>the calibration set, used to compute nonconformity scores for conformal prediction</li>
+<li>the validation set, the data which will be used to evaluate the performance of the model
+The calibration and validation sets will be scaled according to the properties of the training set, as to avoid unintentional data leakage which could potentially give unrealistic performance.</li>
+</ul>
+<p>Additionally, I will have 2 different output samples;</p>
+<ul>
+<li>
+<code>y</code> - the raw prices</li>
+<li>
+<code>y2</code> - the adjusted prices
+Depending on what model I choose to use, I will select either the raw or the adjusted prices, based on the fact if the model can perform extrapolation or not.</li>
+</ul>
 
-    </div>
 </div>
 </div>
-
 </div>
-    
-
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -639,6 +649,11 @@ $[a,b]$: interval in which the dataset will be scaled</p>
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"PRICE"</span><span class="p">,</span> <span class="s2">"PRICE_ADJ"</span><span class="p">]),</span> <span class="n">df</span><span class="o">.</span><span class="n">PRICE</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">PRICE_ADJ</span>
 
+<span class="c1"># splitting</span>
+<span class="k">def</span> <span class="nf">split</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">tr_pct</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">cb_pct</span><span class="o">=.</span><span class="mi">05</span><span class="p">):</span>
+    <span class="n">tr_spl</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">*</span><span class="n">tr_pct</span><span class="p">)</span>
+    <span class="n">cb_spl</span> <span class="o">=</span> <span class="n">tr_spl</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">*</span><span class="n">cb_pct</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span><span class="p">[:</span><span class="n">tr_spl</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="n">tr_spl</span><span class="p">:</span><span class="n">cb_spl</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="n">cb_spl</span><span class="p">:]</span>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">SEED</span><span class="p">)</span>
 <span class="n">tr_idx</span><span class="p">,</span> <span class="n">cal_idx</span><span class="p">,</span> <span class="n">val_idx</span> <span class="o">=</span> <span class="n">split</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)))</span> <span class="c1"># indices for shuffled dataset</span>
 
@@ -670,7 +685,8 @@ $[a,b]$: interval in which the dataset will be scaled</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">SCALING_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">SERVER_DIR</span><span class="p">,</span> <span class="s2">"scaling.json"</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># serializing scaling properties for server use</span>
+<span class="n">SCALING_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">SERVER_DIR</span><span class="p">,</span> <span class="s2">"scaling.json"</span><span class="p">)</span>
 <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">({</span>
     <span class="o">**</span><span class="n">y_scaler</span><span class="o">.</span><span class="n">serialize</span><span class="p">(</span><span class="s2">"price"</span><span class="p">),</span>
     <span class="o">**</span><span class="n">y2_scaler</span><span class="o">.</span><span class="n">serialize</span><span class="p">(</span><span class="s2">"price_adj"</span><span class="p">),</span>
@@ -688,25 +704,6 @@ $[a,b]$: interval in which the dataset will be scaled</p>
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">disp</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">[</span><span class="s2">"full dataset"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> rows"</span><span class="p">,</span> <span class="s2">"-"</span><span class="p">],</span>
-    <span class="p">[</span><span class="s2">"training set"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">tr_idx</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> rows"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">tr_idx</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">"</span><span class="p">],</span>
-    <span class="p">[</span><span class="s2">"calibration set"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">cal_idx</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> rows"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">cal_idx</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">"</span><span class="p">],</span>
-    <span class="p">[</span><span class="s2">"validation set"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">val_idx</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> rows"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">val_idx</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span>
-<span class="p">]</span>
-<span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">disp</span><span class="p">:</span>
-    <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">a</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
@@ -782,29 +779,6 @@ $\bar{y}$: mean of expected values</p>
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">yhat</span><span class="p">):</span>
-    <span class="n">resid</span> <span class="o">=</span> <span class="n">yhat</span><span class="o">-</span><span class="n">y</span>
-    
-    <span class="n">mae</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">resid</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">mape</span> <span class="o">=</span> <span class="mi">100</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">resid</span><span class="o">/</span><span class="n">y</span><span class="p">),</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    
-    <span class="n">mse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">resid</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mse</span><span class="p">)</span>
-    
-    <span class="n">ssres</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">resid</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">sstot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">y</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">r2</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">ssres</span><span class="o">/</span><span class="n">sstot</span>
-
-    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">mae</span><span class="o">=</span><span class="n">mae</span><span class="p">,</span><span class="n">mape</span><span class="o">=</span><span class="n">mape</span><span class="p">,</span><span class="n">rmse</span><span class="o">=</span><span class="n">rmse</span><span class="p">,</span><span class="n">r2</span><span class="o">=</span><span class="n">r2</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 </div>
     
@@ -812,67 +786,6 @@ $\bar{y}$: mean of expected values</p>
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">plot_preds</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">yhat</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">npoints</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
-    <span class="c1"># get first n points in sorted</span>
-    <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">y</span><span class="p">[:</span><span class="n">npoints</span><span class="p">])</span>
-    
-    <span class="c1"># get min and max between of prediction vs expected for distance line</span>
-    <span class="n">vlines</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">yhat</span><span class="p">)))</span>
-    <span class="n">vlines_min</span><span class="p">,</span> <span class="n">vlines_max</span> <span class="o">=</span> <span class="n">vlines</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">vlines</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> 
-
-    <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
-
-    <span class="c1"># plot prediction interval if provided</span>
-    <span class="k">if</span> <span class="n">interval</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">npoints</span><span class="p">),</span> <span class="n">interval</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">interval</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="s2">"green"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="mi">1</span><span class="o">-</span><span class="n">ALPHA</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2"> p.i. ±</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">interval</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span><span class="o">//</span><span class="mi">2</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">interval</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="s2">"g."</span><span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">interval</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="s2">"g."</span><span class="p">)</span>
-  
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Predicted vs. Expected"</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"sample no."</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"price"</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="s2">"b."</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"true"</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">yhat</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="s2">"r."</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"predicted"</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">npoints</span><span class="p">),</span><span class="n">vlines_min</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span><span class="n">vlines_max</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span><span class="s2">"black"</span><span class="p">,</span><span class="s2">"--"</span><span class="p">,</span><span class="n">alpha</span><span class="o">=.</span><span class="mi">25</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s2">"difference"</span><span class="p">)</span>
-
-    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-
-    <span class="k">return</span> <span class="n">ax</span>
-
-<span class="c1"># Plotting feature importances</span>
-<span class="k">def</span> <span class="nf">plot_imp</span><span class="p">(</span><span class="n">feat_imp</span><span class="p">,</span> <span class="n">columns</span><span class="p">,</span> <span class="n">horizontal</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">pct</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dp</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="k">if</span> <span class="n">pct</span><span class="p">:</span>
-        <span class="n">feat_imp</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">/</span><span class="nb">sum</span><span class="p">(</span><span class="n">feat_imp</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">feat_imp</span><span class="p">]</span>
-        
-    <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">columns</span><span class="p">,</span> <span class="n">feat_imp</span><span class="p">))</span> <span class="c1"># making dictionary from values and keys</span>
-    <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">d</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">)}</span> <span class="c1"># sorted dictionary by values</span>
-
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Feature importances"</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">horizontal</span><span class="p">:</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="nb">list</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="s2">"y"</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="s2">"small"</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="nb">list</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="s2">"x"</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="s2">"small"</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">labels</span><span class="p">:</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">bar_label</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">containers</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                     <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">i</span><span class="si">:</span><span class="s2">.</span><span class="si">{</span><span class="n">dp</span><span class="si">}</span><span class="s2">f</span><span class="si">}{</span><span class="s1">'%'</span> <span class="k">if</span> <span class="n">pct</span> <span class="k">else</span> <span class="s1">''</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">values</span><span class="p">()],</span>
-                     <span class="n">label_type</span><span class="o">=</span><span class="s2">"edge"</span><span class="p">,</span>
-                     <span class="n">size</span><span class="o">=</span><span class="s2">"small"</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">ax</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 </div>
     
@@ -880,55 +793,6 @@ $\bar{y}$: mean of expected values</p>
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">MEAN</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">PRICE</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-<span class="n">resultStr</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">key</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"""MAE (</span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s2">"mae"</span><span class="p">]</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">) is </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s2">"mae"</span><span class="p">]</span><span class="o">/</span><span class="n">MEAN</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2"> of mean</span>
-<span class="s2">RMSE (</span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s2">"rmse"</span><span class="p">]</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">) is </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s2">"rmse"</span><span class="p">]</span><span class="o">/</span><span class="n">MEAN</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2"> of mean</span>
-<span class="s2">MAPE </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s2">"mape"</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%</span>
-<span class="s2">R2 Score is </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s2">"r2"</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"""</span>
-
-<span class="k">def</span> <span class="nf">Result</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">yhat</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">feat_imp</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">inv_y</span><span class="p">,</span> <span class="n">feature_names</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">05</span><span class="p">):</span>
-    <span class="n">results</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">yhat</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">resultStr</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
-
-    <span class="n">_y</span> <span class="o">=</span> <span class="n">y</span><span class="p">[:</span><span class="n">yhat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
-    <span class="n">f</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">7</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">gs</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">add_gridspec</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="mf">2.75</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=.</span><span class="mi">25</span><span class="p">)</span>
-    <span class="n">axs</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="n">f</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">]),</span> <span class="c1"># residual histogram</span>
-        <span class="n">f</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">2</span><span class="p">:,</span><span class="mi">0</span><span class="p">]),</span> <span class="c1"># scatter plot</span>
-        <span class="n">f</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">]),</span> <span class="c1"># pred vs expected with interval line</span>
-        <span class="n">f</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">3</span><span class="p">:,</span><span class="mi">1</span><span class="p">])</span> <span class="c1"># feature importances</span>
-    <span class="p">]</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-
-    <span class="c1"># Plot range of error</span>
-    <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">_y</span><span class="o">-</span><span class="n">yhat</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Distribution of residuals"</span><span class="p">)</span>
-    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"residual"</span><span class="p">)</span>
-    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">ticklabel_format</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">"x"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">"sci"</span><span class="p">,</span> <span class="n">scilimits</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
-
-    <span class="c1"># Scatter test against predictions</span>
-    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Predicted vs. Expected (scatter)"</span><span class="p">)</span>
-    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">_y</span><span class="p">,</span><span class="n">yhat</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
-    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"predicted"</span><span class="p">)</span>
-    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"expected"</span><span class="p">)</span>
-
-    <span class="n">plot_preds</span><span class="p">(</span><span class="n">_y</span><span class="p">,</span> <span class="n">yhat</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">npoints</span><span class="o">=</span><span class="mi">35</span><span class="p">)</span>
-
-    <span class="c1"># Importance barplot</span>
-    <span class="n">trunc</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">col</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">10</span> <span class="k">else</span> <span class="n">col</span><span class="p">[:</span><span class="mi">7</span><span class="p">]</span><span class="o">+</span><span class="s2">"..."</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">feature_names</span><span class="p">]</span>
-    <span class="k">if</span> <span class="n">feat_imp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span> <span class="n">plot_imp</span><span class="p">(</span><span class="n">feat_imp</span><span class="p">,</span> <span class="n">trunc</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
-
-    <span class="k">return</span> <span class="n">axs</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 </div>
     
@@ -936,27 +800,6 @@ $\bar{y}$: mean of expected values</p>
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">permutation_importance</span><span class="p">(</span><span class="n">predict</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">repeats</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
-    <span class="n">baseline</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">-</span><span class="n">y</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">repeats</span><span class="p">)])</span>
-    <span class="n">results</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">repeats</span><span class="p">)]</span><span class="o">*</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
-        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">repeats</span><span class="p">):</span>
-            <span class="n">X_copy</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-            <span class="n">X_copy</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="n">i</span><span class="p">])</span>
-            <span class="n">yhat</span> <span class="o">=</span> <span class="n">predict</span><span class="p">(</span><span class="n">X_copy</span><span class="p">)</span>
-            <span class="n">results</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">yhat</span><span class="o">-</span><span class="n">y</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
-            <span class="k">del</span> <span class="n">X_copy</span><span class="p">,</span> <span class="n">yhat</span>
-        <span class="n">results</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="n">baseline</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 </div>
     
@@ -964,39 +807,6 @@ $\bar{y}$: mean of expected values</p>
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># hyperropt helper function</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
-<span class="kn">from</span> <span class="nn">hyperopt</span> <span class="kn">import</span> <span class="n">STATUS_OK</span><span class="p">,</span> <span class="n">STATUS_FAIL</span>
-
-<span class="k">def</span> <span class="nf">objective</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">maximising</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">cross_val_kwargs</span><span class="p">):</span>
-    <span class="c1"># defaults for cross val score</span>
-    <span class="k">if</span> <span class="s2">"scoring"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cross_val_kwargs</span><span class="p">:</span>
-        <span class="n">cross_val_kwargs</span><span class="p">[</span><span class="s2">"scoring"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"neg_mean_squared_error"</span>
-    <span class="k">if</span> <span class="s2">"cv"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cross_val_kwargs</span><span class="p">:</span>
-        <span class="n">cross_val_kwargs</span><span class="p">[</span><span class="s2">"cv"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
-    <span class="k">if</span> <span class="s2">"n_jobs"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cross_val_kwargs</span><span class="p">:</span>
-        <span class="n">cross_val_kwargs</span><span class="p">[</span><span class="s2">"n_jobs"</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
-
-    <span class="c1"># objective function returning score</span>
-    <span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
-        <span class="n">reg</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
-        <span class="n">loss</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">reg</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">cross_val_kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">maximising</span><span class="p">:</span> <span class="c1"># if score metric maximises (i.e higher = better)</span>
-            <span class="n">loss</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span> <span class="c1"># make loss negative for an objective to minimise</span>
-        <span class="k">return</span> <span class="p">{</span>
-            <span class="s2">"loss"</span><span class="p">:</span> <span class="n">loss</span><span class="p">,</span>
-            <span class="s2">"status"</span><span class="p">:</span> <span class="n">STATUS_OK</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span> <span class="k">else</span> <span class="n">STATUS_FAIL</span>
-        <span class="p">}</span>
-    <span class="k">return</span> <span class="n">func</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 </div>
     
@@ -1203,22 +1013,6 @@ $\bar{y}$: mean of expected values</p>
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">reg</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">"loss"</span><span class="p">],</span> <span class="s2">"--"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Training loss"</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">reg</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">"val_loss"</span><span class="p">],</span> <span class="s2">"--"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Validation loss"</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Fitting linear regression model"</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"epoch"</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"loss (mse)"</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
@@ -1242,17 +1036,6 @@ $\bar{y}$: mean of expected values</p>
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">yhat</span><span class="p">,</span> <span class="n">interval</span> <span class="o">=</span> <span class="p">[</span><span class="n">y_scaler</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">reg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">val_X</span><span class="p">)]</span>
-<span class="n">Result</span><span class="p">(</span><span class="s2">"LinearRegression"</span><span class="p">,</span> <span class="n">yhat</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="nb">abs</span><span class="p">(</span><span class="n">reg</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">weights</span><span class="p">));</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
@@ -1407,35 +1190,6 @@ weights(distance matrix) =
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">feat_imp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.37192433</span><span class="p">,</span> <span class="mf">0.28135066</span><span class="p">,</span> <span class="mf">0.17182901</span><span class="p">,</span> <span class="mf">0.0468285</span><span class="p">,</span> <span class="mf">0.10096733</span><span class="p">])</span>
-    <span class="c1"># permutation_importance(lambda x: reg.predict(x, alpha=None), val_X[:25_000, 1:], val_y[:25_000])</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">yhat</span><span class="p">,</span> <span class="n">interval</span> <span class="o">=</span> <span class="p">[</span><span class="n">y2_scaler</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">LATEST_INDEX</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">reg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">val_X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">:])]</span>
-<span class="n">Result</span><span class="p">(</span><span class="s2">"KNearestNeighbours(ADJ)"</span><span class="p">,</span> <span class="n">yhat</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="n">feat_imp</span><span class="p">,</span> <span class="n">inv_y2</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">1</span><span class="p">:]);</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
@@ -1798,34 +1552,6 @@ R2 Score is 0.767
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">feat_imp</span> <span class="o">=</span> <span class="n">permutation_importance</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">reg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">val_X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">:],</span> <span class="n">val_y2</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">yhat</span><span class="p">,</span> <span class="n">interval</span> <span class="o">=</span> <span class="p">[</span><span class="n">y2_scaler</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">LATEST_INDEX</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">reg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">val_X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">:])]</span>
-<span class="n">Result</span><span class="p">(</span><span class="s2">"DecisionTree(ADJ)"</span><span class="p">,</span> <span class="n">yhat</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="n">feat_imp</span><span class="p">,</span> <span class="n">inv_y2</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">1</span><span class="p">:]);</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
@@ -1971,26 +1697,6 @@ R2 Score is 0.657
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">f</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">trials</span><span class="o">.</span><span class="n">vals</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"rmse"</span><span class="p">)</span>
-<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"rmse"</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">trials</span><span class="o">.</span><span class="n">vals</span><span class="p">,</span> <span class="n">axs</span><span class="o">.</span><span class="n">flatten</span><span class="p">()):</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">trials</span><span class="o">.</span><span class="n">vals</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">trials</span><span class="o">.</span><span class="n">losses</span><span class="p">(),</span> <span class="mi">5</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"""best loss: </span><span class="si">{</span><span class="n">trials</span><span class="o">.</span><span class="n">best_trial</span><span class="p">[</span><span class="s2">"result"</span><span class="p">][</span><span class="s2">"loss"</span><span class="p">]</span><span class="si">}</span><span class="s2">,</span>
-<span class="s2">params: </span><span class="si">{</span><span class="n">pformat</span><span class="p">(</span><span class="n">rfparams</span><span class="p">)</span><span class="si">}</span><span class="s2">"""</span><span class="p">)</span>
-
-<span class="n">f</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
@@ -2067,34 +1773,6 @@ params: {'max_depth': 20,
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">feat_imp</span> <span class="o">=</span> <span class="n">permutation_importance</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">reg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">val_X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">:],</span> <span class="n">val_y</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">yhat</span><span class="p">,</span> <span class="n">interval</span> <span class="o">=</span> <span class="p">[</span><span class="n">y2_scaler</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">LATEST_INDEX</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">reg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">val_X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">:])]</span>
-<span class="n">Result</span><span class="p">(</span><span class="s2">"RandomForest(ADJ)"</span><span class="p">,</span> <span class="n">yhat</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="n">feat_imp</span><span class="p">,</span> <span class="n">inv_y2</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">1</span><span class="p">:]);</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
@@ -2238,26 +1916,6 @@ R2 Score is 0.823
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">f</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">trials</span><span class="o">.</span><span class="n">vals</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"rmse"</span><span class="p">)</span>
-<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"rmse"</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">trials</span><span class="o">.</span><span class="n">vals</span><span class="p">,</span> <span class="n">axs</span><span class="o">.</span><span class="n">flatten</span><span class="p">()):</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">trials</span><span class="o">.</span><span class="n">vals</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">trials</span><span class="o">.</span><span class="n">losses</span><span class="p">(),</span> <span class="mi">5</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"""best loss: </span><span class="si">{</span><span class="n">trials</span><span class="o">.</span><span class="n">best_trial</span><span class="p">[</span><span class="s2">"result"</span><span class="p">][</span><span class="s2">"loss"</span><span class="p">]</span><span class="si">}</span><span class="s2">,</span>
-<span class="s2">params: </span><span class="si">{</span><span class="n">pformat</span><span class="p">(</span><span class="n">xgbparams</span><span class="p">)</span><span class="si">}</span><span class="s2">"""</span><span class="p">)</span>
-
-<span class="n">f</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
@@ -2832,17 +2490,6 @@ params: {'colsample_bynode': 0.8708868938454073,
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">yhat</span><span class="p">,</span> <span class="n">interval</span> <span class="o">=</span> <span class="p">[</span><span class="n">y2_scaler</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">LATEST_INDEX</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">reg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">val_X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">:])]</span>
-<span class="n">Result</span><span class="p">(</span><span class="s2">"XGBoost(ADJ)"</span><span class="p">,</span> <span class="n">yhat</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="n">xgb_</span><span class="o">.</span><span class="n">get_score</span><span class="p">(</span><span class="n">importance_type</span><span class="o">=</span><span class="s1">'gain'</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">inv_y2</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">1</span><span class="p">:]);</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
@@ -2874,6 +2521,14 @@ R2 Score is 0.832
 </div>
     
 
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As expected, the XGBoost model performed well, and marginally better than the Random Forest model. Now, I will try implementing and testing a multilayer perceptron, or neural network, completely from scratch, and see whether it can also perform to this level. If my implementation does not perform well, I will retry with Tensorflow and Keras to determine whether it was the model's unideal performance, or a fault within my code.</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -3441,26 +3096,6 @@ $\epsilon$: term to avoid zero division - default $10^{-8}$</p>
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">f</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">trials</span><span class="o">.</span><span class="n">vals</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"rmse"</span><span class="p">)</span>
-<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"rmse"</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">trials</span><span class="o">.</span><span class="n">vals</span><span class="p">,</span> <span class="n">axs</span><span class="o">.</span><span class="n">flatten</span><span class="p">()):</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">trials</span><span class="o">.</span><span class="n">vals</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">trials</span><span class="o">.</span><span class="n">losses</span><span class="p">(),</span> <span class="mi">5</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"""best loss: </span><span class="si">{</span><span class="n">trials</span><span class="o">.</span><span class="n">best_trial</span><span class="p">[</span><span class="s2">"result"</span><span class="p">][</span><span class="s2">"loss"</span><span class="p">]</span><span class="si">}</span><span class="s2">,</span>
-<span class="s2">params: </span><span class="si">{</span><span class="n">pformat</span><span class="p">(</span><span class="n">nnparams</span><span class="p">)</span><span class="si">}</span><span class="s2">"""</span><span class="p">)</span>
-
-<span class="n">f</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
@@ -3552,25 +3187,17 @@ params: {'hidden_layers': 2, 'lrelu_alpha': 0.04031941259789426, 'n_units': 35}
 </div>
     
 
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>I will now plot the performance of the model as training progressed, to potentially spot any irregularities or issues.</p>
+
+</div>
+</div>
+</div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">reg</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">"loss"</span><span class="p">],</span> <span class="s2">"--"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Training loss"</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">reg</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">"val_loss"</span><span class="p">],</span> <span class="s2">"--"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Validation loss"</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Fitting multilayer perceptron model"</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"epoch"</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"loss (mse)"</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
@@ -3591,38 +3218,17 @@ params: {'hidden_layers': 2, 'lrelu_alpha': 0.04031941259789426, 'n_units': 35}
 </div>
     
 
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Apart from the occassional spike, the loss did decrease exponentially and begin to converge, therefore the model has successfully trained.</p>
+
+</div>
+</div>
+</div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">feat_imp</span> <span class="o">=</span> <span class="n">permutation_importance</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">reg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">val_X</span><span class="p">[:</span><span class="mi">100_000</span><span class="p">],</span> <span class="n">val_y</span><span class="p">[:</span><span class="mi">100_000</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">yhat</span><span class="p">,</span> <span class="n">interval</span> <span class="o">=</span> <span class="p">[</span><span class="n">y_scaler</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">reg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">val_X</span><span class="p">)]</span>
-<span class="n">yhat</span> <span class="o">=</span> <span class="n">yhat</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">Result</span><span class="p">(</span><span class="s2">"MultilayerPerceptron"</span><span class="p">,</span> <span class="n">yhat</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="n">feat_imp</span><span class="p">);</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
@@ -3657,6 +3263,14 @@ R2 Score is 0.838
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p>The from-scratch multilayer perceptron model performed better than expected, and outperformed the XGBoost and Random Forest. I see this model as a great success and I will now be comparing all the tested models directly and making a judgement as to what to use in the final app.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Conclusion">
 <a class="anchor" href="#Conclusion" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conclusion<a class="anchor-link" href="#Conclusion"> </a>
 </h3>
@@ -3666,30 +3280,6 @@ R2 Score is 0.838
     
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
-<span class="n">plot</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">results</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">[[</span><span class="s2">"r2"</span><span class="p">,</span><span class="s2">"mape"</span><span class="p">]]</span>
-
-<span class="n">display</span><span class="p">(</span><span class="n">plot</span><span class="p">)</span>
-
-<span class="n">f</span><span class="p">,</span><span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">asc</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">"mape"</span><span class="p">:</span><span class="kc">False</span><span class="p">,</span>
-    <span class="s2">"r2"</span><span class="p">:</span><span class="kc">True</span><span class="p">,</span>
-<span class="p">}</span>
-<span class="n">plot</span> <span class="o">=</span> <span class="n">plot</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">10</span> <span class="k">else</span> <span class="n">x</span><span class="p">[:</span><span class="mi">7</span><span class="p">]</span><span class="o">+</span><span class="s2">"..."</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">col</span><span class="p">,</span><span class="n">ax</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">plot</span><span class="p">,</span> <span class="n">axs</span><span class="o">.</span><span class="n">flatten</span><span class="p">()):</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
-    <span class="n">plot</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="n">asc</span><span class="p">[</span><span class="n">col</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">"barh"</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
-<span class="n">f</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
@@ -3774,6 +3364,14 @@ R2 Score is 0.838
 </div>
     
 
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As the above shows, the XGBoost slightly outperforms the Multilayer Perceptron model. However, since the XGBoost model was taken directly from a library, and the MLP was implemented from scratch, I will choose to export the MLP for the final model. Additionally, the XGBoost model is limited to predictions within its observed set, in other words it cannot extrapolate, whereas the MLP can; therefore, I believe the Multilayer Perceptron to be ideal in this case.</p>
+
+</div>
+</div>
+</div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -3820,6 +3418,14 @@ By calibrating beforehand, I will not need to calibrate the model in the server,
 </div>
     
 
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In conclusion, I have selected to use the MLP model alongside conformal prediction techniques as the predictive model behind my house price valuation tool. Now, I need to implement and potentially deploy the actual front-end app to serve these predictions.</p>
+
+</div>
+</div>
+</div>
 </div>
 
 
