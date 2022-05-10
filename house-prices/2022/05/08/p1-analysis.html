@@ -9,8 +9,8 @@
 <meta property="og:title" content="ML Instant House Valuation: Part 1 - Analysis" />
 <meta name="author" content="Uzair Patel" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="A-Level computer science project" />
-<meta property="og:description" content="A-Level computer science project" />
+<meta name="description" content="A-Level computer science project analysis" />
+<meta property="og:description" content="A-Level computer science project analysis" />
 <link rel="canonical" href="https://uzair223.github.io/posts/house-prices/2022/05/08/p1-analysis.html" />
 <meta property="og:url" content="https://uzair223.github.io/posts/house-prices/2022/05/08/p1-analysis.html" />
 <meta property="og:site_name" content="Uzair Patel" />
@@ -19,7 +19,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="ML Instant House Valuation: Part 1 - Analysis" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Uzair Patel"},"dateModified":"2022-05-08T00:00:00-05:00","datePublished":"2022-05-08T00:00:00-05:00","description":"A-Level computer science project","headline":"ML Instant House Valuation: Part 1 - Analysis","mainEntityOfPage":{"@type":"WebPage","@id":"https://uzair223.github.io/posts/house-prices/2022/05/08/p1-analysis.html"},"url":"https://uzair223.github.io/posts/house-prices/2022/05/08/p1-analysis.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Uzair Patel"},"dateModified":"2022-05-08T00:00:00-05:00","datePublished":"2022-05-08T00:00:00-05:00","description":"A-Level computer science project analysis","headline":"ML Instant House Valuation: Part 1 - Analysis","mainEntityOfPage":{"@type":"WebPage","@id":"https://uzair223.github.io/posts/house-prices/2022/05/08/p1-analysis.html"},"url":"https://uzair223.github.io/posts/house-prices/2022/05/08/p1-analysis.html"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/posts/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://uzair223.github.io/posts/feed.xml" title="Uzair Patel" /><link rel="shortcut icon" type="image/x-icon" href="/posts/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" /><script src="https://hypothes.is/embed.js" async></script>
@@ -90,7 +90,7 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">ML Instant House Valuation: Part 1 - Analysis</h1><p class="page-description">A-Level computer science project</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-05-08T00:00:00-05:00" itemprop="datePublished">
+    <h1 class="post-title p-name" itemprop="name headline">ML Instant House Valuation: Part 1 - Analysis</h1><p class="page-description">A-Level computer science project analysis</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-05-08T00:00:00-05:00" itemprop="datePublished">
         May 8, 2022
       </time>• 
           <span itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -98,7 +98,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      18 min read
+      20 min read
     
 </span></p>
 
@@ -111,402 +111,275 @@ window.onload = wrap_img;
       </p>
     
 
-    
-      
-        <div class="pb-5 d-flex flex-justify-center">
-          <div class="px-2">
-
-    <a href="https://github.com/uzair223/posts/tree/master/_notebooks/2022-05-08-p1-analysis.ipynb" role="button" target="_blank">
-<img class="notebook-badge-image" src="/posts/assets/badges/github.svg" alt="View On GitHub">
-    </a>
-</div>
-
-          <div class="px-2">
-    <a href="https://mybinder.org/v2/gh/uzair223/posts/master?filepath=_notebooks%2F2022-05-08-p1-analysis.ipynb" target="_blank">
-        <img class="notebook-badge-image" src="/posts/assets/badges/binder.svg" alt="Open In Binder"/>
-    </a>
-</div>
-
-          <div class="px-2">
-    <a href="https://colab.research.google.com/github/uzair223/posts/blob/master/_notebooks/2022-05-08-p1-analysis.ipynb" target="_blank">
-        <img class="notebook-badge-image" src="/posts/assets/badges/colab.svg" alt="Open In Colab"/>
-    </a>
-</div>
-          <div class="px-2">
-  <a href="https://deepnote.com/launch?url=https%3A%2F%2Fgithub.com%2Fuzair223%2Fposts%2Fblob%2Fmaster%2F_notebooks%2F2022-05-08-p1-analysis.ipynb" target="_blank">
-      <img class="notebook-badge-image" src="/posts/assets/badges/deepnote.svg" alt="Launch in Deepnote"/>
-  </a>
-</div>
-
-        </div>
-      </header>
+    </header>
 
   <div class="post-content e-content" itemprop="articleBody">
     <ul id="toc" class="section-nav">
-<li class="toc-entry toc-h2"><a href="#Background">Background </a></li>
-<li class="toc-entry toc-h2"><a href="#Current-systems-analysis">Current systems analysis </a>
+<li class="toc-entry toc-h3"><a href="#current-systems-analysis">Current systems analysis</a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#Zoopla">Zoopla </a></li>
-<li class="toc-entry toc-h3"><a href="#Yopa">Yopa </a></li>
-<li class="toc-entry toc-h3"><a href="#OnTheMarket">OnTheMarket </a></li>
-<li class="toc-entry toc-h3"><a href="#End-User-Questionnaire">End User Questionnaire </a></li>
+<li class="toc-entry toc-h4"><a href="#zoopla">Zoopla</a></li>
+<li class="toc-entry toc-h4"><a href="#yopa">Yopa</a></li>
+<li class="toc-entry toc-h4"><a href="#onthemarket">OnTheMarket</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h2"><a href="#Problem-Modelling">Problem Modelling </a></li>
-<li class="toc-entry toc-h2"><a href="#Algorithms">Algorithms </a>
+<li class="toc-entry toc-h3"><a href="#end-user-questionnaire">End User Questionnaire</a></li>
+<li class="toc-entry toc-h3"><a href="#problem-modelling">Problem Modelling</a></li>
+<li class="toc-entry toc-h3"><a href="#algorithms">Algorithms</a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#Conformal-prediction">Conformal prediction </a></li>
-<li class="toc-entry toc-h3"><a href="#Stochastic-gradient-descent-and-linear-regression">Stochastic gradient descent and linear regression </a></li>
-<li class="toc-entry toc-h3"><a href="#Multilayer-Perceptron">Multilayer Perceptron </a></li>
-<li class="toc-entry toc-h3"><a href="#Backpropagation-algorithm">Backpropagation algorithm </a></li>
-<li class="toc-entry toc-h3"><a href="#CART-algorithm">CART algorithm </a></li>
-<li class="toc-entry toc-h3"><a href="#Random-forest">Random forest </a></li>
-<li class="toc-entry toc-h3"><a href="#Gradient-boosting-machine">Gradient boosting machine </a></li>
+<li class="toc-entry toc-h4"><a href="#conformal-prediction">Conformal prediction</a></li>
+<li class="toc-entry toc-h4"><a href="#stochastic-gradient-descent-and-linear-regression">Stochastic gradient descent and linear regression</a></li>
+<li class="toc-entry toc-h4"><a href="#multilayer-perceptron">Multilayer Perceptron</a></li>
+<li class="toc-entry toc-h4"><a href="#backpropagation-algorithm">Backpropagation algorithm</a></li>
+<li class="toc-entry toc-h4"><a href="#cart-algorithm">CART algorithm</a></li>
+<li class="toc-entry toc-h4"><a href="#random-forest">Random forest</a></li>
+<li class="toc-entry toc-h4"><a href="#gradient-boosting-machine">Gradient boosting machine</a></li>
+<li class="toc-entry toc-h4"><a href="#api-and-http-requests">API and HTTP requests</a></li>
 </ul>
 </li>
-</ul><!--
-#################################################
-### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
-#################################################
-# file to edit: _notebooks/2022-05-08-p1-analysis.ipynb
--->
+<li class="toc-entry toc-h2"><a href="#objectives">Objectives</a></li>
+<li class="toc-entry toc-h2"><a href="#limitations">Limitations</a></li>
+</ul><p>I will be creating a house valuation web app which will allow a user to input a set of property features (such as the number of rooms, floor size, property age etc.) and be given an instant valuation based on a machine learning solution. The idea began by brainstorming a number of machine learning related tools; first a weather forecasting tool, then a stock price predictor, but finally I settled with a house price valuation tool. I found it more interesting to be forced to build, analyse and develop a solution myself, as there was very limited material for this project online. The project began more as a research task but I decided to develop it as a web service, after stumbling across this <a href="http://diamonds.foostack.ai/">Diamond price prediction project</a> (now inactive) online.</p>
 
-<div class="container" id="notebook-container">
-        
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Background">
-<a class="anchor" href="#Background" aria-hidden="true"><span class="octicon octicon-link"></span></a>Background<a class="anchor-link" href="#Background"> </a>
-</h2>
-<p>I will be creating a house valuation web app which will allow a user to input a set of property features (such as the number of rooms, floor size, property age etc.) and be given an instant valuation based on a machine learning solution. The idea began by brainstorming a number of machine learning related tools; first a weather forecasting tool, then a stock price predictor, but finally I settled with a house price valuation tool. I found it more interesting and challenging to be forced to build, analyse and develop a solution myself, as I could not find material/tutorials for this project online, unlike the many tutorials available for weather nad stock. The project began more as a research task but I decided to develop it as a web service, after stumbling across this <a href="http://diamonds.foostack.ai/">Diamond price prediction project</a> (now inactive) online.</p>
+<h3 id="current-systems-analysis">
+<a class="anchor" href="#current-systems-analysis" aria-hidden="true"><span class="octicon octicon-link"></span></a>Current systems analysis</h3>
+<p>To get an idea of how my system should function, I will take a look at popular pre-existing house valuation tools. Ideally I would like an indication to the data and methods the tools use, however it is unlikely that I will be able to. The UI and aesthetics is not my main concern in the analysis, but I will also follow and expand on some of the design components that are similar between them all.</p>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Current-systems-analysis">
-<a class="anchor" href="#Current-systems-analysis" aria-hidden="true"><span class="octicon octicon-link"></span></a>Current systems analysis<a class="anchor-link" href="#Current-systems-analysis"> </a>
-</h2>
-<p>To get an idea of how my system should function, I will take a look at popular pre-existing house valuation tools. Ideally, I would like an indication to the data and algorithms behind the various tools, however it is unlikely that I will be able to. While the UI and aesthetics is not a main focus of the analysis, I will look at and compare the design components used across the different tools, and possibly incorporate and expand them into my final design.</p>
+<h4 id="zoopla">
+<a class="anchor" href="#zoopla" aria-hidden="true"><span class="octicon octicon-link"></span></a>Zoopla</h4>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Zoopla">
-<a class="anchor" href="#Zoopla" aria-hidden="true"><span class="octicon octicon-link"></span></a>Zoopla<a class="anchor-link" href="#Zoopla"> </a>
-</h3>
-<p><img src="/posts/images/copied_from_nb/images/zoopla-01.jpg" alt="">
-<img src="/posts/images/copied_from_nb/images/zoopla-02.jpg" alt="">
-<img src="/posts/images/copied_from_nb/images/zoopla-03.jpg" alt=""></p>
-<p>I like Zoopla's system as it is very simple to use and understand, its UI is visually appealing, and it includes other data apart from just the valuation, such as local amneties, making it even more helpful to an end user.
+<p><img src="images/zoopla-01.jpg" alt="">
+<img src="images/zoopla-02.jpg" alt="">
+<img src="images/zoopla-03.jpg" alt=""></p>
+
+<p>I like Zoopla’s system as it is very simple to use and understand, its UI is visually appealing, and it includes other data apart from just the valuation, such as local amneties, making it even more helpful to an end user.
 The Zoopla valuation uses data already on its databases to instantly valuate the property. Its additional data sources, such as the HM Land Registry, are also provided, which is ideal for my problem as it will allow me to explore and potentially use datasets from the same reliable sources.
 Unlike Zoopla, I will adopt a system where the end user is asked for the property’s location as well as other property features, such as its total square footage etc., which allow for the valuation of properties that possibly don’t even exist. Additionally, I will provide the last sold price if the input property does exist, similar to how Zoopla does.</p>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Yopa">
-<a class="anchor" href="#Yopa" aria-hidden="true"><span class="octicon octicon-link"></span></a>Yopa<a class="anchor-link" href="#Yopa"> </a>
-</h3>
-<p><img src="/posts/images/copied_from_nb/images/yopa-01.png" alt="">
-<img src="/posts/images/copied_from_nb/images/yopa-02.png" alt=""></p>
-<p>I like the simplicity of the Yopa valuation, however only requiring the number of bedrooms and location doesn't seem like it would yield a very accurate result. In my system, I would ideally require at least 5 features for the resulting estimation. Yopa, similar to Zoopla, also implements a low and high estimation alongside its valuation, and I will also attempt to implement this.</p>
+<h4 id="yopa">
+<a class="anchor" href="#yopa" aria-hidden="true"><span class="octicon octicon-link"></span></a>Yopa</h4>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="OnTheMarket">
-<a class="anchor" href="#OnTheMarket" aria-hidden="true"><span class="octicon octicon-link"></span></a>OnTheMarket<a class="anchor-link" href="#OnTheMarket"> </a>
-</h3>
-<p><img src="/posts/images/copied_from_nb/images/onthemarket-01.png" alt="">
-<img src="/posts/images/copied_from_nb/images/onthemarket-02.png" alt="">
-<img src="/posts/images/copied_from_nb/images/onthemarket-03.png" alt=""></p>
-<p>I particularly like the UI and aesthetic which OnTheMarket's online valuation system uses. The predicted prices seem to be based on location averages, which I may also implement in my system alongside the machine learning aspect. Additionally, the system requires 15 features in addition to the location, which makes the valuation seem more accurate to the end user, unlike the Yopa valuation which only required the number of bedrooms. I will however reduce the number of required features, and keep all my parameters on a single page, to make the process somewhat easier. I will source data which includes similar features such as the property age, number of rooms, property type etc.</p>
+<p><img src="images/yopa-01.png" alt="">
+<img src="images/yopa-02.png" alt=""></p>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="End-User-Questionnaire">
-<a class="anchor" href="#End-User-Questionnaire" aria-hidden="true"><span class="octicon octicon-link"></span></a>End User Questionnaire<a class="anchor-link" href="#End-User-Questionnaire"> </a>
-</h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
+<p>I like the simplicity of the Yopa valuation, however only requiring the number of bedrooms and location doesn’t seem like it would yield a very accurate result. In my system, I would ideally require at least 5 features for the resulting estimation. Yopa, similar to Zoopla, also implements a low and high estimation alongside its valuation, and I will also attempt to implement this.</p>
+
+<h4 id="onthemarket">
+<a class="anchor" href="#onthemarket" aria-hidden="true"><span class="octicon octicon-link"></span></a>OnTheMarket</h4>
+
+<p><img src="images/onthemarket-01.png" alt="">
+<img src="images/onthemarket-02.png" alt="">
+<img src="images/onthemarket-03.png" alt=""></p>
+
+<p>I particularly like the UI and aesthetic which OnTheMarket’s online valuation system uses. The predicted prices seem to be based on location averages, which I may also implement in my system alongside the machine learning aspect. Additionally, the system requires 15 features in addition to the location, which makes the valuation seem more accurate to the end user, unlike the Yopa valuation which only required the number of bedrooms. I will however reduce the number of required features, and keep all my parameters on a single page, to make the process somewhat easier. I will source data which includes similar features such as the property age, number of rooms, property type etc.</p>
+
+<h3 id="end-user-questionnaire">
+<a class="anchor" href="#end-user-questionnaire" aria-hidden="true"><span class="octicon octicon-link"></span></a>End User Questionnaire</h3>
+
 <p>I asked 3 home-owners questions on their thoughts of the project and how I should develop it; I think the responses of potential users will be particularly helpful in the direction of which the development of my project goes:</p>
-<ol>
-<li>
-<p>Would you consider an online property valuation as an accurate way to get the price of a property?</p>
-<ul>
-<li>
-<em>Response 1:</em> I would consider an online valuation to get a rough idea of a house's value. I would probably use a tool like this before contacting an estate agent to valuate the property in real life.</li>
-<li>
-<em>Response 2:</em> I'd use an instant valuation tool to see if a property is worth pursuing, it would save a lot of time instead of having to contact somebody myself.</li>
-<li>
-<em>Response 3:</em> I don't think a service like this would be highly accurate but I do think it would give a useful estimation and could give a relatively reliable prediction.<hr style="width:0;">
-</li>
-</ul>
-</li>
-<li>
-<p>What characteristics of a property do you think would most impact its valuation?</p>
-<ul>
-<li>
-<em>Response 1:</em> I think the age, size and property type would be useful in telling the price of a house. However, I believe the value of properties in the area would have greatest impact on a house's price.</li>
-<li>Response 2: The price of surrounding properties would be the most useful in the valuation of a house, along with its total square footage, number of rooms, and perhaps general local area information like population and crime rate.</li>
-<li>
-<em>Response 3:</em> The quality of the neighbourhood of a property and the prices of other houses nearby are the most indicative of a property's value. Property features such as the size and the type also impact a property's valuation greatly.<hr style="width:0;">
-</li>
-</ul>
-</li>
-<li>
-<p>What additional features would you like to see, alongside the valuation?</p>
-<ul>
-<li>
-<em>Response 1:</em> I'd like to see the average price of houses in the local area, or perhaps the average price of similar property types.</li>
-<li>
-<em>Response 2:</em> I think it'd be helpful to see local area statistics such as the population and average house price in the area. Additionally, I don't think a point estimation is a very helpful so I'd like to see an valuation with an associated interval, with a low and high estimation.</li>
-<li>
-<em>Response 3:</em> It would be interesting to get predictions for the price of a property years in the future. It would also be helpful to see the previous sold price of a property.<hr style="width:0;">
-</li>
-</ul>
-</li>
-<li>
-<p>How would you like the information displayed to you?</p>
-<ul>
-<li>
-<em>Response 1:</em> I'd like to see the information displayed as simply as it can, clutter and unnecessary information can be quite annoying - like asking for email and other data that has nothing to do with the actual predictions. I would prefer all the information easily visible in one window.</li>
-<li>
-<em>Response 2:</em> I think displaying a map of the property's area along with its valuation would be helpful, especially for people who consider moving into the area. There should be an option to have the predictions emailed to you, but not as a requirement.</li>
-<li>
-<em>Response 3:</em> A simple web form should suffice for inputting the property details. The output could be given in a separate page or pop-up with all the information.<hr style="width:0;">
-</li>
-</ul>
-</li>
-</ol>
-<p>In conclusion, the home-owners would consider using the service as a <strong>rough estimate</strong> for a property's value <strong>before seeking professional advice</strong>. All 3 participants think that local area information could be useful in the valuation, as well as the property size and type. I liked the idea to include local area statistics in the output to the user, and I agree that unnecessary clutter should be avoided when serving the information to the end user.</p>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Problem-Modelling">
-<a class="anchor" href="#Problem-Modelling" aria-hidden="true"><span class="octicon octicon-link"></span></a>Problem Modelling<a class="anchor-link" href="#Problem-Modelling"> </a>
-</h2>
+<ol>
+  <li>Would you consider an online property valuation as an accurate way to get the price of a property?
+    <ul>
+      <li>
+<em>Response 1:</em> I would consider an online valuation to get a rough idea of a house’s value. I would probably use a tool like this before contacting an estate agent to valuate the property in real life.</li>
+      <li>
+<em>Response 2:</em> I’d use an instant valuation tool to see if a property is worth pursuing, it would save a lot of time instead of having to contact somebody myself.</li>
+      <li>
+<em>Response 3:</em> I don’t think a service like this would be highly accurate but I do think it would give a useful estimation and could give a relatively reliable prediction.</li>
+    </ul>
+  </li>
+</ol>
+<hr style="width:0;">
+
+<ol>
+  <li>What characteristics of a property do you think would most impact its valuation?
+    <ul>
+      <li>
+<em>Response 1:</em> I think the age, size and property type would be useful in telling the price of a house. However, I believe the value of properties in the area would have greatest impact on a house’s price.</li>
+      <li>Response 2: The price of surrounding properties would be the most useful in the valuation of a house, along with its total square footage, number of rooms, and perhaps general local area information like population and crime rate.</li>
+      <li>
+<em>Response 3:</em> The quality of the neighbourhood of a property and the prices of other houses nearby are the most indicative of a property’s value. Property features such as the size and the type also impact a property’s valuation greatly.</li>
+    </ul>
+  </li>
+</ol>
+<hr style="width:0;">
+
+<ol>
+  <li>What additional features would you like to see, alongside the valuation?
+    <ul>
+      <li>
+<em>Response 1:</em> I’d like to see the average price of houses in the local area, or perhaps the average price of similar property types.</li>
+      <li>
+<em>Response 2:</em> I think it’d be helpful to see local area statistics such as the population and average house price in the area. Additionally, I don’t think a point estimation is a very helpful so I’d like to see an valuation with an associated interval, with a low and high estimation.</li>
+      <li>
+<em>Response 3:</em> It would be interesting to get predictions for the price of a property years in the future. It would also be helpful to see the previous sold price of a property.</li>
+    </ul>
+  </li>
+</ol>
+<hr style="width:0;">
+
+<ol>
+  <li>How would you like the information displayed to you?
+    <ul>
+      <li>
+<em>Response 1:</em> I’d like to see the information displayed as simply as it can, clutter and unnecessary information can be quite annoying - like asking for email and other data that has nothing to do with the actual predictions. I would prefer all the information easily visible in one window.</li>
+      <li>
+<em>Response 2:</em> I think displaying a map of the property’s area along with its valuation would be helpful, especially for people who consider moving into the area. There should be an option to have the predictions emailed to you, but not as a requirement.</li>
+      <li>
+<em>Response 3:</em> A simple web form should suffice for inputting the property details. The output could be given in a separate page or pop-up with all the information.</li>
+    </ul>
+  </li>
+</ol>
+<hr style="width:0;">
+
+<p>In conclusion, the home-owners would consider using the service as a <strong>rough estimate</strong> for a property’s value <strong>before seeking professional advice</strong>. All 3 participants think that local area information could be useful in the valuation, as well as the property size and type. I liked the idea to include local area statistics in the output to the user, and I agree that unnecessary clutter should be avoided when serving the information to the end user.</p>
+
+<h3 id="problem-modelling">
+<a class="anchor" href="#problem-modelling" aria-hidden="true"><span class="octicon octicon-link"></span></a>Problem Modelling</h3>
+
 <p>My initial thoughts on how to approach the problem.
 I will try implement the system in four (or potentially five) stages:</p>
 <ul>
-<li>
+  <li>
 <em>Stage 1.</em> Data sourcing - collecting and stitching data from various sources to build a large dataset (aiming for around 1 million rows).</li>
-<li>
+  <li>
 <em>Stage 2.</em> Data sanitisation and preprocessing - transforming the dataset and its features to allow for predictive modelling</li>
-<li>
+  <li>
 <em>Stage 3.</em> Model training - testing and training various machine learning models on the dataset to maximise accuracy</li>
-<li>
+  <li>
 <em>Stage 4.</em> Web development - implementing the server and client side for users to access.</li>
-<li>
+  <li>
 <em>(if possible) Stage 5.</em> App deployment - deploying the client-server model to the web for potential use.</li>
 </ul>
+
 <p>Below covers the general implementation and structure of the project, split into its distinct stages.</p>
-<p><img src="/posts/images/copied_from_nb/images/ml-workflow.png" alt="">
-<img src="/posts/images/copied_from_nb/images/uml-draft.png" alt=""></p>
+
+<p><img src="images/ml-workflow.png" alt="">
+<img src="images/uml-draft.png" alt=""></p>
+
 <p>I am currently unclear on what machine learning models to use and how to preprocess the data. These decisions will be made as the data is collected and in exploratory data analysis. I will fit multiple models on the dataset and test their performance to pick an algorithm, I may also ensemble/stack multiple models if it proves useful. I may need a database for features of the model which require context from the inputs provided by the end user, such as geospatial or local area data.</p>
+
 <p>The web service itself, which will serve the predictions to the end user, will look somewhere along the lines of:</p>
-<p><figure>
-  
-    <img class="docimage" src="/posts/images/copied_from_nb/images/interface.png" alt="" style="max-width: 400px">
-    
-    
-</figure>
-</p>
+
+<p><img src="images/interface.png" width="400"></p>
+
 <p>Drawing inspiration from the Zoopla and OnTheMarket user interfaces, with a simple form, an interval prediction, and a map of the area using Google Maps API.</p>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Algorithms">
-<a class="anchor" href="#Algorithms" aria-hidden="true"><span class="octicon octicon-link"></span></a>Algorithms<a class="anchor-link" href="#Algorithms"> </a>
-</h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Conformal-prediction">
-<a class="anchor" href="#Conformal-prediction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conformal prediction<a class="anchor-link" href="#Conformal-prediction"> </a>
-</h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="algorithms">
+<a class="anchor" href="#algorithms" aria-hidden="true"><span class="octicon octicon-link"></span></a>Algorithms</h3>
+
+<h4 id="conformal-prediction">
+<a class="anchor" href="#conformal-prediction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conformal prediction</h4>
 <p>Conformal prediction is a technique used to assess the uncertainty of predictions produced by a machine learning model. In particular, given an input, conformal prediction estimates a prediction interval in regression problems and a set of classes in classification problems. Both the prediction interval and sets cover the true value with high probability (usually provided by the user).
 Steps to producing a conformal prediction model:</p>
 <ol>
-<li>Identify a score function to measure the discrepancy between model outputs $\hat y$ and expected outputs $y$. This metric is critical as it decides what prediction sets can be obtained. For instance, in regression problems, we could take the absolute error $|\hat y - y|$ as the score function.</li>
-<li>Compute nonconformity scores for the model by splitting the training set into a proper set and calibration set. The model is only trained on the proper training set; and scores are computed on the calibration set where $S_n = S(\hat y_n, y_n)$ for the $n$<sup>th</sup> sample.</li>
-<li>Prediction - use the underlying algorithm to make a point prediction $\hat y$ and take the ($1 - \alpha$)<sup>th</sup> quantile $Q$ from the score set - where $\alpha$ is a user-provided significance level. Output $\hat y \pm Q$ as the model's prediction.</li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>Identify a score function to measure the discrepancy between model outputs $\hat y$ and expected outputs $y$. This metric is critical as it decides what prediction sets can be obtained. For instance, in regression problems, we could take the absolute error $</td>
+          <td>\hat y - y</td>
+          <td>$ as the score function.</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>Compute nonconformity scores for the model by splitting the training set into a proper set and calibration set. The model is only trained on the proper training set; and scores are computed on the calibration set where $S_n = S(\hat y_n, y_n)$ for the $n$<sup>th</sup> sample.</li>
+  <li>Prediction - use the underlying algorithm to make a point prediction $\hat y$ and take the ($1 - \alpha$)<sup>th</sup> quantile $Q$ from the score set - where $\alpha$ is a user-provided significance level. Output $\hat y \pm Q$ as the model’s prediction.</li>
 </ol>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Stochastic-gradient-descent-and-linear-regression">
-<a class="anchor" href="#Stochastic-gradient-descent-and-linear-regression" aria-hidden="true"><span class="octicon octicon-link"></span></a>Stochastic gradient descent and linear regression<a class="anchor-link" href="#Stochastic-gradient-descent-and-linear-regression"> </a>
-</h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="stochastic-gradient-descent-and-linear-regression">
+<a class="anchor" href="#stochastic-gradient-descent-and-linear-regression" aria-hidden="true"><span class="octicon octicon-link"></span></a>Stochastic gradient descent and linear regression</h4>
 <p>Regression models are used to describe relationships between variables by fitting a line to the observed data. Multiple linear regression is used to estimate the relationship between multiple independent variables and one dependent variable. The model makes assumptions about the dataset:</p>
+
 <ul>
-<li>
-<p><strong>Homogeneity of variance (homoscedasticity)</strong> - the observations in the dataset must be about the same distance from the regression line.</p>
-<p><img src="images/homoscedasticity.png" alt=""></p>
-</li>
-<li>
-<p><strong>Independence of observations</strong> - there are no hidden relationships among independent variables.</p>
-</li>
-<li>
+  <li>
+    <p><strong>Homogeneity of variance (homoscedasticity)</strong> - the observations in the dataset must be about the same distance from the regression line.</p>
+
+    <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Heteroscedascity_vs_Homoscedascity.png/640px-Heteroscedascity_vs_Homoscedascity.png" alt=""></p>
+  </li>
+  <li>
+<strong>Independence of observations</strong> - there are no hidden relationships among independent variables.</li>
+  <li>
 <strong>Normality</strong> - the data follows a normal distribution.</li>
-<li>
+  <li>
 <strong>Linearity</strong> - the line of best fit through the data points is a straight line, not some polynomial/exponential curve</li>
 </ul>
+
 <p>Multiple linear regression generalises a dataset as the output being a weighted summation of its inputs.
-$$
-\hat y_i = b + \sum^n_{k=0} w_k x_{ik}\\
-$$
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mover accent="true"><mi>y</mi><mo>^</mo></mover><mi>i</mi></msub><mo>=</mo><mi>b</mi><mo>+</mo><msubsup><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>0</mn></mrow><mi>n</mi></msubsup><msub><mi>w</mi><mi>k</mi></msub><msub><mi>x</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mspace linebreak="newline"></mspace></mrow><annotation encoding="application/x-tex">\hat y_i = b + \sum^n_{k=0} w_k x_{ik}\\</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6944em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1944em;"><span class="mord">^</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">b</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.104em;vertical-align:-0.2997em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:0em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8043em;"><span style="top:-2.4003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span><span class="mrel mtight">=</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2997em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">ik</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mspace newline"></span></span></span>
 In matrix form, it can be written as a dot product, as shown:
-$$
-\hat y = w\cdot x + b
-$$
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>y</mi><mo>^</mo></mover><mo>=</mo><mi>w</mi><mo>⋅</mo><mi>x</mi><mo>+</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">\hat y = w\cdot x + b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6944em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1944em;"><span class="mord">^</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.4445em;"></span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">b</span></span></span></span>
 Where,<br>
 $\hat y$: predicted<br>
 $x$: independent variables vector<br>
 $w$: coefficients vector i.e weights<br>
 $b$: constant term i.e bias</p>
+
 <p>The stochastic gradient descent algorithm is used to adjust the weights and bias for the model. The algorithm requires a differentiable cost function in order to derive the gradients of each adjustable parameter. I will be using the <strong>half mean squared</strong> cost function, as it will differentiate nicely making it a lot easier to implement. The cost function is defined as such,
-$$
-J(w,b) = \frac 1{2n}\sum_{i=1}^n(wx_i + b - y_i)^2
-$$
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mo stretchy="false">(</mo><mi>w</mi><mo separator="true">,</mo><mi>b</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mn>1</mn><mrow><mn>2</mn><mi>n</mi></mrow></mfrac><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></msubsup><mo stretchy="false">(</mo><mi>w</mi><msub><mi>x</mi><mi>i</mi></msub><mo>+</mo><mi>b</mi><mo>−</mo><msub><mi>y</mi><mi>i</mi></msub><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">J(w,b) = \frac 1{2n}\sum_{i=1}^n(wx_i + b - y_i)^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.09618em;">J</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">b</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.1901em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mathnormal mtight">n</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:0em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8043em;"><span style="top:-2.4003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2997em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">b</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0641em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span>
 The goal is to find the values of the $w$ and $b$ terms which minimise the error. This can be done by taking the partial derivative (gradient) of the cost function $J$ with respect each parameter,
-$$
-\frac {\partial J}{\partial b} = \frac 1n\sum_{i=1}^n (\hat{y}_i - y_i) \\
-\frac {\partial J}{\partial w} = \frac 1n\sum_{i=1}^n x_i(\hat{y}_i - y_i) = \frac 1n x \cdot (\hat{y} - y)
-$$
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>J</mi></mrow><mrow><mi mathvariant="normal">∂</mi><mi>b</mi></mrow></mfrac><mo>=</mo><mfrac><mn>1</mn><mi>n</mi></mfrac><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></msubsup><mo stretchy="false">(</mo><msub><mover accent="true"><mi>y</mi><mo>^</mo></mover><mi>i</mi></msub><mo>−</mo><msub><mi>y</mi><mi>i</mi></msub><mo stretchy="false">)</mo><mspace linebreak="newline"></mspace><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>J</mi></mrow><mrow><mi mathvariant="normal">∂</mi><mi>w</mi></mrow></mfrac><mo>=</mo><mfrac><mn>1</mn><mi>n</mi></mfrac><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></msubsup><msub><mi>x</mi><mi>i</mi></msub><mo stretchy="false">(</mo><msub><mover accent="true"><mi>y</mi><mo>^</mo></mover><mi>i</mi></msub><mo>−</mo><msub><mi>y</mi><mi>i</mi></msub><mo stretchy="false">)</mo><mo>=</mo><mfrac><mn>1</mn><mi>n</mi></mfrac><mi>x</mi><mo>⋅</mo><mo stretchy="false">(</mo><mover accent="true"><mi>y</mi><mo>^</mo></mover><mo>−</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\frac {\partial J}{\partial b} = \frac 1n\sum_{i=1}^n (\hat{y}_i - y_i) \\
+\frac {\partial J}{\partial w} = \frac 1n\sum_{i=1}^n x_i(\hat{y}_i - y_i) = \frac 1n x \cdot (\hat{y} - y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2251em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal mtight">b</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal mtight" style="margin-right:0.09618em;">J</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.1901em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:0em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8043em;"><span style="top:-2.4003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2997em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6944em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1944em;"><span class="mord">^</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:1.2251em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal mtight" style="margin-right:0.09618em;">J</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.1901em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:0em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8043em;"><span style="top:-2.4003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2997em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6944em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1944em;"><span class="mord">^</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.1901em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6944em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1944em;"><span class="mord">^</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">)</span></span></span></span>
 Where $\eta$ is the learning rate, iteratively update the parameters until they converge,
-$$
-  b := b - \eta \cdot \partial b \\
-  w := w - \eta \cdot \partial w 
-$$</p>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>:</mo><mo>=</mo><mi>b</mi><mo>−</mo><mi>η</mi><mo>⋅</mo><mi mathvariant="normal">∂</mi><mi>b</mi><mspace linebreak="newline"></mspace><mi>w</mi><mo>:</mo><mo>=</mo><mi>w</mi><mo>−</mo><mi>η</mi><mo>⋅</mo><mi mathvariant="normal">∂</mi><mi>w</mi></mrow><annotation encoding="application/x-tex">b := b - \eta \cdot \partial b \\
+  w := w - \eta \cdot \partial w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">b</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">:=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">b</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6389em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">η</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal">b</span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">:=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6389em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">η</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord" style="margin-right:0.05556em;">∂</span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span></span></span></span></p>
+
 <p>The implementation of linear regression with stochastic gradient descent will be a great starting point when implementing the more complex multilayer perceptron model, which similarly uses the weighted summation function to make predictions and a gradient descent algorithm to optimise its parameters.</p>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Multilayer-Perceptron">
-<a class="anchor" href="#Multilayer-Perceptron" aria-hidden="true"><span class="octicon octicon-link"></span></a>Multilayer Perceptron<a class="anchor-link" href="#Multilayer-Perceptron"> </a>
-</h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="multilayer-perceptron">
+<a class="anchor" href="#multilayer-perceptron" aria-hidden="true"><span class="octicon octicon-link"></span></a>Multilayer Perceptron</h4>
+
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/MultiLayerNeuralNetworkBigger_english.png/320px-MultiLayerNeuralNetworkBigger_english.png" alt=""></p>
+
 <p>A multilayer perceptron is a feed-forward neural network consisting of at least three layers of nodes; an input layer, a hidden layer, and an output layer.</p>
-<p><img src="/posts/images/copied_from_nb/images/neural-network.png" alt=""></p>
-<p>The input layer receives an input signal to be processed. The model's prediction is performed by the output layer. The hidden layers between the input and output layer are the computational engine of the model. MLPs can be used to approximate any continuous function, and can solve problems which are not linearly separable by using non-linear activation functions.</p>
-<p><img src="/posts/images/copied_from_nb/images/neuron.jpeg" alt=""></p>
+
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/ArtificialNeuronModel_english.png/320px-ArtificialNeuronModel_english.png" alt="" title="Artificial neuron/node"></p>
+
+<p>The input layer receives an input signal to be processed. The model’s prediction is performed by the output layer. The hidden layers between the input and output layer are the computational engine of the model. MLPs can be used to approximate any continuous function, and can solve problems which are not linearly separable by using non-linear activation functions.</p>
+
 <p>An MLP learns in two stages:</p>
 <ul>
-<li>
+  <li>
 <strong>Forward propagation</strong>, where data is fed from the input layer through the hidden layers to the output layer. For a general model of $L$ layers with weights $W$ and activation functions $\sigma$, forward propagation can be expressed as a function composition as shown:
-$$
-F(x) = \sigma_N(W_L\cdot \sigma_{L-1}(W_{L-1}\cdots \sigma_2(W_2\cdot \sigma_1(W_1\cdot x))\cdots))\\
-$$</li>
-<li>
-<p><strong>Backpropagation</strong>, where by using the chain rule, the partial derivatives of the loss function w.r.t. the various weights and biases are fed back through the network from the output layer through to the input layer. The differentiation produces a gradient along which the parameters may be adjusted towards the minima. See <strong>Backpropagation algorithm</strong> for more detail.</p>
-<p><img src="images/sgd.png" alt=""></p>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><msub><mi>σ</mi><mi>N</mi></msub><mo stretchy="false">(</mo><msub><mi>W</mi><mi>L</mi></msub><mo>⋅</mo><msub><mi>σ</mi><mrow><mi>L</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="false">(</mo><msub><mi>W</mi><mrow><mi>L</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>⋯</mo><msub><mi>σ</mi><mn>2</mn></msub><mo stretchy="false">(</mo><msub><mi>W</mi><mn>2</mn></msub><mo>⋅</mo><msub><mi>σ</mi><mn>1</mn></msub><mo stretchy="false">(</mo><msub><mi>W</mi><mn>1</mn></msub><mo>⋅</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo>⋯</mo><mtext> </mtext><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mspace linebreak="newline"></mspace></mrow><annotation encoding="application/x-tex">F(x) = \sigma_N(W_L\cdot \sigma_{L-1}(W_{L-1}\cdots \sigma_2(W_2\cdot \sigma_1(W_1\cdot x))\cdots))\\</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">L</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">L</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2083em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">L</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2083em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">⋯</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">x</span><span class="mclose">))</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">⋯</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mclose">))</span></span><span class="mspace newline"></span></span></span>
 </li>
+  <li>
+    <p><strong>Backpropagation</strong>, where by using the chain rule, the partial derivatives of the loss function w.r.t. the various weights and biases are fed back through the network from the output layer through to the input layer. The differentiation produces a gradient along which the parameters may be adjusted towards the minima. See <strong>Backpropagation algorithm</strong> for more detail.</p>
+
+    <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Gradient_descent.gif/320px-Gradient_descent.gif" alt="" title="Gradient descent"></p>
+  </li>
 </ul>
+
 <p>These stages are repeated until the loss converges towards a minimum.</p>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Backpropagation-algorithm">
-<a class="anchor" href="#Backpropagation-algorithm" aria-hidden="true"><span class="octicon octicon-link"></span></a>Backpropagation algorithm<a class="anchor-link" href="#Backpropagation-algorithm"> </a>
-</h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="backpropagation-algorithm">
+<a class="anchor" href="#backpropagation-algorithm" aria-hidden="true"><span class="octicon octicon-link"></span></a>Backpropagation algorithm</h4>
 <p>Backpropagation is a widely used algorithm for training feed-forward neural networks used to compute the gradient of a loss function with respect to the weights of a network for a training set of input-output examples. The gradient computed by backpropagation can be used with other algorithms such as Stochastic Gradient Descent (or its derivatives) to update the weights and minimise error in a network.</p>
+
 <p>Below shows the mathematical logic behind the algorithm. The following example is for a feed-forward network of $L$ layers.</p>
-$$
-F(x) = \sigma_N(W_L\cdot \sigma_{L-1}(W_{L-1}\cdots \sigma_2(W_2\cdot \sigma_1(W_1\cdot x))\cdots))\\
-Cost = J(y, F(x))
-$$<p>For the model above, the derivative of the loss w.r.t. the input $x$ using the chain rule is generalised as such:
-$$
-\text{Chain rule}: \\F(x) = f(g(x)) \qquad F'(x) = f'(g(x)) \cdot g'(x) \\
-\text{derivative of compound function} = \text{derivative of outer function} \times \text{derivative of inner function}\\[1em]
-\therefore\quad\frac{dJ}{dx} = \frac{dJ}{da_L} \circ \sigma_L' \cdot W_L \circ \sigma_{L-1}' \cdot W_{L-1} \cdots \circ \sigma_1' \cdot W_1
-$$
+
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><msub><mi>σ</mi><mi>N</mi></msub><mo stretchy="false">(</mo><msub><mi>W</mi><mi>L</mi></msub><mo>⋅</mo><msub><mi>σ</mi><mrow><mi>L</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="false">(</mo><msub><mi>W</mi><mrow><mi>L</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>⋯</mo><msub><mi>σ</mi><mn>2</mn></msub><mo stretchy="false">(</mo><msub><mi>W</mi><mn>2</mn></msub><mo>⋅</mo><msub><mi>σ</mi><mn>1</mn></msub><mo stretchy="false">(</mo><msub><mi>W</mi><mn>1</mn></msub><mo>⋅</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo>⋯</mo><mtext> </mtext><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mspace linebreak="newline"></mspace><mi>C</mi><mi>o</mi><mi>s</mi><mi>t</mi><mo>=</mo><mi>J</mi><mo stretchy="false">(</mo><mi>y</mi><mo separator="true">,</mo><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">F(x) = \sigma_N(W_L\cdot \sigma_{L-1}(W_{L-1}\cdots \sigma_2(W_2\cdot \sigma_1(W_1\cdot x))\cdots))\\
+Cost = J(y, F(x))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">L</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">L</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2083em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">L</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2083em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">⋯</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">x</span><span class="mclose">))</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">⋯</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mclose">))</span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal">os</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.09618em;">J</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">))</span></span></span></span></span>
+
+<p>For the model above, the derivative of the loss w.r.t. the input $x$ using the chain rule is generalised as such:
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>Chain rule</mtext><mo>:</mo><mspace linebreak="newline"></mspace><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>f</mi><mo stretchy="false">(</mo><mi>g</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mspace width="2em"></mspace><msup><mi>F</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><msup><mi>f</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mo stretchy="false">(</mo><mi>g</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo>⋅</mo><msup><mi>g</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mspace linebreak="newline"></mspace><mstyle mathsize="0.9em"><mtext>derivative of compound function</mtext><mo>=</mo><mtext>derivative of outer function</mtext><mo>×</mo><mtext>derivative of inner function</mtext></mstyle><mspace linebreak="newline" height="1em"></mspace><mo>∴</mo><mspace width="1em"></mspace><mfrac><mrow><mi>d</mi><mi>J</mi></mrow><mrow><mi>d</mi><mi>x</mi></mrow></mfrac><mo>=</mo><mfrac><mrow><mi>d</mi><mi>J</mi></mrow><mrow><mi>d</mi><msub><mi>a</mi><mi>L</mi></msub></mrow></mfrac><mo>∘</mo><msubsup><mi>σ</mi><mi>L</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msubsup><mo>⋅</mo><msub><mi>W</mi><mi>L</mi></msub><mo>∘</mo><msubsup><mi>σ</mi><mrow><mi>L</mi><mo>−</mo><mn>1</mn></mrow><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msubsup><mo>⋅</mo><msub><mi>W</mi><mrow><mi>L</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>⋯</mo><mo>∘</mo><msubsup><mi>σ</mi><mn>1</mn><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msubsup><mo>⋅</mo><msub><mi>W</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">\text{Chain rule}: \\F(x) = f(g(x)) \qquad F'(x) = f'(g(x)) \cdot g'(x) \\
+{\small\text{derivative of compound function} = \text{derivative of outer function} \times \text{derivative of inner function}}\\[1em]
+\therefore\quad\frac{dJ}{dx} = \frac{dJ}{da_L} \circ \sigma_L' \cdot W_L \circ \sigma_{L-1}' \cdot W_{L-1} \cdots \circ \sigma_1' \cdot W_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord text"><span class="mord">Chain rule</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">:</span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.0019em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">))</span><span class="mspace" style="margin-right:2em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.0019em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">))</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0019em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.8em;vertical-align:-0.175em;"></span><span class="mord"><span class="mord text sizing reset-size6 size5"><span class="mord">derivative of compound function</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel sizing reset-size6 size5">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord text sizing reset-size6 size5"><span class="mord">derivative of outer function</span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin sizing reset-size6 size5">×</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord text sizing reset-size6 size5"><span class="mord">derivative of inner function</span></span></span></span><span class="mspace newline" style="margin-top:1em;"></span><span class="base"><span class="strut" style="height:0.6922em;"></span><span class="mrel amsrm">∴</span><span class="mspace" style="margin-right:1em;"></span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.2251em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight">x</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.09618em;">dJ</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.3254em;vertical-align:-0.4453em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">d</span><span class="mord mtight"><span class="mord mathnormal mtight">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3567em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">L</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1433em;"><span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.09618em;">dJ</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.4453em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∘</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0272em;vertical-align:-0.2753em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-2.4247em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">L</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2753em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">L</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∘</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0856em;vertical-align:-0.3337em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-2.4247em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">L</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3337em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8917em;vertical-align:-0.2083em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">L</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2083em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">⋯</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∘</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.2481em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-2.4519em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2481em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>
 The gradient $\nabla$ is the transpose of the derivative of the loss w.r.t. the input, therefore, the matrices are transposed and the order of multiplication is reversed, such that:
-$$
-\nabla_xJ = W_1^T \cdot \sigma_1' \cdots \circ W_{L-1}^T \cdot \sigma_{L-1}' \circ W_L^T \cdot \sigma_L' \circ \nabla_{a_L}J
-$$
-The backpropagation consists of then evaluating this expression from right to left, i.e starting from the output layer, computing the gradient at each layer on the way. To avoid unneccessary repeated computation of expressions, we can introduce a new variable $\delta_l$, the "error at layer $l$". This variable is a vector with length of the number of nodes in its associated layer. Each value can be interpreted as the loss attributable to that node for the given input-output sample. $\delta_l$ can then be computed recursively, starting backwards from layer $L \rightarrow 1$, such that:
-$$\delta_{l-1} := \sigma_{l-1}' \circ W_l^T \cdot \delta_l$$ 
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">∇</mi><mi>x</mi></msub><mi>J</mi><mo>=</mo><msubsup><mi>W</mi><mn>1</mn><mi>T</mi></msubsup><mo>⋅</mo><msubsup><mi>σ</mi><mn>1</mn><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msubsup><mo>⋯</mo><mo>∘</mo><msubsup><mi>W</mi><mrow><mi>L</mi><mo>−</mo><mn>1</mn></mrow><mi>T</mi></msubsup><mo>⋅</mo><msubsup><mi>σ</mi><mrow><mi>L</mi><mo>−</mo><mn>1</mn></mrow><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msubsup><mo>∘</mo><msubsup><mi>W</mi><mi>L</mi><mi>T</mi></msubsup><mo>⋅</mo><msubsup><mi>σ</mi><mi>L</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msubsup><mo>∘</mo><msub><mi mathvariant="normal">∇</mi><msub><mi>a</mi><mi>L</mi></msub></msub><mi>J</mi></mrow><annotation encoding="application/x-tex">\nabla_xJ = W_1^T \cdot \sigma_1' \cdots \circ W_{L-1}^T \cdot \sigma_{L-1}' \circ W_L^T \cdot \sigma_L' \circ \nabla_{a_L}J</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord">∇</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.09618em;">J</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.0894em;vertical-align:-0.2481em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8413em;"><span style="top:-2.4519em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2481em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.2481em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-2.4519em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2481em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">⋯</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∘</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.175em;vertical-align:-0.3337em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8413em;"><span style="top:-2.4247em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">L</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3337em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0856em;vertical-align:-0.3337em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-2.4247em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">L</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3337em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∘</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.1167em;vertical-align:-0.2753em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8413em;"><span style="top:-2.4247em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">L</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2753em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0272em;vertical-align:-0.2753em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-2.4247em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">L</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2753em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∘</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.9336em;vertical-align:-0.2503em;"></span><span class="mord"><span class="mord">∇</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3567em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">L</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1433em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2503em;"><span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.09618em;">J</span></span></span></span>
+The backpropagation consists of then evaluating this expression from right to left, i.e starting from the output layer, computing the gradient at each layer on the way. To avoid unneccessary repeated computation of expressions, we can introduce a new variable $\delta_l$, the “error at layer $l$”. This variable is a vector with length of the number of nodes in its associated layer. Each value can be interpreted as the loss attributable to that node for the given input-output sample. $\delta_l$ can then be computed recursively, starting backwards from layer $L \rightarrow 1$, such that:
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>δ</mi><mrow><mi>l</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>:</mo><mo>=</mo><msubsup><mi>σ</mi><mrow><mi>l</mi><mo>−</mo><mn>1</mn></mrow><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msubsup><mo>∘</mo><msubsup><mi>W</mi><mi>l</mi><mi>T</mi></msubsup><mo>⋅</mo><msub><mi>δ</mi><mi>l</mi></msub></mrow><annotation encoding="application/x-tex">\delta_{l-1} := \sigma_{l-1}' \circ W_l^T \cdot \delta_l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9028em;vertical-align:-0.2083em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0379em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2083em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">:=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.0933em;vertical-align:-0.3414em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-2.4169em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3414em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∘</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.1244em;vertical-align:-0.2831em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8413em;"><span style="top:-2.4169em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2831em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0379em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 
 The gradients of the weights can then be calculated, such that:
-
-$$\nabla_{W_l}J = \delta_l \cdot a_{l-1}^T$$
-
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="normal">∇</mi><msub><mi>W</mi><mi>l</mi></msub></msub><mi>J</mi><mo>=</mo><msub><mi>δ</mi><mi>l</mi></msub><mo>⋅</mo><msubsup><mi>a</mi><mrow><mi>l</mi><mo>−</mo><mn>1</mn></mrow><mi>T</mi></msubsup></mrow><annotation encoding="application/x-tex">\nabla_{W_l}J = \delta_l \cdot a_{l-1}^T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9392em;vertical-align:-0.2559em;"></span><span class="mord"><span class="mord">∇</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3488em;margin-left:-0.1389em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1512em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2559em;"><span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.09618em;">J</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0379em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.1828em;vertical-align:-0.3414em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8413em;"><span style="top:-2.4169em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3414em;"><span></span></span></span></span></span></span></span></span></span>
 Finally, the weights be updated (demonstrated here with stochastic gradient descent), such that:
-$$
-W_l := W_l - \eta \cdot \nabla_{W_l}J\\
-$$</p>
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mi>l</mi></msub><mo>:</mo><mo>=</mo><msub><mi>W</mi><mi>l</mi></msub><mo>−</mo><mi>η</mi><mo>⋅</mo><msub><mi mathvariant="normal">∇</mi><msub><mi>W</mi><mi>l</mi></msub></msub><mi>J</mi><mspace linebreak="newline"></mspace></mrow><annotation encoding="application/x-tex">W_l := W_l - \eta \cdot \nabla_{W_l}J\\</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">:=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6389em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">η</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.9392em;vertical-align:-0.2559em;"></span><span class="mord"><span class="mord">∇</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3488em;margin-left:-0.1389em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1512em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2559em;"><span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.09618em;">J</span></span><span class="mspace newline"></span></span></span></p>
+
 <p>Where,<br>
 $L$ : Number of layers in network<br>
 $\sigma$ : Non-linear activation function<br>
 $J$ : Loss function taking parameters $y$ (expected output), and $\hat y$ (actual output)<br>
-$W_l$ : Weight matrix of $l$<sup>th</sup> layer; all the connections between nodes in current and next layer.<br>
+$W_l$ : Weight matrix of $l$<sup>th</sup> layer; all the connections between nodes in current and next layer. <br>
 $a_l$ : Activated output of $l$<sup>th</sup> layer<br>
 $\delta_l$ : Error at $l$<sup>th</sup> layer<br>
 $\eta$ : Learning rate of SGD algorithm<br>
@@ -514,97 +387,130 @@ $A^T$ : Transpose of matrix $A$<br>
 $\nabla_ba$ : Gradient of $a$ w.r.t $b$<br>
 $\circ$ : Hadamard (element-wise) matrix multiplication, products taken from left to right</p>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="CART-algorithm">
-<a class="anchor" href="#CART-algorithm" aria-hidden="true"><span class="octicon octicon-link"></span></a>CART algorithm<a class="anchor-link" href="#CART-algorithm"> </a>
-</h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The CART (Classification and Regression Tree) algorithm is a divide-and-conquer algorithm used to build a decision tree (as a predictive model) to predict the output of a given sample, using attributes observed in a given training set. The model is very intuitive and easy to interpret/explain. Furthermore, it is robust and does not require any prior normalisation or scaling of the dataset. It is also unaffected by outliers and finds important variables automatically, unlike linear regression models. However, decision trees are prone to overfitting, and small changes to the dataset can cause a large change in tree structure causing instability. The algorithm, while can be modelled to perform the task, is inadequate for applying regression and predicting continuous values, and cannot extrapolate beyond its observed set. To mitigate some of these issues, decision trees are often used in ensemble methods including random forests and gradient boosting machines, which aim to reduce overfitting.</p>
-<p>The algorithm performs binary splits using the features of a dataset to build a tree, until all of the nodes are ideally "pure".</p>
+<h4 id="cart-algorithm">
+<a class="anchor" href="#cart-algorithm" aria-hidden="true"><span class="octicon octicon-link"></span></a>CART algorithm</h4>
+
+<p>The CART (Classification and Regression Tree) algorithm is a divide-and-conquer algorithm used to build a decision tree (as a predictive model) to predict the output of a given sample, using attributes observed in a given training set. The model is very intuitive and easy to interpret/explain.</p>
+
 <p><img src="https://bookdown.org/tpinto_home/Beyond-Additivity/tree.png" alt=""></p>
+
+<p>Furthermore, it is robust and does not require any prior normalisation or scaling of the dataset. It is also unaffected by outliers and finds important variables automatically, unlike linear regression models. However, decision trees are prone to overfitting, and small changes to the dataset can cause a large change in tree structure causing instability. The algorithm, while can be modelled to perform the task, is inadequate for applying regression and predicting continuous values, and cannot extrapolate beyond its observed set. To mitigate some of these issues, decision trees are often used in ensemble methods including random forests and gradient boosting machines, which aim to reduce overfitting.</p>
+
+<p>The algorithm performs binary splits using the features of a dataset to build a tree, until all of the nodes are ideally “pure”.</p>
+
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Entropy-illustration.png/422px-Entropy-illustration.png" alt=""></p>
+
 <p>Optimal splits are found by comparing the impurity of multiple potential splits. Popular metrics used to measure impurity are:</p>
 <ul>
-<li>
-<p>Gini impurity (classification) - calculates the probability that a specific feature is classified incorrectly when selected randomly. A pure node of gini index 0 indicates that all its contained elements are of one unique class.
-$$
-\textit{Gini} = 1 - \sum^n_{k=1}P_k^2
-$$
+  <li>
+    <p>Gini impurity (classification) - calculates the probability that a specific feature is classified incorrectly when selected randomly. A pure node of gini index 0 indicates that all its contained elements are of one unique class.
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="italic">Gini</mtext><mo>=</mo><mn>1</mn><mo>−</mo><msubsup><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></msubsup><msubsup><mi>P</mi><mi>k</mi><mn>2</mn></msubsup></mrow><annotation encoding="application/x-tex">\textit{Gini} = 1 - \sum^n_{k=1}P_k^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord text"><span class="mord textit">Gini</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.1138em;vertical-align:-0.2997em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:0em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8043em;"><span style="top:-2.4003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2997em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-2.4169em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2831em;"><span></span></span></span></span></span></span></span></span></span>
 Where $P_i$ is the probability of class $k$.</p>
-</li>
-<li>
-<p>Variance reduction (regression) - variance is used for calculating the homogeneity of a node. If a node is entirely homogeneous, i.e pure, then the variance is zero.
-$$
-\textit{Var}(y) = \frac 1n\sum^n_{i=1}(y_i-\bar y)^2\\
-$$
+  </li>
+  <li>
+    <p>Variance reduction (regression) - variance is used for calculating the homogeneity of a node. If a node is entirely homogeneous, i.e pure, then the variance is zero.
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="italic">Var</mtext><mo stretchy="false">(</mo><mi>y</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mn>1</mn><mi>n</mi></mfrac><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></msubsup><mo stretchy="false">(</mo><msub><mi>y</mi><mi>i</mi></msub><mo>−</mo><mover accent="true"><mi>y</mi><mo>ˉ</mo></mover><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mspace linebreak="newline"></mspace></mrow><annotation encoding="application/x-tex">\textit{Var}(y) = \frac 1n\sum^n_{i=1}(y_i-\bar y)^2\\</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord textit">Var</span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.1901em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:0em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8043em;"><span style="top:-2.4003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2997em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0641em;vertical-align:-0.25em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.5678em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1944em;"><span class="mord">ˉ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span><span class="mspace newline"></span></span></span>
 Where $\bar y$ is the mean of input data $y$</p>
-</li>
+  </li>
 </ul>
-<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Entropy-illustration.png/422px-Entropy-illustration.png" alt=""></p>
+
 <p>To determine the quality of a split using some impurity metric, we use information gain, which can be described as the reduction of information entropy $H$ from a prior state (parent node) to a new state (split into children nodes):
-$$
-\text{Gain} = \text{Entropy of parent node} - \text{Average entropy of children nodes}\\
-IG(p,l,r) = H(p) - \frac 1{n_p} (n_lH(l) + n_rH(r)) 
-$$
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>Gain</mtext><mo>=</mo><mtext>Entropy of parent node</mtext><mo>−</mo><mtext>Average entropy of children nodes</mtext><mspace linebreak="newline"></mspace><mi>I</mi><mi>G</mi><mo stretchy="false">(</mo><mi>p</mi><mo separator="true">,</mo><mi>l</mi><mo separator="true">,</mo><mi>r</mi><mo stretchy="false">)</mo><mo>=</mo><mi>H</mi><mo stretchy="false">(</mo><mi>p</mi><mo stretchy="false">)</mo><mo>−</mo><mfrac><mn>1</mn><msub><mi>n</mi><mi>p</mi></msub></mfrac><mo stretchy="false">[</mo><msub><mi>n</mi><mi>l</mi></msub><mi>H</mi><mo stretchy="false">(</mo><mi>l</mi><mo stretchy="false">)</mo><mo>+</mo><msub><mi>n</mi><mi>r</mi></msub><mi>H</mi><mo stretchy="false">(</mo><mi>r</mi><mo stretchy="false">)</mo><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">\text{Gain} = \text{Entropy of parent node} - \text{Average entropy of children nodes}\\
+IG(p,l,r) = H(p) - \frac 1{n_p} [n_lH(l) + n_rH(r)]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord text"><span class="mord">Gain</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord text"><span class="mord">Entropy of parent node</span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord text"><span class="mord">Average entropy of children nodes</span></span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mord mathnormal">G</span><span class="mopen">(</span><span class="mord mathnormal">p</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mopen">(</span><span class="mord mathnormal">p</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.3874em;vertical-align:-0.5423em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1645em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2819em;"><span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.5423em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mopen">[</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mclose">)]</span></span></span></span>
 Where,<br>
 $p$: parent node<br>
 $l$: left subtree<br>
 $r$: right subtree<br>
 $n_x$: number of elements in a set $x$<br>
 $H(x)$: entropy metric function</p>
+
 <p>The algorithm starts at the root node, with the entire dataset. It then compares potential splits (all permutations of features and unique thresholds) and chooses the split with the highest information gain. It then recursively repeats this process on the its resulting splits until the nodes are pure, or until the process is stopped manually. The algorithm is stopped by user specified parameters, such as when the tree grows to a maximum depth provided or if a split produces a minimum number of samples.</p>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Random-forest">
-<a class="anchor" href="#Random-forest" aria-hidden="true"><span class="octicon octicon-link"></span></a>Random forest<a class="anchor-link" href="#Random-forest"> </a>
-</h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="random-forest">
+<a class="anchor" href="#random-forest" aria-hidden="true"><span class="octicon octicon-link"></span></a>Random forest</h4>
 <p>Random forests are a bagging ensemble learning method which construct multiple decision trees at training time.  In the bagging method, also known as bootstrap aggregation, a random sample from the training set is selected with replacement - allowing data points to be used multiple times. After several data samples are generated, a number of estimators are then individually trained. When making a prediction, outputs from each indiviual tree are aggregated to yield a more accurate result; for regression the mean is taken, and for classification the majority vote.</p>
-<p><img src="/posts/images/copied_from_nb/images/random-forest.jpg" alt=""></p>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Gradient-boosting-machine">
-<a class="anchor" href="#Gradient-boosting-machine" aria-hidden="true"><span class="octicon octicon-link"></span></a>Gradient boosting machine<a class="anchor-link" href="#Gradient-boosting-machine"> </a>
-</h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Gradient boosting is a boosting ensemble learning method that combines a set of weak learners (decision trees) into a single strong learner to minimise training errors. In boosting, a random sample of data is selected, fitted with a model and trained sequentially; each model tries to improve the errors of its predecessor, by training on the previous predictor's residual errors. The method combines both the gradient descent and boosting methods, hence the name gradient boosting.</p>
-<p><img src="/posts/images/copied_from_nb/images/gradient-boosting.png" alt=""></p>
+<p><img src="images/random-forest.jpg" alt=""></p>
 
-</div>
-</div>
-</div>
-</div>
+<h4 id="gradient-boosting-machine">
+<a class="anchor" href="#gradient-boosting-machine" aria-hidden="true"><span class="octicon octicon-link"></span></a>Gradient boosting machine</h4>
+<p>Gradient boosting is a boosting ensemble learning method that combines a set of weak learners (decision trees) into a single strong learner to minimise training errors. In boosting, a random sample of data is selected, fitted with a model and trained sequentially; each model tries to improve the errors of its predecessor, by training on the previous predictor’s residual errors. The method combines both the gradient descent and boosting methods, hence the name gradient boosting.</p>
 
+<p><img src="images/gradient-boosting.png" alt=""></p>
 
+<h4 id="api-and-http-requests">
+<a class="anchor" href="#api-and-http-requests" aria-hidden="true"><span class="octicon octicon-link"></span></a>API and HTTP requests</h4>
+
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Client-server_model.svg/320px-Client-server_model.svg.png" alt=""></p>
+
+<p>Throughout my project I will make multiple web requests to;</p>
+<ul>
+  <li>scrape data from the web</li>
+  <li>download datasets programatically</li>
+  <li>make API requests with postcodes.io to validate and geocode user input.</li>
+  <li>make API requests with Google Maps for illustration purposes.</li>
+  <li>Additionally, I will use a small internal API within my project to connect the Python backend and the HTML/JavaScript frontend.</li>
+</ul>
+
+<h2 id="objectives">
+<a class="anchor" href="#objectives" aria-hidden="true"><span class="octicon octicon-link"></span></a>Objectives</h2>
+<p>In my project I aim to accomplish several things:</p>
+<ol>
+  <li>Provide the user with reliable and accurate predictions:
+    <ul>
+      <li>1.1. Building a comprehensive dataset with easily interpretable features while not limiting  			model performance:
+        <ul>
+          <li>1.1.1. Cardinality reduction (reducing number of categories and options)</li>
+          <li>1.1.2. Outlier removal</li>
+          <li>1.1.3. Moderate number of features (not too many, nor too few)</li>
+        </ul>
+      </li>
+      <li>1.2. Updated predictions regardless of date of training observations:
+        <ul>
+          <li>1.2.1. Inflation adjustment</li>
+          <li>1.2.2. Time features</li>
+        </ul>
+      </li>
+      <li>1.4. Implement, test, and evaluate between a selection of different models, using the best model in the web-app.</li>
+      <li>1.5.  Provide a prediction interval, for which the true value is highly probable to lie within using <strong>conformal regression</strong> techniques.</li>
+    </ul>
+  </li>
+  <li>Serve predictions to the user in  a web app:
+    <ul>
+      <li>2.1. Use postcodes.io to validate postcodes with a fallback <strong>regex</strong> test.</li>
+      <li>2.2. Geocode postcodes to corresponding coordinates, again utilising the postcodes.io API.</li>
+      <li>2.3. Use <strong>Google Maps API</strong> to visualise the area, using the given postcode.</li>
+      <li>2.4. Responsive design, allowing fast accessibility across all devices and screen sizes:
+        <ul>
+          <li>2.4.1. Limiting dependencies and not over-engineering (using only <strong>Bootstrap</strong> and <strong>jQuery</strong>)</li>
+          <li>2.4.2. Using different layouts/breakpoints according to screen size.</li>
+        </ul>
+      </li>
+      <li>2.5. Display outputs and errors with maximum readability and ease:
+        <ul>
+          <li>2.5.1. Aesthetically consistent</li>
+          <li>2.5.2. Subtle micro-animations</li>
+          <li>2.5.3.  Limited colour pallete</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Deploy the web app across the internet:
+    <ul>
+      <li>3.1. Use <strong>GitHub</strong> for source control</li>
+      <li>3.2. Use <strong>Heroku</strong> for app deployment, automatically rebuilding the site as the GitHub repo is updated.</li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="limitations">
+<a class="anchor" href="#limitations" aria-hidden="true"><span class="octicon octicon-link"></span></a>Limitations</h2>
+<p>My project will be confronted with some limitations:</p>
+<ol>
+  <li>It is impossible for the prediction model to predict the price of a property exactly, however, the answers to the questionnaire show that this is not what users want, rather they want an estimate which is roughly accurate.</li>
+  <li>Computational limitations/requirements, such as resource usage in Heroku and hardware constraints of the machine used in training, means that I will have to limit the complexity and size of the prediction models. Doing this could possibly train models which underperform, compared to their actual potential.</li>
+  <li>Due to the subjective nature of house valuations, it is difficult to confirm whether a valuation is actually accurate or not; apart from empirically comparing a prediction with its actual sold price. However, the sold price may not be indicative of the actual price as the property could have sold under or over value. Therefore, I will also compare a number of valuations with similar alternative tools, alongside the empirical tests used in model selection.</li>
+</ol>
 
   </div><a class="u-url" href="/posts/house-prices/2022/05/08/p1-analysis.html" hidden></a>
 </article>
