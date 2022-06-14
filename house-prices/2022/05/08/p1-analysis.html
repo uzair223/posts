@@ -138,8 +138,8 @@ window.onload = wrap_img;
 </li>
 <li class="toc-entry toc-h2"><a href="#objectives">Objectives</a></li>
 <li class="toc-entry toc-h2"><a href="#limitations">Limitations</a></li>
-<li class="toc-entry toc-h2"><a href="#data">Data</a></li>
 <li class="toc-entry toc-h2"><a href="#feasability-of-potential-solutions">Feasability of potential solutions</a></li>
+<li class="toc-entry toc-h2"><a href="#data">Data</a></li>
 </ul><p>I will be creating a house valuation web app which will allow a user to input a set of property features (such as the number of rooms, floor size, property age etc.) and be given an instant valuation based on a machine learning solution. The idea began by brainstorming a number of machine learning related tools; first a weather forecasting tool, then a stock price predictor, but finally I settled with a house price valuation tool. I found it more interesting to be forced to build, analyse and develop a solution myself, as there was very limited material for this project online. The project began more as a research task but I decided to develop it as a web service, after stumbling across this <a href="http://diamonds.foostack.ai/">Diamond price prediction project</a> (now inactive) online.</p>
 
 <h3 id="current-systems-analysis">
@@ -514,28 +514,6 @@ $H(x)$: entropy metric function</p>
   <li>Due to the subjective nature of house valuations, it is difficult to confirm whether a valuation is actually accurate or not; apart from empirically comparing a prediction with its actual sold price. However, the sold price may not be indicative of the actual price as the property could have sold under or over value. Therefore, I will also compare a number of valuations with similar alternative tools, alongside the empirical tests used in model selection.</li>
 </ol>
 
-<h2 id="data">
-<a class="anchor" href="#data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Data</h2>
-<p>I will require vast amounts of housing data, with hundreds of thousands of rows, to build a predictive model that can accurately valuate a given property. 
-Additionally, I am aiming to build a dataset with around 6-10 features (columns), therefore I will require around 30 features total to select the best from.
-As such, I will be collecting and stitching together data from multiple public sources, aiming to build a dataset of ideally around a million rows, however anything above 250,000 rows will suffice. I will be using:</p>
-<ul>
-  <li>
-<strong><a href="https://www.gov.uk/government/statistical-data-sets/price-paid-data-downloads">HM Land Registry Price Paid</a></strong> data - just under 4GB, with millions of rows of data, containing details of each transactions received at HM Land Registry since 1 January 1995.</li>
-  <li>
-<strong><a href="https://epc.opendatacommunities.org/">Energy Performance Certificates</a></strong> data - around 10GB, with millions of rows of data spread across multiple files and folders formatted as such: <code class="language-plaintext highlighter-rouge">all-domestic-certificates/{LSOA}-{CITY}/certificates.csv</code>. The data contains several columns about a property’s different attributes and energy efficiency.</li>
-  <li>
-<strong><a href="https://geoportal.statistics.gov.uk/datasets/ons::national-statistics-postcode-lookup-february-2022">ONS National Statistics Postcode Lookup</a></strong> - dataset mapping every UK postcode to its respective geographic coordinates, LSOA (Lower Super Output Area) code, and various other attributes.</li>
-  <li>
-<strong><a href="">National Statistics UK House Price Index</a></strong> - time series dataset recording the HPI on a monthly basis since 1995.</li>
-</ul>
-
-<p>Since some of the data is extremely large, I will utilise parallel processing and vectorization with Python libraries such as <a href="https://numpy.org/">NumPy</a>, <a href="https://pandas.pydata.org/">Pandas</a>, and <a href="https://docs.dask.org/en/stable/dataframe.html">Dask Dataframes</a>, to process and manipulate the data. Additionally, I will store data locally on the training machine (i.e my computer) in <code class="language-plaintext highlighter-rouge">.parquet</code> file format as it is built to support very efficient compression and encoding schemes, making read/write speeds faster and more bearable. Furthermore, I will avoid deploying any of the data to the hosting server in order to minimise resource usage and stay under limits; this includes predictive models (like tree models) which store the data within them.</p>
-
-<p>The app itself will leverage public APIs to convert user-inputted postcodes to latitude/longitude coordinates hence eliminating the need to build a server-side database to store such data.</p>
-
-<p>Ultimately, this project does not require a database, or related structures, to store any type of end-user data as most of the project’s data aspect is in the optimisation and pre-computation of algorithms before users are even in the picture.</p>
-
 <h2 id="feasability-of-potential-solutions">
 <a class="anchor" href="#feasability-of-potential-solutions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Feasability of potential solutions</h2>
 <p>To build predictive models, I could have used multiple languages, most notably:</p>
@@ -564,6 +542,29 @@ As such, I will be collecting and stitching together data from multiple public s
   <li>JQuery - a small JavaScript library to make HTML event handling and document traversal much simpler to handle, therefore speeding up development.</li>
   <li>SASS - a CSS extension to reduce code repetition, used for styling the user interface.</li>
 </ul>
+
+<h2 id="data">
+<a class="anchor" href="#data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Data</h2>
+<p>I will require vast amounts of housing data, with hundreds of thousands of rows, to build a predictive model that can accurately valuate a given property. 
+Additionally, I am aiming to build a dataset with around 6-10 features (columns), therefore I will require around 30 features total to select the best from.
+As such, I will be collecting and stitching together data from multiple public sources, aiming to build a dataset of ideally around a million rows, however anything above 250,000 rows will suffice. I will be using:</p>
+<ul>
+  <li>
+<strong><a href="https://www.gov.uk/government/statistical-data-sets/price-paid-data-downloads">HM Land Registry Price Paid</a></strong> data - just under 4GB, with millions of rows of data, containing details of each transactions received at HM Land Registry since 1 January 1995.</li>
+  <li>
+<strong><a href="https://epc.opendatacommunities.org/">Energy Performance Certificates</a></strong> data - around 10GB, with millions of rows of data spread across multiple files and folders formatted as such: <code class="language-plaintext highlighter-rouge">all-domestic-certificates/{LSOA}-{CITY}/certificates.csv</code>. The data contains several columns about a property’s different attributes and energy efficiency.</li>
+  <li>
+<strong><a href="https://geoportal.statistics.gov.uk/datasets/ons::national-statistics-postcode-lookup-february-2022">ONS National Statistics Postcode Lookup</a></strong> - dataset mapping every UK postcode to its respective geographic coordinates, LSOA (Lower Super Output Area) code, and various other attributes.</li>
+  <li>
+<strong><a href="">National Statistics UK House Price Index</a></strong> - time series dataset recording the HPI on a monthly basis since 1995.</li>
+</ul>
+
+<p>Since some of the data is extremely large, I will utilise parallel processing and vectorization with Python libraries such as <a href="https://numpy.org/">NumPy</a>, <a href="https://pandas.pydata.org/">Pandas</a>, and <a href="https://docs.dask.org/en/stable/dataframe.html">Dask Dataframes</a>, to process and manipulate the data. Additionally, I will store data locally on the training machine (i.e my computer) in <code class="language-plaintext highlighter-rouge">.parquet</code> file format as it is built to support very efficient compression and encoding schemes, making read/write speeds faster and more bearable. Furthermore, I will avoid deploying any of the data to the hosting server in order to minimise resource usage and stay under limits; this includes predictive models (like tree models) which store the data within them.</p>
+
+<p>The app itself will leverage public APIs to convert user-inputted postcodes to latitude/longitude coordinates hence eliminating the need to build a server-side database to store such data.</p>
+
+<p>Ultimately, this project does not require a database, or related structures, to store any type of end-user data as most of the project’s data aspect is in the optimisation and pre-computation of algorithms before users are even in the picture.</p>
+
 
   </div><a class="u-url" href="/posts/house-prices/2022/05/08/p1-analysis.html" hidden></a>
 </article>
