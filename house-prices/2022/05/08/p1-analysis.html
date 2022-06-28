@@ -246,17 +246,7 @@ I will try implement the system in four (or potentially five) stages:</p>
 Steps to producing a conformal prediction model:</p>
 
 <ol>
-  <li>
-    <table>
-      <tbody>
-        <tr>
-          <td>Identify a score function to measure the discrepancy between model outputs $\hat y$ and expected outputs $y$. This metric is critical as it decides what prediction sets can be obtained. For instance, in regression problems, we could take the absolute error $\left</td>
-          <td>\hat y - y\right</td>
-          <td>$ as the score function.</td>
-        </tr>
-      </tbody>
-    </table>
-  </li>
+  <li>Identify a score function to measure the discrepancy between model outputs $\hat y$ and expected outputs $y$. This metric is critical as it decides what prediction sets can be obtained. For instance, in regression problems, we could take the absolute error $\text{abs}(\hat y - y)$ as the score function.</li>
   <li>Compute nonconformity scores for the model by splitting the training set into a proper set and calibration set. The model is only trained on the proper training set; and scores are computed on the calibration set where $S_n = S(\hat y_n, y_n)$ for the $n$<sup>th</sup> sample.</li>
   <li>Prediction - use the underlying algorithm to make a point prediction $\hat y$ and take the ($1 - \alpha$)<sup>th</sup> quantile $Q$ from the score set - where $\alpha$ is a user-provided significance level. Output $\hat y \pm Q$ as the model’s prediction.</li>
 </ol>
@@ -270,7 +260,7 @@ Steps to producing a conformal prediction model:</p>
   <li>
     <p><strong>Homogeneity of variance (homoscedasticity)</strong> - the observations in the dataset must be about the same distance from the regression line.</p>
 
-    <p>![](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Heteroscedascity_vs_Homoscedascity.png/640px-Heteroscedascity_vs_Homoscedascity.png</p>
+    <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Heteroscedascity_vs_Homoscedascity.png/640px-Heteroscedascity_vs_Homoscedascity.png" alt=""></p>
   </li>
   <li>
 <strong>Independence of observations</strong> - there are no hidden relationships among independent variables.</li>
