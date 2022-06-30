@@ -98,7 +98,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      31 min read
+      30 min read
     
 </span></p>
 
@@ -2219,29 +2219,6 @@ While the leaky ReLU function is non-differentiable at $x = 0$, it is relatively
 <h5 id="Parameter-optimisation">
 <a class="anchor" href="#Parameter-optimisation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Parameter optimisation<a class="anchor-link" href="#Parameter-optimisation"> </a>
 </h5>
-<p>I will be optimising trainable parameters using Adam (Adaptive Moment Estimation) optimisation which utilises momentum to make the gradient descent algorithm converge towards the minima faster.</p>
-$$
-m := \beta_1 m + (1 - \beta_1)g\\
-v := \beta_2 v + (1 - \beta_2)g^2
-$$<p>$m$ and $v$ are the first (mean) and second (uncentered variance) moment estimates of the gradient $g$. As $m$ and $v$ are initialised as 0, they are biased towards zero, especially during the initial time steps and when the decay rates are small. Therefore, to counteract these biases, we need to compute bias-corrected first and second moment estimates:
-$$
-\hat m = \frac{m}{1-(\beta_1)^t}\quad\quad\hat v = \frac{v}{1-(\beta_2)^t}
-$$
-Finally we can update parameter $\phi$:
-$$
-\phi := \phi - \frac{\eta}{\sqrt{\hat v_t}+\epsilon}\hat m_t
-$$
-Where,<br>
-$\phi$: Objective parameter<br>
-$g$: Gradient of some cost function w.r.t to the objective parameter<br>
-$m$: first moment (mean) estimate - initialised at 0<br>
-$v$: second moment (variance) estimate - initialised at 0<br>
-$t$: time step - intialised at 1, incremented after each iteration<br>
-$\eta$: initial learning rate<br>
-$\beta_1$: first moment estimate coefficient - default 0.9<br>
-$\beta_2$: second moment estimate coefficient - default 0.999<br>
-$\epsilon$: term to avoid zero division - default $10^{-8}$</p>
-
 </div>
 </div>
 </div>

@@ -11,15 +11,15 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="A-Level computer science project analysis" />
 <meta property="og:description" content="A-Level computer science project analysis" />
-<link rel="canonical" href="https://uzair223.github.io/posts/house-prices/2022/05/08/p1-analysis.html" />
-<meta property="og:url" content="https://uzair223.github.io/posts/house-prices/2022/05/08/p1-analysis.html" />
+<link rel="canonical" href="https://uzair223.github.io/posts/house-prices/2022/06/30/p1-analysis.html" />
+<meta property="og:url" content="https://uzair223.github.io/posts/house-prices/2022/06/30/p1-analysis.html" />
 <meta property="og:site_name" content="Uzair Patel" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2022-05-08T00:00:00-05:00" />
+<meta property="article:published_time" content="2022-06-30T00:00:00-05:00" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="ML Instant House Valuation: Part 1 - Analysis" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Uzair Patel"},"dateModified":"2022-05-08T00:00:00-05:00","datePublished":"2022-05-08T00:00:00-05:00","description":"A-Level computer science project analysis","headline":"ML Instant House Valuation: Part 1 - Analysis","mainEntityOfPage":{"@type":"WebPage","@id":"https://uzair223.github.io/posts/house-prices/2022/05/08/p1-analysis.html"},"url":"https://uzair223.github.io/posts/house-prices/2022/05/08/p1-analysis.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Uzair Patel"},"dateModified":"2022-06-30T00:00:00-05:00","datePublished":"2022-06-30T00:00:00-05:00","description":"A-Level computer science project analysis","headline":"ML Instant House Valuation: Part 1 - Analysis","mainEntityOfPage":{"@type":"WebPage","@id":"https://uzair223.github.io/posts/house-prices/2022/06/30/p1-analysis.html"},"url":"https://uzair223.github.io/posts/house-prices/2022/06/30/p1-analysis.html"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/posts/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://uzair223.github.io/posts/feed.xml" title="Uzair Patel" /><link rel="shortcut icon" type="image/x-icon" href="/posts/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" /><script src="https://hypothes.is/embed.js" async></script>
@@ -90,15 +90,15 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">ML Instant House Valuation: Part 1 - Analysis</h1><p class="page-description">A-Level computer science project analysis</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-05-08T00:00:00-05:00" itemprop="datePublished">
-        May 8, 2022
+    <h1 class="post-title p-name" itemprop="name headline">ML Instant House Valuation: Part 1 - Analysis</h1><p class="page-description">A-Level computer science project analysis</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-06-30T00:00:00-05:00" itemprop="datePublished">
+        Jun 30, 2022
       </time>• 
           <span itemprop="author" itemscope itemtype="http://schema.org/Person">
             <span class="p-author h-card" itemprop="name">Uzair Patel</span></span>
        • <span class="read-time" title="Estimated read time">
     
     
-      25 min read
+      27 min read
     
 </span></p>
 
@@ -115,25 +115,26 @@ window.onload = wrap_img;
 
   <div class="post-content e-content" itemprop="articleBody">
     <ul id="toc" class="section-nav">
-<li class="toc-entry toc-h3"><a href="#current-systems-analysis">Current systems analysis</a>
+<li class="toc-entry toc-h2"><a href="#current-systems-analysis">Current systems analysis</a>
 <ul>
-<li class="toc-entry toc-h4"><a href="#zoopla">Zoopla</a></li>
-<li class="toc-entry toc-h4"><a href="#yopa">Yopa</a></li>
-<li class="toc-entry toc-h4"><a href="#onthemarket">OnTheMarket</a></li>
+<li class="toc-entry toc-h3"><a href="#zoopla">Zoopla</a></li>
+<li class="toc-entry toc-h3"><a href="#yopa">Yopa</a></li>
+<li class="toc-entry toc-h3"><a href="#onthemarket">OnTheMarket</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h3"><a href="#end-user-questionnaire">End User Questionnaire</a></li>
-<li class="toc-entry toc-h3"><a href="#problem-modelling">Problem Modelling</a></li>
-<li class="toc-entry toc-h3"><a href="#algorithms">Algorithms</a>
+<li class="toc-entry toc-h2"><a href="#end-user-questionnaire">End User Questionnaire</a></li>
+<li class="toc-entry toc-h2"><a href="#problem-modelling">Problem Modelling</a></li>
+<li class="toc-entry toc-h2"><a href="#algorithms">Algorithms</a>
 <ul>
-<li class="toc-entry toc-h4"><a href="#conformal-prediction">Conformal prediction</a></li>
-<li class="toc-entry toc-h4"><a href="#stochastic-gradient-descent-and-linear-regression">Stochastic gradient descent and linear regression</a></li>
-<li class="toc-entry toc-h4"><a href="#multilayer-perceptron">Multilayer Perceptron</a></li>
-<li class="toc-entry toc-h4"><a href="#backpropagation-algorithm">Backpropagation algorithm</a></li>
-<li class="toc-entry toc-h4"><a href="#cart-algorithm">CART algorithm</a></li>
-<li class="toc-entry toc-h4"><a href="#random-forest">Random forest</a></li>
-<li class="toc-entry toc-h4"><a href="#gradient-boosting-machine">Gradient boosting machine</a></li>
-<li class="toc-entry toc-h4"><a href="#api-and-http-requests">API and HTTP requests</a></li>
+<li class="toc-entry toc-h3"><a href="#conformal-prediction">Conformal prediction</a></li>
+<li class="toc-entry toc-h3"><a href="#stochastic-gradient-descent-and-linear-regression-model">Stochastic gradient descent and linear regression model</a></li>
+<li class="toc-entry toc-h3"><a href="#multilayer-perceptron-model">Multilayer Perceptron model</a></li>
+<li class="toc-entry toc-h3"><a href="#backpropagation-algorithm-for-multilayer-perceptron">Backpropagation algorithm for Multilayer Perceptron</a></li>
+<li class="toc-entry toc-h3"><a href="#adam-optimisation-for-multilayer-perceptron">Adam Optimisation for Multilayer Perceptron</a></li>
+<li class="toc-entry toc-h3"><a href="#cart-algorithm">CART algorithm</a></li>
+<li class="toc-entry toc-h3"><a href="#random-forest-model">Random forest model</a></li>
+<li class="toc-entry toc-h3"><a href="#gradient-boosting-machine">Gradient boosting machine</a></li>
+<li class="toc-entry toc-h3"><a href="#api-and-http-requests">API and HTTP requests</a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h2"><a href="#objectives">Objectives</a></li>
@@ -142,13 +143,13 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h2"><a href="#data">Data</a></li>
 </ul><p>I will be creating a house valuation web app which will allow a user to input a set of property features (such as the number of rooms, floor size, property age etc.) and be given an instant valuation based on a machine learning solution. The idea began by brainstorming a number of machine learning related tools; first a weather forecasting tool, then a stock price predictor, but finally I settled with a house price valuation tool. I found it more interesting to be forced to build, analyse and develop a solution myself, as there was very limited material for this project online. The project began more as a research task but I decided to develop it as a web service, after stumbling across this <a href="http://diamonds.foostack.ai/">Diamond price prediction project</a> (now inactive) online.</p>
 
-<h3 id="current-systems-analysis">
-<a class="anchor" href="#current-systems-analysis" aria-hidden="true"><span class="octicon octicon-link"></span></a>Current systems analysis</h3>
+<h2 id="current-systems-analysis">
+<a class="anchor" href="#current-systems-analysis" aria-hidden="true"><span class="octicon octicon-link"></span></a>Current systems analysis</h2>
 
 <p>To get an idea of how my system should function, I will take a look at popular pre-existing house valuation tools. Ideally I would like an indication to the data and methods the tools use, however it is unlikely that I will be able to. The UI and aesthetics is not my main concern in the analysis, but I will also follow and expand on some of the design components that are similar between them all.</p>
 
-<h4 id="zoopla">
-<a class="anchor" href="#zoopla" aria-hidden="true"><span class="octicon octicon-link"></span></a>Zoopla</h4>
+<h3 id="zoopla">
+<a class="anchor" href="#zoopla" aria-hidden="true"><span class="octicon octicon-link"></span></a>Zoopla</h3>
 
 <p><img src="/posts/images/analysis/zoopla-01.jpg" alt="">
 <img src="/posts/images/analysis/zoopla-02.jpg" alt="">
@@ -158,16 +159,16 @@ window.onload = wrap_img;
 The Zoopla valuation uses data already on its databases to instantly valuate the property. Its additional data sources, such as the HM Land Registry, are also provided, which is ideal for my problem as it will allow me to explore and potentially use datasets from the same reliable sources.
 Unlike Zoopla, I will adopt a system where the end user is asked for the property’s location as well as other property features, such as its total square footage etc., which allow for the valuation of properties that possibly don’t even exist. Additionally, I will provide the last sold price if the input property does exist, similar to how Zoopla does.</p>
 
-<h4 id="yopa">
-<a class="anchor" href="#yopa" aria-hidden="true"><span class="octicon octicon-link"></span></a>Yopa</h4>
+<h3 id="yopa">
+<a class="anchor" href="#yopa" aria-hidden="true"><span class="octicon octicon-link"></span></a>Yopa</h3>
 
 <p><img src="/posts/images/analysis/yopa-01.png" alt="">
 <img src="/posts/images/analysis/yopa-02.png" alt=""></p>
 
 <p>I like the simplicity of the Yopa valuation, however only requiring the number of bedrooms and location doesn’t seem like it would yield a very accurate result. In my system, I would ideally require at least 5 features for the resulting estimation. Yopa, similar to Zoopla, also implements a low and high estimation alongside its valuation, and I will also attempt to implement this.</p>
 
-<h4 id="onthemarket">
-<a class="anchor" href="#onthemarket" aria-hidden="true"><span class="octicon octicon-link"></span></a>OnTheMarket</h4>
+<h3 id="onthemarket">
+<a class="anchor" href="#onthemarket" aria-hidden="true"><span class="octicon octicon-link"></span></a>OnTheMarket</h3>
 
 <p><img src="/posts/images/analysis/onthemarket-01.png" alt="">
 <img src="/posts/images/analysis/onthemarket-02.png" alt="">
@@ -175,8 +176,8 @@ Unlike Zoopla, I will adopt a system where the end user is asked for the propert
 
 <p>I particularly like the UI and aesthetic which OnTheMarket’s online valuation system uses. The predicted prices seem to be based on location averages, which I may also implement in my system alongside the machine learning aspect. Additionally, the system requires 15 features in addition to the location, which makes the valuation seem more accurate to the end user, unlike the Yopa valuation which only required the number of bedrooms. I will however reduce the number of required features, and keep all my parameters on a single page, to make the process somewhat easier. I will source data which includes similar features such as the property age, number of rooms, property type etc.</p>
 
-<h3 id="end-user-questionnaire">
-<a class="anchor" href="#end-user-questionnaire" aria-hidden="true"><span class="octicon octicon-link"></span></a>End User Questionnaire</h3>
+<h2 id="end-user-questionnaire">
+<a class="anchor" href="#end-user-questionnaire" aria-hidden="true"><span class="octicon octicon-link"></span></a>End User Questionnaire</h2>
 
 <p>I asked 3 home-owners questions on their thoughts of the project and how I should develop it; I think the responses of potential users will be particularly helpful in the direction of which the development of my project goes:</p>
 
@@ -204,8 +205,8 @@ _ <em>Response 3:</em> The quality of the neighbourhood of a property and the pr
 
 <p>In conclusion, the home-owners would consider using the service as a <strong>rough estimate</strong> for a property’s value <strong>before seeking professional advice</strong>. All 3 participants think that local area information could be useful in the valuation, as well as the property size and type. I liked the idea to include local area statistics in the output to the user, and I agree that unnecessary clutter should be avoided when serving the information to the end user.</p>
 
-<h3 id="problem-modelling">
-<a class="anchor" href="#problem-modelling" aria-hidden="true"><span class="octicon octicon-link"></span></a>Problem Modelling</h3>
+<h2 id="problem-modelling">
+<a class="anchor" href="#problem-modelling" aria-hidden="true"><span class="octicon octicon-link"></span></a>Problem Modelling</h2>
 
 <p>My initial thoughts on how to approach the problem.
 I will try implement the system in four (or potentially five) stages:</p>
@@ -236,11 +237,13 @@ I will try implement the system in four (or potentially five) stages:</p>
 
 <p>Drawing inspiration from the Zoopla and OnTheMarket user interfaces, with a simple form, an interval prediction, and a map of the area using Google Maps API.</p>
 
-<h3 id="algorithms">
-<a class="anchor" href="#algorithms" aria-hidden="true"><span class="octicon octicon-link"></span></a>Algorithms</h3>
+<h2 id="algorithms">
+<a class="anchor" href="#algorithms" aria-hidden="true"><span class="octicon octicon-link"></span></a>Algorithms</h2>
 
-<h4 id="conformal-prediction">
-<a class="anchor" href="#conformal-prediction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conformal prediction</h4>
+<p>Below I will be detailing some of the algorithms that I will use/test in my project. I will implement each predictive algorithm and test it against my dataset, however <strong>I will only use one</strong>. Using certain metrics such as MSE, R2 etc., I will determine which model perform the best and will select that model manually. Additionally, after each model is implemented and fitted against my data, I will produce visualisations to give a clearer and more interpretable depiction of how well it is performing. Each model will be fitted with all the available data and conformal prediction to produce intervals for given inputs; this will avoid me having to retrain models after selection.</p>
+
+<h3 id="conformal-prediction">
+<a class="anchor" href="#conformal-prediction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conformal prediction</h3>
 
 <p>Conformal prediction is a technique used to assess the uncertainty of predictions produced by a machine learning model. In particular, given an input, conformal prediction estimates a prediction interval in regression problems and a set of classes in classification problems. Both the prediction interval and sets cover the true value with high probability (usually provided by the user).
 Steps to producing a conformal prediction model:</p>
@@ -251,8 +254,8 @@ Steps to producing a conformal prediction model:</p>
   <li>Prediction - use the underlying algorithm to make a point prediction $\hat y$ and take the ($1 - \alpha$)<sup>th</sup> quantile $Q$ from the score set - where $\alpha$ is a user-provided significance level. Output $\hat y \pm Q$ as the model’s prediction.</li>
 </ol>
 
-<h4 id="stochastic-gradient-descent-and-linear-regression">
-<a class="anchor" href="#stochastic-gradient-descent-and-linear-regression" aria-hidden="true"><span class="octicon octicon-link"></span></a>Stochastic gradient descent and linear regression</h4>
+<h3 id="stochastic-gradient-descent-and-linear-regression-model">
+<a class="anchor" href="#stochastic-gradient-descent-and-linear-regression-model" aria-hidden="true"><span class="octicon octicon-link"></span></a>Stochastic gradient descent and linear regression model</h3>
 
 <p>Regression models are used to describe relationships between variables by fitting a line to the observed data. Multiple linear regression is used to estimate the relationship between multiple independent variables and one dependent variable. The model makes assumptions about the dataset:</p>
 
@@ -300,8 +303,8 @@ w := w - \eta \cdot \partial w</annotation></semantics></math></span><span class
 
 <p>The implementation of linear regression with stochastic gradient descent will be a great starting point when implementing the more complex multilayer perceptron model, which similarly uses the weighted summation function to make predictions and a gradient descent algorithm to optimise its parameters.</p>
 
-<h4 id="multilayer-perceptron">
-<a class="anchor" href="#multilayer-perceptron" aria-hidden="true"><span class="octicon octicon-link"></span></a>Multilayer Perceptron</h4>
+<h3 id="multilayer-perceptron-model">
+<a class="anchor" href="#multilayer-perceptron-model" aria-hidden="true"><span class="octicon octicon-link"></span></a>Multilayer Perceptron model</h3>
 
 <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/MultiLayerNeuralNetworkBigger_english.png/320px-MultiLayerNeuralNetworkBigger_english.png" alt="" title="Neural network diagram"></p>
 
@@ -328,17 +331,17 @@ w := w - \eta \cdot \partial w</annotation></semantics></math></span><span class
 
 <p>These stages are repeated until the loss converges towards a minimum.</p>
 
-<h4 id="backpropagation-algorithm">
-<a class="anchor" href="#backpropagation-algorithm" aria-hidden="true"><span class="octicon octicon-link"></span></a>Backpropagation algorithm</h4>
+<h3 id="backpropagation-algorithm-for-multilayer-perceptron">
+<a class="anchor" href="#backpropagation-algorithm-for-multilayer-perceptron" aria-hidden="true"><span class="octicon octicon-link"></span></a>Backpropagation algorithm for Multilayer Perceptron</h3>
 
-<p>Backpropagation is a widely used algorithm for training feed-forward neural networks used to compute the gradient of a loss function with respect to the weights of a network for a training set of input-output examples. The gradient computed by backpropagation can be used with other algorithms such as Stochastic Gradient Descent (or its derivatives) to update the weights and minimise error in a network.</p>
+<p>Backpropagation is a widely used algorithm for training feed-forward neural networks used to compute the gradient of a loss function with respect to the weights of a network for a training set of input-output examples. The gradient computed by backpropagation can be used with other algorithms such as Stochastic Gradient Descent (or alternatives) to iteratively optimise the weights and minimise error in a network.</p>
 
 <p>Below shows the mathematical logic behind the algorithm. The following example is for a feed-forward network of $L$ layers.</p>
 
 <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><msub><mi>σ</mi><mi>N</mi></msub><mo stretchy="false">(</mo><msub><mi>W</mi><mi>L</mi></msub><mo>⋅</mo><msub><mi>σ</mi><mrow><mi>L</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="false">(</mo><msub><mi>W</mi><mrow><mi>L</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>⋯</mo><msub><mi>σ</mi><mn>2</mn></msub><mo stretchy="false">(</mo><msub><mi>W</mi><mn>2</mn></msub><mo>⋅</mo><msub><mi>σ</mi><mn>1</mn></msub><mo stretchy="false">(</mo><msub><mi>W</mi><mn>1</mn></msub><mo>⋅</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo>⋯</mo><mtext> </mtext><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mspace linebreak="newline"></mspace><mi>C</mi><mi>o</mi><mi>s</mi><mi>t</mi><mo>=</mo><mi>J</mi><mo stretchy="false">(</mo><mi>y</mi><mo separator="true">,</mo><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">F(x) = \sigma_N(W_L\cdot \sigma_{L-1}(W_{L-1}\cdots \sigma_2(W_2\cdot \sigma_1(W_1\cdot x))\cdots))\\
 Cost = J(y, F(x))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">L</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">L</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2083em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">L</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2083em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">⋯</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">x</span><span class="mclose">))</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">⋯</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mclose">))</span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal">os</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.09618em;">J</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">))</span></span></span></span></span>
 
-<p>For the model above, the derivative of the loss w.r.t. the input $x$ using the chain rule is generalised as such:</p>
+<p>For the model above, the derivative of the loss w.r.t. the input $x$ using the chain rule can be generalised as such:</p>
 
 <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>Chain rule</mtext><mo>:</mo><mspace linebreak="newline"></mspace><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>f</mi><mo stretchy="false">(</mo><mi>g</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mspace width="2em"></mspace><msup><mi>F</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><msup><mi>f</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mo stretchy="false">(</mo><mi>g</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo>⋅</mo><msup><mi>g</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mspace linebreak="newline"></mspace><mstyle mathsize="0.9em"><mtext>derivative of compound function</mtext><mo>=</mo><mtext>derivative of outer function</mtext><mo>×</mo><mtext>derivative of inner function</mtext></mstyle><mspace linebreak="newline" height="1em"></mspace><mo>∴</mo><mspace width="1em"></mspace><mfrac><mrow><mi>d</mi><mi>J</mi></mrow><mrow><mi>d</mi><mi>x</mi></mrow></mfrac><mo>=</mo><mfrac><mrow><mi>d</mi><mi>J</mi></mrow><mrow><mi>d</mi><msub><mi>a</mi><mi>L</mi></msub></mrow></mfrac><mo>∘</mo><msubsup><mi>σ</mi><mi>L</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msubsup><mo>⋅</mo><msub><mi>W</mi><mi>L</mi></msub><mo>∘</mo><msubsup><mi>σ</mi><mrow><mi>L</mi><mo>−</mo><mn>1</mn></mrow><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msubsup><mo>⋅</mo><msub><mi>W</mi><mrow><mi>L</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>⋯</mo><mo>∘</mo><msubsup><mi>σ</mi><mn>1</mn><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msubsup><mo>⋅</mo><msub><mi>W</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">\text{Chain rule}: \\F(x) = f(g(x)) \qquad F'(x) = f'(g(x)) \cdot g'(x) \\
 {\small\text{derivative of compound function} = \text{derivative of outer function} \times \text{derivative of inner function}}\\[1em]
@@ -372,8 +375,46 @@ $A^T$ : Transpose of matrix $A$<br>
 $\nabla_ba$ : Gradient of $a$ w.r.t $b$<br>
 $\circ$ : Hadamard (element-wise) matrix multiplication, products taken from left to right</p>
 
-<h4 id="cart-algorithm">
-<a class="anchor" href="#cart-algorithm" aria-hidden="true"><span class="octicon octicon-link"></span></a>CART algorithm</h4>
+<h3 id="adam-optimisation-for-multilayer-perceptron">
+<a class="anchor" href="#adam-optimisation-for-multilayer-perceptron" aria-hidden="true"><span class="octicon octicon-link"></span></a>Adam Optimisation for Multilayer Perceptron</h3>
+<p>Of all the available optimisation techniques, I will be using Adam optimisation as it converges to minima quicker compared to its alternatives. It is defined as “a method for efficient stochastic optimization that only requires first-order gradients with little memory requirement”.</p>
+
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>m</mi><mo>:</mo><mo>=</mo><msub><mi>β</mi><mn>1</mn></msub><mi>m</mi><mo>+</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><msub><mi>β</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mi>g</mi><mspace linebreak="newline"></mspace><mi>v</mi><mo>:</mo><mo>=</mo><msub><mi>β</mi><mn>2</mn></msub><mi>v</mi><mo>+</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><msub><mi>β</mi><mn>2</mn></msub><mo stretchy="false">)</mo><msup><mi>g</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">m := \beta_1 m + (1 - \beta_1)g\\
+v := \beta_2 v + (1 - \beta_2)g^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">m</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">:=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05278em;">β</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0528em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathnormal">m</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05278em;">β</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0528em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">:=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05278em;">β</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0528em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.1141em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05278em;">β</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0528em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span>
+
+<p>$m$ and $v$ are the first (mean) and second (uncentered variance) moment estimates of the gradient $g$. As $m$ and $v$ are initialised as 0, they are biased towards zero, especially during the initial time steps and when the decay rates are small. Therefore, to counteract these biases, we need to compute bias-corrected first and second moment estimates:</p>
+
+<span class="katex-error" title="ParseError: KaTeX parse error: Unexpected end of input in a macro argument, expected '}' at end of input: …{1-(\beta_2)^t)" style="color:#cc0000">\hat m = \frac{m}{1-(\beta_1)^t}\\
+\hat v = \frac{v}{1-(\beta_2)^t)</span>
+
+<p>Finally we can update parameter $\phi$:</p>
+
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>ϕ</mi><mo>:</mo><mo>=</mo><mi>ϕ</mi><mo>−</mo><mfrac><mi>η</mi><mrow><msqrt><msub><mover accent="true"><mi>v</mi><mo>^</mo></mover><mi>t</mi></msub></msqrt><mo>+</mo><mi>ϵ</mi></mrow></mfrac><msub><mover accent="true"><mi>m</mi><mo>^</mo></mover><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">\phi := \phi - \frac{\eta}{\sqrt{\hat v_t}+\epsilon}\hat m_t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">ϕ</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">:=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">ϕ</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:2.0376em;vertical-align:-0.93em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.1076em;"><span style="top:-2.2528em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8572em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6944em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2222em;"><span class="mord">^</span></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-2.8172em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.08em" viewbox="0 0 400000 1080" preserveaspectratio="xMinYMin slice"><path d="M95,702
+c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
+c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
+c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
+s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
+c69,-144,104.5,-217.7,106.5,-221
+l0 -0
+c5.3,-9.3,12,-14,20,-14
+H400000v40H845.2724
+s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
+c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
+M834 80h400000v40h-400000z"></path></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1828em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal">ϵ</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">η</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.93em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6944em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal">m</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.25em;"><span class="mord">^</span></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span>
+
+<p>Where,
+$\phi$: Objective parameter<br>
+$g$: Gradient of some cost function w.r.t to the objective parameter<br>
+$m$: first moment (mean) estimate - initialised at 0<br>
+$v$: second moment (variance) estimate - initialised at 0<br>
+$t$: time step - intialised at 1, incremented after each iteration<br>
+$\eta$: initial learning rate<br>
+$\beta_1$: first moment estimate coefficient - default 0.9<br>
+$\beta_2$: second moment estimate coefficient - default 0.999<br>
+$\epsilon$: term to avoid zero division - default $10^{-8}$</p>
+
+<h3 id="cart-algorithm">
+<a class="anchor" href="#cart-algorithm" aria-hidden="true"><span class="octicon octicon-link"></span></a>CART algorithm</h3>
 
 <p>The CART (Classification and Regression Tree) algorithm is a divide-and-conquer algorithm used to build a decision tree (as a predictive model) to predict the output of a given sample, using attributes observed in a given training set. The model is very intuitive and easy to interpret/explain.</p>
 
@@ -418,22 +459,22 @@ $H(x)$: entropy metric function</p>
 
 <p>The algorithm starts at the root node, with the entire dataset. It then compares potential splits (all permutations of features and unique thresholds) and chooses the split with the highest information gain. It then recursively repeats this process on the its resulting splits until the nodes are pure, or until the process is stopped manually. The algorithm is stopped by user specified parameters, such as when the tree grows to a maximum depth provided or if a split produces a minimum number of samples.</p>
 
-<h4 id="random-forest">
-<a class="anchor" href="#random-forest" aria-hidden="true"><span class="octicon octicon-link"></span></a>Random forest</h4>
+<h3 id="random-forest-model">
+<a class="anchor" href="#random-forest-model" aria-hidden="true"><span class="octicon octicon-link"></span></a>Random forest model</h3>
 
 <p>Random forests are a bagging ensemble learning method which construct multiple decision trees at training time. In the bagging method, also known as bootstrap aggregation, a random sample from the training set is selected with replacement - allowing data points to be used multiple times. After several data samples are generated, a number of estimators are then individually trained. When making a prediction, outputs from each indiviual tree are aggregated to yield a more accurate result; for regression the mean is taken, and for classification the majority vote.</p>
 
 <p><img src="/posts/images/analysis/random-forest.jpg" alt="" title="Random forest model"></p>
 
-<h4 id="gradient-boosting-machine">
-<a class="anchor" href="#gradient-boosting-machine" aria-hidden="true"><span class="octicon octicon-link"></span></a>Gradient boosting machine</h4>
+<h3 id="gradient-boosting-machine">
+<a class="anchor" href="#gradient-boosting-machine" aria-hidden="true"><span class="octicon octicon-link"></span></a>Gradient boosting machine</h3>
 
 <p>Gradient boosting is a boosting ensemble learning method that combines a set of weak learners (decision trees) into a single strong learner to minimise training errors. In boosting, a random sample of data is selected, fitted with a model and trained sequentially; each model tries to improve the errors of its predecessor, by training on the previous predictor’s residual errors. The method combines both the gradient descent and boosting methods, hence the name gradient boosting.</p>
 
 <p><img src="/posts/images/analysis/gradient-boosting.png" alt="" title="Gradient boosting model"></p>
 
-<h4 id="api-and-http-requests">
-<a class="anchor" href="#api-and-http-requests" aria-hidden="true"><span class="octicon octicon-link"></span></a>API and HTTP requests</h4>
+<h3 id="api-and-http-requests">
+<a class="anchor" href="#api-and-http-requests" aria-hidden="true"><span class="octicon octicon-link"></span></a>API and HTTP requests</h3>
 
 <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Client-server_model.svg/320px-Client-server_model.svg.png" alt="" title="Client-server model"></p>
 
@@ -455,7 +496,7 @@ $H(x)$: entropy metric function</p>
 <ol>
   <li>Provide the user with reliable and accurate predictions:
     <ul>
-      <li>1.1. Building a comprehensive dataset with easily interpretable features while not limiting model performance:
+      <li>1.1. Building a comprehensive dataset with easily interpretable features:
         <ul>
           <li>1.1.1. Cardinality reduction (reducing number of categories and options)</li>
           <li>1.1.2. Outlier removal</li>
@@ -468,7 +509,12 @@ $H(x)$: entropy metric function</p>
           <li>1.2.2. Time features</li>
         </ul>
       </li>
-      <li>1.4. Implement, test, and evaluate between a selection of different models, using the best model in the web-app.</li>
+      <li>1.4. Implement, test, and evaluate a selection of different models, using the best model in the web-app.
+        <ul>
+          <li>1.4.1. Build models that are moderately small in size &lt; 1mb</li>
+          <li>1.4.2. Build models that are accurate with R2 scores &gt; 0.8 (model is fitted to account for 80% of the data’s variation)</li>
+        </ul>
+      </li>
       <li>1.5. Provide a prediction interval, for which the true value is highly probable to lie within using <strong>conformal regression</strong> techniques.</li>
     </ul>
   </li>
@@ -480,14 +526,14 @@ $H(x)$: entropy metric function</p>
       <li>2.4. Responsive design, allowing fast accessibility across all devices and screen sizes:
         <ul>
           <li>2.4.1. Limiting dependencies and not over-engineering (using only <strong>Bootstrap</strong> and <strong>jQuery</strong>)</li>
-          <li>2.4.2. Using different layouts/breakpoints according to screen size.</li>
+          <li>2.4.2. Responsive components according to screen size.</li>
         </ul>
       </li>
       <li>2.5. Display outputs and errors with maximum readability and ease:
         <ul>
           <li>2.5.1. Aesthetically consistent</li>
           <li>2.5.2. Subtle micro-animations</li>
-          <li>2.5.3. Limited colour pallete</li>
+          <li>2.5.3. Pleasing colour pallete</li>
         </ul>
       </li>
     </ul>
@@ -568,7 +614,7 @@ As such, I will be collecting and stitching together data from multiple public s
 
 <p>Ultimately, this project does not require a database, or related structures, to store any type of end-user data as most of the project’s data aspect is in the optimisation and pre-computation of algorithms before users are even in the picture.</p>
 
-  </div><a class="u-url" href="/posts/house-prices/2022/05/08/p1-analysis.html" hidden></a>
+  </div><a class="u-url" href="/posts/house-prices/2022/06/30/p1-analysis.html" hidden></a>
 </article>
 
       </div>
